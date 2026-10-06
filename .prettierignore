@@ -6,3 +6,4 @@ package-lock.json
 next-env.d.ts
 *.tsbuildinfo
 src/app/fonts/LICENSE.txt
+public/assets/finished-v04/house.manifest.json

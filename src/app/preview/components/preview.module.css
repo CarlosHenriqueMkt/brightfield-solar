@@ -107,20 +107,10 @@
   max-width: calc(100% - 64px);
 }
 .heroPlaceholder {
-  position: relative;
+  display: block;
+  object-fit: contain;
+  object-position: center bottom;
   background: var(--sky);
-}
-.heroPlaceholder span {
-  position: absolute;
-  top: 65%;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: none;
-  width: min(100%, 40ch);
-  padding: 24px;
-  border: 1px dashed #afc2ce;
-  border-radius: var(--radius-md);
-  background: #dce7ec;
 }
 .fixtureControl {
   display: grid;
@@ -168,9 +158,5 @@
   .heroStage > [data-sim-drawer-open] {
     margin: 32px 14px 14px;
     max-width: calc(100% - 28px);
-  }
-  .heroPlaceholder span {
-    top: auto;
-    bottom: 16%;
   }
 }

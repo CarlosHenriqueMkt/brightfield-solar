@@ -1,0 +1,2899 @@
+{
+  "source": "same-run visible playback QA",
+  "playback": {
+    "before": {
+      "frames": 2,
+      "progress": 0
+    },
+    "during": {
+      "frames": 20,
+      "progress": 0.07500000000000001,
+      "playing": true,
+      "draft": "8.8"
+    },
+    "mid": {
+      "frames": 39,
+      "progress": 0.15415000000000015,
+      "playing": true,
+      "draft": "8.8"
+    },
+    "afterPause": {
+      "progress": 0.15830000000000025,
+      "playing": false,
+      "draft": "8.8"
+    }
+  },
+  "assetMaps": {
+    "nodes": {
+      "key": "finished-v04",
+      "glbUrl": "/assets/finished-v04/house.glb",
+      "manifestUrl": "/assets/finished-v04/house.manifest.json",
+      "pipeline": "baked-unlit",
+      "backgroundUrl": "/assets/finished-v04/sky-softened-2k.jpg",
+      "backgroundYawRadians": 0
+    },
+    "nodeCount": 210,
+    "panelCount": 51,
+    "childChecks": {
+      "recordCount": 102,
+      "allChildrenParentMatchesPanel": true,
+      "allLocalTRSIdentity": true
+    },
+    "records": [
+      {
+        "id": "PANEL_001",
+        "module": {
+          "name": "PANEL_001_MODULE",
+          "parent": "PANEL_001",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_001_SUPPORT",
+          "parent": "PANEL_001",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_002",
+        "module": {
+          "name": "PANEL_002_MODULE",
+          "parent": "PANEL_002",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_002_SUPPORT",
+          "parent": "PANEL_002",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_003",
+        "module": {
+          "name": "PANEL_003_MODULE",
+          "parent": "PANEL_003",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_003_SUPPORT",
+          "parent": "PANEL_003",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_004",
+        "module": {
+          "name": "PANEL_004_MODULE",
+          "parent": "PANEL_004",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_004_SUPPORT",
+          "parent": "PANEL_004",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_005",
+        "module": {
+          "name": "PANEL_005_MODULE",
+          "parent": "PANEL_005",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_005_SUPPORT",
+          "parent": "PANEL_005",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_006",
+        "module": {
+          "name": "PANEL_006_MODULE",
+          "parent": "PANEL_006",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_006_SUPPORT",
+          "parent": "PANEL_006",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_007",
+        "module": {
+          "name": "PANEL_007_MODULE",
+          "parent": "PANEL_007",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_007_SUPPORT",
+          "parent": "PANEL_007",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_008",
+        "module": {
+          "name": "PANEL_008_MODULE",
+          "parent": "PANEL_008",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_008_SUPPORT",
+          "parent": "PANEL_008",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_009",
+        "module": {
+          "name": "PANEL_009_MODULE",
+          "parent": "PANEL_009",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_009_SUPPORT",
+          "parent": "PANEL_009",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_010",
+        "module": {
+          "name": "PANEL_010_MODULE",
+          "parent": "PANEL_010",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_010_SUPPORT",
+          "parent": "PANEL_010",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_011",
+        "module": {
+          "name": "PANEL_011_MODULE",
+          "parent": "PANEL_011",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_011_SUPPORT",
+          "parent": "PANEL_011",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_012",
+        "module": {
+          "name": "PANEL_012_MODULE",
+          "parent": "PANEL_012",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_012_SUPPORT",
+          "parent": "PANEL_012",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_013",
+        "module": {
+          "name": "PANEL_013_MODULE",
+          "parent": "PANEL_013",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_013_SUPPORT",
+          "parent": "PANEL_013",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_014",
+        "module": {
+          "name": "PANEL_014_MODULE",
+          "parent": "PANEL_014",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_014_SUPPORT",
+          "parent": "PANEL_014",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_015",
+        "module": {
+          "name": "PANEL_015_MODULE",
+          "parent": "PANEL_015",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_015_SUPPORT",
+          "parent": "PANEL_015",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_016",
+        "module": {
+          "name": "PANEL_016_MODULE",
+          "parent": "PANEL_016",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_016_SUPPORT",
+          "parent": "PANEL_016",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_017",
+        "module": {
+          "name": "PANEL_017_MODULE",
+          "parent": "PANEL_017",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_017_SUPPORT",
+          "parent": "PANEL_017",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_018",
+        "module": {
+          "name": "PANEL_018_MODULE",
+          "parent": "PANEL_018",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_018_SUPPORT",
+          "parent": "PANEL_018",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_019",
+        "module": {
+          "name": "PANEL_019_MODULE",
+          "parent": "PANEL_019",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_019_SUPPORT",
+          "parent": "PANEL_019",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_020",
+        "module": {
+          "name": "PANEL_020_MODULE",
+          "parent": "PANEL_020",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_020_SUPPORT",
+          "parent": "PANEL_020",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_021",
+        "module": {
+          "name": "PANEL_021_MODULE",
+          "parent": "PANEL_021",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_021_SUPPORT",
+          "parent": "PANEL_021",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_022",
+        "module": {
+          "name": "PANEL_022_MODULE",
+          "parent": "PANEL_022",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_022_SUPPORT",
+          "parent": "PANEL_022",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_023",
+        "module": {
+          "name": "PANEL_023_MODULE",
+          "parent": "PANEL_023",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_023_SUPPORT",
+          "parent": "PANEL_023",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_024",
+        "module": {
+          "name": "PANEL_024_MODULE",
+          "parent": "PANEL_024",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_024_SUPPORT",
+          "parent": "PANEL_024",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_025",
+        "module": {
+          "name": "PANEL_025_MODULE",
+          "parent": "PANEL_025",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_025_SUPPORT",
+          "parent": "PANEL_025",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_026",
+        "module": {
+          "name": "PANEL_026_MODULE",
+          "parent": "PANEL_026",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_026_SUPPORT",
+          "parent": "PANEL_026",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_027",
+        "module": {
+          "name": "PANEL_027_MODULE",
+          "parent": "PANEL_027",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_027_SUPPORT",
+          "parent": "PANEL_027",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_028",
+        "module": {
+          "name": "PANEL_028_MODULE",
+          "parent": "PANEL_028",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_028_SUPPORT",
+          "parent": "PANEL_028",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_029",
+        "module": {
+          "name": "PANEL_029_MODULE",
+          "parent": "PANEL_029",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_029_SUPPORT",
+          "parent": "PANEL_029",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_030",
+        "module": {
+          "name": "PANEL_030_MODULE",
+          "parent": "PANEL_030",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_030_SUPPORT",
+          "parent": "PANEL_030",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_031",
+        "module": {
+          "name": "PANEL_031_MODULE",
+          "parent": "PANEL_031",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_031_SUPPORT",
+          "parent": "PANEL_031",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_032",
+        "module": {
+          "name": "PANEL_032_MODULE",
+          "parent": "PANEL_032",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_032_SUPPORT",
+          "parent": "PANEL_032",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_033",
+        "module": {
+          "name": "PANEL_033_MODULE",
+          "parent": "PANEL_033",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_033_SUPPORT",
+          "parent": "PANEL_033",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_034",
+        "module": {
+          "name": "PANEL_034_MODULE",
+          "parent": "PANEL_034",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_034_SUPPORT",
+          "parent": "PANEL_034",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_035",
+        "module": {
+          "name": "PANEL_035_MODULE",
+          "parent": "PANEL_035",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_035_SUPPORT",
+          "parent": "PANEL_035",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_036",
+        "module": {
+          "name": "PANEL_036_MODULE",
+          "parent": "PANEL_036",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_036_SUPPORT",
+          "parent": "PANEL_036",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_037",
+        "module": {
+          "name": "PANEL_037_MODULE",
+          "parent": "PANEL_037",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_037_SUPPORT",
+          "parent": "PANEL_037",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_038",
+        "module": {
+          "name": "PANEL_038_MODULE",
+          "parent": "PANEL_038",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_038_SUPPORT",
+          "parent": "PANEL_038",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_039",
+        "module": {
+          "name": "PANEL_039_MODULE",
+          "parent": "PANEL_039",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_039_SUPPORT",
+          "parent": "PANEL_039",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_040",
+        "module": {
+          "name": "PANEL_040_MODULE",
+          "parent": "PANEL_040",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_040_SUPPORT",
+          "parent": "PANEL_040",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_041",
+        "module": {
+          "name": "PANEL_041_MODULE",
+          "parent": "PANEL_041",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_041_SUPPORT",
+          "parent": "PANEL_041",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_042",
+        "module": {
+          "name": "PANEL_042_MODULE",
+          "parent": "PANEL_042",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_042_SUPPORT",
+          "parent": "PANEL_042",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_043",
+        "module": {
+          "name": "PANEL_043_MODULE",
+          "parent": "PANEL_043",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_043_SUPPORT",
+          "parent": "PANEL_043",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_044",
+        "module": {
+          "name": "PANEL_044_MODULE",
+          "parent": "PANEL_044",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_044_SUPPORT",
+          "parent": "PANEL_044",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_045",
+        "module": {
+          "name": "PANEL_045_MODULE",
+          "parent": "PANEL_045",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_045_SUPPORT",
+          "parent": "PANEL_045",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_046",
+        "module": {
+          "name": "PANEL_046_MODULE",
+          "parent": "PANEL_046",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_046_SUPPORT",
+          "parent": "PANEL_046",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_047",
+        "module": {
+          "name": "PANEL_047_MODULE",
+          "parent": "PANEL_047",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_047_SUPPORT",
+          "parent": "PANEL_047",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_048",
+        "module": {
+          "name": "PANEL_048_MODULE",
+          "parent": "PANEL_048",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_048_SUPPORT",
+          "parent": "PANEL_048",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_049",
+        "module": {
+          "name": "PANEL_049_MODULE",
+          "parent": "PANEL_049",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_049_SUPPORT",
+          "parent": "PANEL_049",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_050",
+        "module": {
+          "name": "PANEL_050_MODULE",
+          "parent": "PANEL_050",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_050_SUPPORT",
+          "parent": "PANEL_050",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      },
+      {
+        "id": "PANEL_051",
+        "module": {
+          "name": "PANEL_051_MODULE",
+          "parent": "PANEL_051",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        },
+        "support": {
+          "name": "PANEL_051_SUPPORT",
+          "parent": "PANEL_051",
+          "position": [0, 0, 0],
+          "quaternion": [0, 0, 0, 1],
+          "scale": [1, 1, 1]
+        }
+      }
+    ]
+  },
+  "snapshot": {
+    "loaded": true,
+    "disposed": false,
+    "asset": {
+      "key": "finished-v04",
+      "glbUrl": "/assets/finished-v04/house.glb",
+      "manifestUrl": "/assets/finished-v04/house.manifest.json",
+      "pipeline": "baked-unlit",
+      "backgroundUrl": "/assets/finished-v04/sky-softened-2k.jpg",
+      "backgroundYawRadians": 0
+    },
+    "intent": {
+      "active": false,
+      "panelCount": 0,
+      "reducedMotion": false,
+      "revision": 0
+    },
+    "state": {
+      "mode": "CASA_BASE"
+    },
+    "journey": null,
+    "camera": {
+      "position": [2.5584051433221946, 3.7077614522319116, 27.030970061952445],
+      "target": [2.1931511716015875, 1.3920464701735578, 5.08638193011773],
+      "fov": 24.59499482639077,
+      "aspect": 2.3225806451612905,
+      "near": 0.1,
+      "far": 500
+    },
+    "settings": {
+      "outputColorSpace": "srgb",
+      "toneMapping": 0,
+      "exposure": 1,
+      "shadows": false,
+      "lights": 0,
+      "fog": null
+    },
+    "viewport": {
+      "cssWidth": 1440,
+      "cssHeight": 620,
+      "drawingWidth": 1800,
+      "drawingHeight": 775,
+      "dpr": 1.25,
+      "insets": {
+        "top": 157.77857951928,
+        "right": 20.982328792472025,
+        "bottom": 20,
+        "left": 16.063469156592
+      }
+    },
+    "resources": {
+      "scene": {
+        "meshes": 148,
+        "geometries": 48,
+        "materials": 3,
+        "textures": 3
+      },
+      "renderer": {
+        "geometries": 47,
+        "textures": 4
+      },
+      "sharedRefs": 1
+    },
+    "lifecycle": {
+      "loads": 1,
+      "successfulLoads": 1,
+      "failedLoads": 0,
+      "disposeCalls": 0,
+      "rafScheduled": 38,
+      "rafExecuted": 38,
+      "rafCanceled": 0,
+      "frames": 41,
+      "firstFrames": 1,
+      "contextLost": false,
+      "contextRestored": 0,
+      "visibilityPauses": 0,
+      "visibilityResumes": 0,
+      "resizeEvents": 1,
+      "intersectionEvents": 1,
+      "lastFrameMs": 0.30000001192092896,
+      "lastRafIntervalMs": null,
+      "visible": true,
+      "intersectionRatio": 1,
+      "backgrounded": false
+    },
+    "firstFrame": {
+      "state": {
+        "mode": "CASA_BASE"
+      },
+      "camera": {
+        "position": [2.2103307929347302, 3.274060126534069, 26.846999963155735],
+        "fov": 24.54873867355846,
+        "aspect": 2.3225806451612905
+      },
+      "resources": {
+        "meshes": 148,
+        "geometries": 48,
+        "materials": 3,
+        "textures": 3
+      },
+      "renderer": {
+        "dpr": 1.25
+      },
+      "activePanelIds": []
+    },
+    "diagnostics": {
+      "state": {
+        "mode": "CASA_BASE"
+      },
+      "mode": "CASA_BASE",
+      "n": null,
+      "activeCount": 0,
+      "activePanelIds": [],
+      "visiblePanelIds": [],
+      "visibleModuleIds": [],
+      "visibleSupportIds": [],
+      "hiddenPanelIds": [
+        "PANEL_001",
+        "PANEL_002",
+        "PANEL_003",
+        "PANEL_004",
+        "PANEL_005",
+        "PANEL_006",
+        "PANEL_007",
+        "PANEL_008",
+        "PANEL_009",
+        "PANEL_010",
+        "PANEL_011",
+        "PANEL_012",
+        "PANEL_013",
+        "PANEL_014",
+        "PANEL_015",
+        "PANEL_016",
+        "PANEL_017",
+        "PANEL_018",
+        "PANEL_019",
+        "PANEL_020",
+        "PANEL_021",
+        "PANEL_022",
+        "PANEL_023",
+        "PANEL_024",
+        "PANEL_025",
+        "PANEL_026",
+        "PANEL_027",
+        "PANEL_028",
+        "PANEL_029",
+        "PANEL_030",
+        "PANEL_031",
+        "PANEL_032",
+        "PANEL_033",
+        "PANEL_034",
+        "PANEL_035",
+        "PANEL_036",
+        "PANEL_037",
+        "PANEL_038",
+        "PANEL_039",
+        "PANEL_040",
+        "PANEL_041",
+        "PANEL_042",
+        "PANEL_043",
+        "PANEL_044",
+        "PANEL_045",
+        "PANEL_046",
+        "PANEL_047",
+        "PANEL_048",
+        "PANEL_049",
+        "PANEL_050",
+        "PANEL_051"
+      ],
+      "panelMatrices": {
+        "PANEL_001": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_002": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_003": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_004": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_005": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_006": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_007": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_008": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_009": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_010": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_011": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_012": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_013": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_014": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_015": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_016": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_017": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_018": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_019": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_020": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_021": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_022": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 4.2649993896484375, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_023": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 2.9349987506866455, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_024": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 0.08499765396118164, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_025": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -1.2450027465820312, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_026": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -2.575002670288086, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_027": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -3.905003547668457, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_028": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -5.235003471374512, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_029": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 4.2649993896484375, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_030": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 2.9349987506866455, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_031": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 0.08499765396118164, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_032": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -1.2450027465820312, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_033": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -2.575002670288086, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_034": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -3.905003547668457, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_035": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -5.235003471374512, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_036": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 4.2649993896484375, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_037": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 2.9349987506866455, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_038": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 0.08499765396118164, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_039": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -1.2450027465820312, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_040": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -2.575002670288086, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_041": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -3.905003547668457, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_042": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -5.235003471374512, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_043": [
+          0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+          -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+          -4.520163088272966e-8, -1.008586636430664e-8, 1, 0, 7.938364028930664,
+          3.8223941326141357, 1.2900004386901855, 1
+        ],
+        "PANEL_044": [
+          0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+          -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+          -4.520163088272966e-8, -1.008586636430664e-8, 1, 0, 7.938364028930664,
+          3.8223938941955566, 3.1500000953674316, 1
+        ],
+        "PANEL_045": [
+          0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+          -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+          -4.520163088272966e-8, -1.008586636430664e-8, 1, 0, 7.938364028930664,
+          3.8223938941955566, 5.010000228881836, 1
+        ],
+        "PANEL_046": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+          11.63062858581543, 3.442565441131592, 5.010000228881836, 1
+        ],
+        "PANEL_047": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+          11.63062858581543, 3.442565441131592, 3.1500000953674316, 1
+        ],
+        "PANEL_048": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+          11.63062858581543, 3.442565441131592, 1.2899999618530273, 1
+        ],
+        "PANEL_049": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0, 10.36572265625,
+          3.85355806350708, 5.010000228881836, 1
+        ],
+        "PANEL_050": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0, 10.36572265625,
+          3.85355806350708, 3.1500003337860107, 1
+        ],
+        "PANEL_051": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0, 10.36572265625,
+          3.85355806350708, 1.2899999618530273, 1
+        ]
+      },
+      "panelWorldPositions": {
+        "PANEL_001": [
+          -5.235000133514404, 3.3668265342712402, 5.034947872161865
+        ],
+        "PANEL_002": [
+          -3.9050002098083496, 3.3668265342712402, 5.034947872161865
+        ],
+        "PANEL_003": [
+          -2.575000286102295, 3.3668265342712402, 5.034947872161865
+        ],
+        "PANEL_004": [
+          -1.244999885559082, 3.3668265342712402, 5.034947872161865
+        ],
+        "PANEL_005": [
+          0.08500003814697266, 3.3668265342712402, 5.034947872161865
+        ],
+        "PANEL_006": [2.934999465942383, 3.3668265342712402, 5.034947872161865],
+        "PANEL_007": [4.265000343322754, 3.3668265342712402, 5.034947872161865],
+        "PANEL_008": [
+          -5.235000133514404, 3.753542423248291, 3.2155935764312744
+        ],
+        "PANEL_009": [
+          -3.9050002098083496, 3.753542423248291, 3.2155935764312744
+        ],
+        "PANEL_010": [
+          -2.575000286102295, 3.753542423248291, 3.2155935764312744
+        ],
+        "PANEL_011": [
+          -1.244999885559082, 3.753542423248291, 3.2155935764312744
+        ],
+        "PANEL_012": [
+          0.08500003814697266, 3.753542423248291, 3.2155935764312744
+        ],
+        "PANEL_013": [2.934999465942383, 3.753542423248291, 3.2155935764312744],
+        "PANEL_014": [4.265000343322754, 3.753542423248291, 3.2155935764312744],
+        "PANEL_015": [
+          -5.235000133514404, 4.140258312225342, 1.3962388038635254
+        ],
+        "PANEL_016": [
+          -3.9050002098083496, 4.140258312225342, 1.3962388038635254
+        ],
+        "PANEL_017": [
+          -2.575000286102295, 4.140258312225342, 1.3962388038635254
+        ],
+        "PANEL_018": [
+          -1.244999885559082, 4.140258312225342, 1.3962388038635254
+        ],
+        "PANEL_019": [
+          0.08500003814697266, 4.140258312225342, 1.3962388038635254
+        ],
+        "PANEL_020": [2.934999465942383, 4.140258312225342, 1.3962388038635254],
+        "PANEL_021": [4.265000343322754, 4.140258312225342, 1.3962388038635254],
+        "PANEL_022": [
+          4.2649993896484375, 3.3668265342712402, -5.034947395324707
+        ],
+        "PANEL_023": [
+          2.9349987506866455, 3.3668265342712402, -5.034947395324707
+        ],
+        "PANEL_024": [
+          0.08499765396118164, 3.3668265342712402, -5.034947395324707
+        ],
+        "PANEL_025": [
+          -1.2450027465820312, 3.3668265342712402, -5.034947395324707
+        ],
+        "PANEL_026": [
+          -2.575002670288086, 3.3668265342712402, -5.034947395324707
+        ],
+        "PANEL_027": [
+          -3.905003547668457, 3.3668265342712402, -5.034947395324707
+        ],
+        "PANEL_028": [
+          -5.235003471374512, 3.3668265342712402, -5.034947395324707
+        ],
+        "PANEL_029": [
+          4.2649993896484375, 3.753542423248291, -3.215592384338379
+        ],
+        "PANEL_030": [
+          2.9349987506866455, 3.753542423248291, -3.215592384338379
+        ],
+        "PANEL_031": [
+          0.08499765396118164, 3.753542423248291, -3.215592384338379
+        ],
+        "PANEL_032": [
+          -1.2450027465820312, 3.753542423248291, -3.215592384338379
+        ],
+        "PANEL_033": [
+          -2.575002670288086, 3.753542423248291, -3.215592384338379
+        ],
+        "PANEL_034": [
+          -3.905003547668457, 3.753542423248291, -3.215592384338379
+        ],
+        "PANEL_035": [
+          -5.235003471374512, 3.753542423248291, -3.215592384338379
+        ],
+        "PANEL_036": [
+          4.2649993896484375, 4.140258312225342, -1.3962368965148926
+        ],
+        "PANEL_037": [
+          2.9349987506866455, 4.140258312225342, -1.3962368965148926
+        ],
+        "PANEL_038": [
+          0.08499765396118164, 4.140258312225342, -1.3962368965148926
+        ],
+        "PANEL_039": [
+          -1.2450027465820312, 4.140258312225342, -1.3962368965148926
+        ],
+        "PANEL_040": [
+          -2.575002670288086, 4.140258312225342, -1.3962368965148926
+        ],
+        "PANEL_041": [
+          -3.905003547668457, 4.140258312225342, -1.3962368965148926
+        ],
+        "PANEL_042": [
+          -5.235003471374512, 4.140258312225342, -1.3962368965148926
+        ],
+        "PANEL_043": [
+          7.938364028930664, 3.8223941326141357, 1.2900004386901855
+        ],
+        "PANEL_044": [
+          7.938364028930664, 3.8223938941955566, 3.1500000953674316
+        ],
+        "PANEL_045": [7.938364028930664, 3.8223938941955566, 5.010000228881836],
+        "PANEL_046": [11.63062858581543, 3.442565441131592, 5.010000228881836],
+        "PANEL_047": [11.63062858581543, 3.442565441131592, 3.1500000953674316],
+        "PANEL_048": [11.63062858581543, 3.442565441131592, 1.2899999618530273],
+        "PANEL_049": [10.36572265625, 3.85355806350708, 5.010000228881836],
+        "PANEL_050": [10.36572265625, 3.85355806350708, 3.1500003337860107],
+        "PANEL_051": [10.36572265625, 3.85355806350708, 1.2899999618530273]
+      },
+      "panelLocalMatrices": {
+        "PANEL_001": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_002": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_003": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_004": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_005": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_006": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_007": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_008": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_009": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_010": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_011": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_012": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_013": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_014": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_015": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_016": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_017": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_018": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_019": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_020": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_021": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_022": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 4.2649993896484375, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_023": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 2.9349987506866455, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_024": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 0.08499765396118164, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_025": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -1.2450027465820312, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_026": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -2.575002670288086, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_027": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -3.905003547668457, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_028": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -5.235003471374512, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_029": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 4.2649993896484375, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_030": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 2.9349987506866455, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_031": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 0.08499765396118164, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_032": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -1.2450027465820312, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_033": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -2.575002670288086, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_034": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -3.905003547668457, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_035": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -5.235003471374512, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_036": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 4.2649993896484375, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_037": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 2.9349987506866455, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_038": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 0.08499765396118164, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_039": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -1.2450027465820312, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_040": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -2.575002670288086, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_041": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -3.905003547668457, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_042": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -5.235003471374512, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_043": [
+          0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+          -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+          -4.520163088272966e-8, -1.008586636430664e-8, 1, 0, 7.938364028930664,
+          3.8223941326141357, 1.2900004386901855, 1
+        ],
+        "PANEL_044": [
+          0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+          -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+          -4.520163088272966e-8, -1.008586636430664e-8, 1, 0, 7.938364028930664,
+          3.8223938941955566, 3.1500000953674316, 1
+        ],
+        "PANEL_045": [
+          0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+          -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+          -4.520163088272966e-8, -1.008586636430664e-8, 1, 0, 7.938364028930664,
+          3.8223938941955566, 5.010000228881836, 1
+        ],
+        "PANEL_046": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+          11.63062858581543, 3.442565441131592, 5.010000228881836, 1
+        ],
+        "PANEL_047": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+          11.63062858581543, 3.442565441131592, 3.1500000953674316, 1
+        ],
+        "PANEL_048": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+          11.63062858581543, 3.442565441131592, 1.2899999618530273, 1
+        ],
+        "PANEL_049": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0, 10.36572265625,
+          3.85355806350708, 5.010000228881836, 1
+        ],
+        "PANEL_050": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0, 10.36572265625,
+          3.85355806350708, 3.1500003337860107, 1
+        ],
+        "PANEL_051": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0, 10.36572265625,
+          3.85355806350708, 1.2899999618530273, 1
+        ]
+      },
+      "panelWorldMatrices": {
+        "PANEL_001": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_002": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_003": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_004": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_005": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_006": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_007": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+          3.3668265342712402, 5.034947872161865, 1
+        ],
+        "PANEL_008": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_009": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_010": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_011": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_012": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_013": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_014": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+          3.753542423248291, 3.2155935764312744, 1
+        ],
+        "PANEL_015": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_016": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_017": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_018": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_019": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_020": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_021": [
+          1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+          -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+          4.140258312225342, 1.3962388038635254, 1
+        ],
+        "PANEL_022": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 4.2649993896484375, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_023": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 2.9349987506866455, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_024": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 0.08499765396118164, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_025": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -1.2450027465820312, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_026": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -2.575002670288086, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_027": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -3.905003547668457, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_028": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -5.235003471374512, 3.3668265342712402, -5.034947395324707, 1
+        ],
+        "PANEL_029": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 4.2649993896484375, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_030": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 2.9349987506866455, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_031": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 0.08499765396118164, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_032": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -1.2450027465820312, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_033": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -2.575002670288086, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_034": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -3.905003547668457, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_035": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -5.235003471374512, 3.753542423248291, -3.215592384338379, 1
+        ],
+        "PANEL_036": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 4.2649993896484375, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_037": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 2.9349987506866455, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_038": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, 0.08499765396118164, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_039": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -1.2450027465820312, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_040": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -2.575002670288086, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_041": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -3.905003547668457, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_042": [
+          -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+          -0.20791175961494446, 0, 0, -0.20791175961494446, -0.9781479239463806,
+          0, -5.235003471374512, 4.140258312225342, -1.3962368965148926, 1
+        ],
+        "PANEL_043": [
+          0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+          -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+          -4.520163088272966e-8, -1.008586636430664e-8, 1, 0, 7.938364028930664,
+          3.8223941326141357, 1.2900004386901855, 1
+        ],
+        "PANEL_044": [
+          0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+          -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+          -4.520163088272966e-8, -1.008586636430664e-8, 1, 0, 7.938364028930664,
+          3.8223938941955566, 3.1500000953674316, 1
+        ],
+        "PANEL_045": [
+          0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+          -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+          -4.520163088272966e-8, -1.008586636430664e-8, 1, 0, 7.938364028930664,
+          3.8223938941955566, 5.010000228881836, 1
+        ],
+        "PANEL_046": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+          11.63062858581543, 3.442565441131592, 5.010000228881836, 1
+        ],
+        "PANEL_047": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+          11.63062858581543, 3.442565441131592, 3.1500000953674316, 1
+        ],
+        "PANEL_048": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+          11.63062858581543, 3.442565441131592, 1.2899999618530273, 1
+        ],
+        "PANEL_049": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0, 10.36572265625,
+          3.85355806350708, 5.010000228881836, 1
+        ],
+        "PANEL_050": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0, 10.36572265625,
+          3.85355806350708, 3.1500003337860107, 1
+        ],
+        "PANEL_051": [
+          -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+          0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+          -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0, 10.36572265625,
+          3.85355806350708, 1.2899999618530273, 1
+        ]
+      },
+      "childLocalMatrices": {
+        "PANEL_001": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_002": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_003": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_004": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_005": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_006": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_007": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_008": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_009": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_010": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_011": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_012": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_013": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_014": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_015": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_016": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_017": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_018": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_019": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_020": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_021": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_022": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_023": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_024": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_025": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_026": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_027": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_028": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_029": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_030": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_031": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_032": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_033": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_034": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_035": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_036": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_037": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_038": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_039": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_040": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_041": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_042": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_043": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_044": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_045": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_046": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_047": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_048": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_049": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_050": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        },
+        "PANEL_051": {
+          "module": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "support": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        }
+      },
+      "childWorldMatrices": {
+        "PANEL_001": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+            3.3668265342712402, 5.034947872161865, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+            3.3668265342712402, 5.034947872161865, 1
+          ]
+        },
+        "PANEL_002": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+            3.3668265342712402, 5.034947872161865, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+            3.3668265342712402, 5.034947872161865, 1
+          ]
+        },
+        "PANEL_003": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+            3.3668265342712402, 5.034947872161865, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+            3.3668265342712402, 5.034947872161865, 1
+          ]
+        },
+        "PANEL_004": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+            3.3668265342712402, 5.034947872161865, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+            3.3668265342712402, 5.034947872161865, 1
+          ]
+        },
+        "PANEL_005": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+            3.3668265342712402, 5.034947872161865, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+            3.3668265342712402, 5.034947872161865, 1
+          ]
+        },
+        "PANEL_006": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+            3.3668265342712402, 5.034947872161865, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+            3.3668265342712402, 5.034947872161865, 1
+          ]
+        },
+        "PANEL_007": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+            3.3668265342712402, 5.034947872161865, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+            3.3668265342712402, 5.034947872161865, 1
+          ]
+        },
+        "PANEL_008": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+            3.753542423248291, 3.2155935764312744, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+            3.753542423248291, 3.2155935764312744, 1
+          ]
+        },
+        "PANEL_009": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+            3.753542423248291, 3.2155935764312744, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+            3.753542423248291, 3.2155935764312744, 1
+          ]
+        },
+        "PANEL_010": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+            3.753542423248291, 3.2155935764312744, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+            3.753542423248291, 3.2155935764312744, 1
+          ]
+        },
+        "PANEL_011": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+            3.753542423248291, 3.2155935764312744, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+            3.753542423248291, 3.2155935764312744, 1
+          ]
+        },
+        "PANEL_012": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+            3.753542423248291, 3.2155935764312744, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+            3.753542423248291, 3.2155935764312744, 1
+          ]
+        },
+        "PANEL_013": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+            3.753542423248291, 3.2155935764312744, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+            3.753542423248291, 3.2155935764312744, 1
+          ]
+        },
+        "PANEL_014": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+            3.753542423248291, 3.2155935764312744, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+            3.753542423248291, 3.2155935764312744, 1
+          ]
+        },
+        "PANEL_015": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+            4.140258312225342, 1.3962388038635254, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -5.235000133514404,
+            4.140258312225342, 1.3962388038635254, 1
+          ]
+        },
+        "PANEL_016": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+            4.140258312225342, 1.3962388038635254, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -3.9050002098083496,
+            4.140258312225342, 1.3962388038635254, 1
+          ]
+        },
+        "PANEL_017": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+            4.140258312225342, 1.3962388038635254, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -2.575000286102295,
+            4.140258312225342, 1.3962388038635254, 1
+          ]
+        },
+        "PANEL_018": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+            4.140258312225342, 1.3962388038635254, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, -1.244999885559082,
+            4.140258312225342, 1.3962388038635254, 1
+          ]
+        },
+        "PANEL_019": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+            4.140258312225342, 1.3962388038635254, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 0.08500003814697266,
+            4.140258312225342, 1.3962388038635254, 1
+          ]
+        },
+        "PANEL_020": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+            4.140258312225342, 1.3962388038635254, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 2.934999465942383,
+            4.140258312225342, 1.3962388038635254, 1
+          ]
+        },
+        "PANEL_021": {
+          "module": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+            4.140258312225342, 1.3962388038635254, 1
+          ],
+          "support": [
+            1, 0, 0, 0, 0, 0.978147566318512, 0.20791175961494446, 0, 0,
+            -0.20791175961494446, 0.978147566318512, 0, 4.265000343322754,
+            4.140258312225342, 1.3962388038635254, 1
+          ]
+        },
+        "PANEL_022": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 4.2649993896484375, 3.3668265342712402,
+            -5.034947395324707, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 4.2649993896484375, 3.3668265342712402,
+            -5.034947395324707, 1
+          ]
+        },
+        "PANEL_023": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 2.9349987506866455, 3.3668265342712402,
+            -5.034947395324707, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 2.9349987506866455, 3.3668265342712402,
+            -5.034947395324707, 1
+          ]
+        },
+        "PANEL_024": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 0.08499765396118164, 3.3668265342712402,
+            -5.034947395324707, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 0.08499765396118164, 3.3668265342712402,
+            -5.034947395324707, 1
+          ]
+        },
+        "PANEL_025": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -1.2450027465820312, 3.3668265342712402,
+            -5.034947395324707, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -1.2450027465820312, 3.3668265342712402,
+            -5.034947395324707, 1
+          ]
+        },
+        "PANEL_026": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -2.575002670288086, 3.3668265342712402,
+            -5.034947395324707, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -2.575002670288086, 3.3668265342712402,
+            -5.034947395324707, 1
+          ]
+        },
+        "PANEL_027": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -3.905003547668457, 3.3668265342712402,
+            -5.034947395324707, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -3.905003547668457, 3.3668265342712402,
+            -5.034947395324707, 1
+          ]
+        },
+        "PANEL_028": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -5.235003471374512, 3.3668265342712402,
+            -5.034947395324707, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -5.235003471374512, 3.3668265342712402,
+            -5.034947395324707, 1
+          ]
+        },
+        "PANEL_029": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 4.2649993896484375, 3.753542423248291,
+            -3.215592384338379, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 4.2649993896484375, 3.753542423248291,
+            -3.215592384338379, 1
+          ]
+        },
+        "PANEL_030": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 2.9349987506866455, 3.753542423248291,
+            -3.215592384338379, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 2.9349987506866455, 3.753542423248291,
+            -3.215592384338379, 1
+          ]
+        },
+        "PANEL_031": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 0.08499765396118164, 3.753542423248291,
+            -3.215592384338379, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 0.08499765396118164, 3.753542423248291,
+            -3.215592384338379, 1
+          ]
+        },
+        "PANEL_032": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -1.2450027465820312, 3.753542423248291,
+            -3.215592384338379, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -1.2450027465820312, 3.753542423248291,
+            -3.215592384338379, 1
+          ]
+        },
+        "PANEL_033": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -2.575002670288086, 3.753542423248291,
+            -3.215592384338379, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -2.575002670288086, 3.753542423248291,
+            -3.215592384338379, 1
+          ]
+        },
+        "PANEL_034": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -3.905003547668457, 3.753542423248291,
+            -3.215592384338379, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -3.905003547668457, 3.753542423248291,
+            -3.215592384338379, 1
+          ]
+        },
+        "PANEL_035": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -5.235003471374512, 3.753542423248291,
+            -3.215592384338379, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -5.235003471374512, 3.753542423248291,
+            -3.215592384338379, 1
+          ]
+        },
+        "PANEL_036": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 4.2649993896484375, 4.140258312225342,
+            -1.3962368965148926, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 4.2649993896484375, 4.140258312225342,
+            -1.3962368965148926, 1
+          ]
+        },
+        "PANEL_037": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 2.9349987506866455, 4.140258312225342,
+            -1.3962368965148926, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 2.9349987506866455, 4.140258312225342,
+            -1.3962368965148926, 1
+          ]
+        },
+        "PANEL_038": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 0.08499765396118164, 4.140258312225342,
+            -1.3962368965148926, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, 0.08499765396118164, 4.140258312225342,
+            -1.3962368965148926, 1
+          ]
+        },
+        "PANEL_039": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -1.2450027465820312, 4.140258312225342,
+            -1.3962368965148926, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -1.2450027465820312, 4.140258312225342,
+            -1.3962368965148926, 1
+          ]
+        },
+        "PANEL_040": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -2.575002670288086, 4.140258312225342,
+            -1.3962368965148926, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -2.575002670288086, 4.140258312225342,
+            -1.3962368965148926, 1
+          ]
+        },
+        "PANEL_041": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -3.905003547668457, 4.140258312225342,
+            -1.3962368965148926, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -3.905003547668457, 4.140258312225342,
+            -1.3962368965148926, 1
+          ]
+        },
+        "PANEL_042": {
+          "module": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -5.235003471374512, 4.140258312225342,
+            -1.3962368965148926, 1
+          ],
+          "support": [
+            -1.0000003576278687, 0, 0, 0, 0, 0.978147566318512,
+            -0.20791175961494446, 0, 0, -0.20791175961494446,
+            -0.9781479239463806, 0, -5.235003471374512, 4.140258312225342,
+            -1.3962368965148926, 1
+          ]
+        },
+        "PANEL_043": {
+          "module": [
+            0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+            -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+            -4.520163088272966e-8, -1.008586636430664e-8, 1, 0,
+            7.938364028930664, 3.8223941326141357, 1.2900004386901855, 1
+          ],
+          "support": [
+            0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+            -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+            -4.520163088272966e-8, -1.008586636430664e-8, 1, 0,
+            7.938364028930664, 3.8223941326141357, 1.2900004386901855, 1
+          ]
+        },
+        "PANEL_044": {
+          "module": [
+            0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+            -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+            -4.520163088272966e-8, -1.008586636430664e-8, 1, 0,
+            7.938364028930664, 3.8223938941955566, 3.1500000953674316, 1
+          ],
+          "support": [
+            0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+            -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+            -4.520163088272966e-8, -1.008586636430664e-8, 1, 0,
+            7.938364028930664, 3.8223938941955566, 3.1500000953674316, 1
+          ]
+        },
+        "PANEL_045": {
+          "module": [
+            0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+            -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+            -4.520163088272966e-8, -1.008586636430664e-8, 1, 0,
+            7.938364028930664, 3.8223938941955566, 5.010000228881836, 1
+          ],
+          "support": [
+            0.9510565400123596, 0.30901703238487244, 4.635885630932535e-8, 0,
+            -0.30901703238487244, 0.9510564804077148, -2.779453112111696e-9, 0,
+            -4.520163088272966e-8, -1.008586636430664e-8, 1, 0,
+            7.938364028930664, 3.8223938941955566, 5.010000228881836, 1
+          ]
+        },
+        "PANEL_046": {
+          "module": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            11.63062858581543, 3.442565441131592, 5.010000228881836, 1
+          ],
+          "support": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            11.63062858581543, 3.442565441131592, 5.010000228881836, 1
+          ]
+        },
+        "PANEL_047": {
+          "module": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            11.63062858581543, 3.442565441131592, 3.1500000953674316, 1
+          ],
+          "support": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            11.63062858581543, 3.442565441131592, 3.1500000953674316, 1
+          ]
+        },
+        "PANEL_048": {
+          "module": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            11.63062858581543, 3.442565441131592, 1.2899999618530273, 1
+          ],
+          "support": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            11.63062858581543, 3.442565441131592, 1.2899999618530273, 1
+          ]
+        },
+        "PANEL_049": {
+          "module": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            10.36572265625, 3.85355806350708, 5.010000228881836, 1
+          ],
+          "support": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            10.36572265625, 3.85355806350708, 5.010000228881836, 1
+          ]
+        },
+        "PANEL_050": {
+          "module": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            10.36572265625, 3.85355806350708, 3.1500003337860107, 1
+          ],
+          "support": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            10.36572265625, 3.85355806350708, 3.1500003337860107, 1
+          ]
+        },
+        "PANEL_051": {
+          "module": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            10.36572265625, 3.85355806350708, 1.2899999618530273, 1
+          ],
+          "support": [
+            -0.9510565400123596, 0.3090169429779053, 1.205951889460266e-7, 0,
+            0.3090169429779053, 0.9510565400123596, -1.3186437719525657e-8, 0,
+            -1.1845580871749917e-7, 2.6693996346693893e-8, -1, 0,
+            10.36572265625, 3.85355806350708, 1.2899999618530273, 1
+          ]
+        }
+      }
+    },
+    "approvedCameraRevision": "carlos-2026-10-05-mobile-target"
+  },
+  "httpMetadata": {
+    "status": 200,
+    "robots": null,
+    "body": "<meta name=\"robots\" content=\"noindex, nofollow\"/>"
+  },
+  "limitations": {
+    "blobDownload": "Download JSON click executed; managed browser downloads list empty for blob URL, so filename/content not observable via downloads API; source anchor filename is brightfield-camera-calibration.json."
+  }
+}

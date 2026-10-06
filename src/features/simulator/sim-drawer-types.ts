@@ -26,6 +26,11 @@ export interface SimDrawerProps {
   readonly stateIncentiveNote: CityConfig['stateIncentiveNote'];
   readonly explanation: string;
   readonly installationHref: string;
+  readonly modal?: boolean;
+  readonly liveSummary?: string;
+  readonly closeLabel?: string;
+  readonly onInstallation?: () => void;
+  readonly onViewHouse?: () => void;
   readonly onBillChange: (value: string) => void;
   readonly onCoverageChange: (value: string) => void;
   readonly onProfileSelect: (index: number) => void;

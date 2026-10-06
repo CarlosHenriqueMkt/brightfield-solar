@@ -1,5 +1,5 @@
+import Image from 'next/image';
 import { Container } from '@/components/ui/Container';
-import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import styles from './ProcessSteps.module.css';
 
@@ -8,19 +8,22 @@ const steps = [
     number: '01',
     title: 'Assess your home',
     copy: 'A home assessment helps clarify your roof and the work involved.',
-    media: 'Assessment',
+    media: '/assets/approved-v2/step-assess.png',
+    alt: 'Solar professional assessing a Phoenix home',
   },
   {
     number: '02',
     title: 'Plan the work',
     copy: 'Review the proposed system and the permit process before installation.',
-    media: 'Planning',
+    media: '/assets/approved-v2/step-plan.png',
+    alt: 'Solar plans and project details prepared for a home',
   },
   {
     number: '03',
     title: 'Install and connect',
     copy: 'Follow the steps from installation to utility interconnection.',
-    media: 'Installation',
+    media: '/assets/approved-v2/step-install.png',
+    alt: 'Solar installation crew working on a residential roof',
   },
 ] as const;
 
@@ -40,7 +43,16 @@ export function ProcessSteps({ id = 'process' }: { id?: string }) {
               className={`${styles.step} ${index % 2 === 1 ? styles.reverse : ''}`}
               key={step.number}
             >
-              <MediaPlaceholder label={step.media} className={styles.media} />
+              <div className={styles.media}>
+                <Image
+                  src={step.media}
+                  alt={step.alt}
+                  width={1448}
+                  height={1086}
+                  className={styles.mediaImage}
+                  sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1440px) 48vw, 665px"
+                />
+              </div>
               <div className={styles.copy}>
                 <span className={styles.number}>{step.number}</span>
                 <h3>{step.title}</h3>

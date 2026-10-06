@@ -1,0 +1,4692 @@
+{
+  "recordedAt": "2026-10-06T10:46:58.871Z",
+  "scope": "WEB03 finished-v04; local uncommitted work; no push, PR, CI or deploy",
+  "quality": {
+    "commands": ["npm run check", "npm run build"],
+    "observedOutcome": "passed",
+    "testFiles": 11,
+    "tests": 101,
+    "staticRoute": "/city/phoenix-az",
+    "independentOraclePairs": 627
+  },
+  "ownedResourceCleanup": {
+    "developmentService": "brightfield-web03-dev stopped",
+    "productionService": "brightfield-web03-final-prod stopped",
+    "port3238": "ECONNREFUSED",
+    "port3239": "ECONNREFUSED",
+    "managedParentTabsRemaining": 0
+  },
+  "routes": [
+    {
+      "route": "/",
+      "status": 307,
+      "location": "/city/phoenix-az",
+      "title": "Brightfield Solar",
+      "h1Count": 0,
+      "headings": [],
+      "htmlBytes": 4648
+    },
+    {
+      "route": "/city/phoenix-az",
+      "status": 200,
+      "location": null,
+      "title": "Solar in Phoenix, AZ | Brightfield Solar",
+      "h1Count": 1,
+      "headings": [
+        "How installation works",
+        "What Phoenix homeowners say",
+        "Meet your local crews",
+        "Your questions, answered",
+        "See the next step more clearly."
+      ],
+      "htmlBytes": 56238
+    },
+    {
+      "route": "/city/unknown",
+      "status": 404,
+      "location": null,
+      "title": "Brightfield Solar",
+      "h1Count": 1,
+      "headings": [],
+      "htmlBytes": 6014
+    },
+    {
+      "route": "/preview/components",
+      "status": 404,
+      "location": null,
+      "title": "Brightfield Solar",
+      "h1Count": 0,
+      "headings": [],
+      "htmlBytes": 6134
+    },
+    {
+      "route": "/preview/scene",
+      "status": 404,
+      "location": null,
+      "title": "Brightfield Solar",
+      "h1Count": 0,
+      "headings": [],
+      "htmlBytes": 6238
+    }
+  ],
+  "developmentPreviewMetadata": [
+    {
+      "path": "/preview/components",
+      "status": 200,
+      "title": "Brightfield Solar — Component preview",
+      "metas": [
+        "<meta charSet=\"utf-8\"/>",
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>",
+        "<meta name=\"robots\" content=\"noindex, nofollow\"/>",
+        "<meta name=\"next-size-adjust\" content=\"\"/>"
+      ],
+      "containsNoindex": true,
+      "containsNofollow": true
+    },
+    {
+      "path": "/preview/scene",
+      "status": 200,
+      "title": "Brightfield scene calibration",
+      "metas": [
+        "<meta charSet=\"utf-8\"/>",
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>",
+        "<meta name=\"robots\" content=\"noindex, nofollow\"/>",
+        "<meta name=\"next-size-adjust\" content=\"\"/>"
+      ],
+      "containsNoindex": true,
+      "containsNofollow": true
+    }
+  ],
+  "assets": {
+    "finishedRawTotalBytes": 2866541,
+    "sourceDestinationDevelopmentHashes": [
+      {
+        "name": "house.glb",
+        "bytes": 1865736,
+        "status": 200,
+        "source": "20cdc8f8ede8396227c5c7f4f38ab1e5f95d9dfe0ea22d28072d9bd62600b7c3",
+        "destination": "20cdc8f8ede8396227c5c7f4f38ab1e5f95d9dfe0ea22d28072d9bd62600b7c3",
+        "served": "20cdc8f8ede8396227c5c7f4f38ab1e5f95d9dfe0ea22d28072d9bd62600b7c3",
+        "expected": "20cdc8f8ede8396227c5c7f4f38ab1e5f95d9dfe0ea22d28072d9bd62600b7c3"
+      },
+      {
+        "name": "house.manifest.json",
+        "bytes": 881999,
+        "status": 200,
+        "source": "8ef5a7a184855aab05b1aeb5c2b51ff30aa4b1e00e28ddf51f5dc06f969e8d7d",
+        "destination": "8ef5a7a184855aab05b1aeb5c2b51ff30aa4b1e00e28ddf51f5dc06f969e8d7d",
+        "served": "8ef5a7a184855aab05b1aeb5c2b51ff30aa4b1e00e28ddf51f5dc06f969e8d7d",
+        "expected": "8ef5a7a184855aab05b1aeb5c2b51ff30aa4b1e00e28ddf51f5dc06f969e8d7d"
+      },
+      {
+        "name": "sky-softened-2k.jpg",
+        "bytes": 118806,
+        "status": 200,
+        "source": "afd97440b1fbcbf98c534a8a269a2ccba525e75396c49c84d051b4e9ee6e3f12",
+        "destination": "afd97440b1fbcbf98c534a8a269a2ccba525e75396c49c84d051b4e9ee6e3f12",
+        "served": "afd97440b1fbcbf98c534a8a269a2ccba525e75396c49c84d051b4e9ee6e3f12",
+        "expected": "afd97440b1fbcbf98c534a8a269a2ccba525e75396c49c84d051b4e9ee6e3f12"
+      }
+    ],
+    "finalProductionHashes": [
+      {
+        "name": "house.glb",
+        "status": 200,
+        "bytes": 1865736,
+        "sha256": "20cdc8f8ede8396227c5c7f4f38ab1e5f95d9dfe0ea22d28072d9bd62600b7c3",
+        "diskSha256": "20cdc8f8ede8396227c5c7f4f38ab1e5f95d9dfe0ea22d28072d9bd62600b7c3",
+        "expected": "20cdc8f8ede8396227c5c7f4f38ab1e5f95d9dfe0ea22d28072d9bd62600b7c3"
+      },
+      {
+        "name": "house.manifest.json",
+        "status": 200,
+        "bytes": 881999,
+        "sha256": "8ef5a7a184855aab05b1aeb5c2b51ff30aa4b1e00e28ddf51f5dc06f969e8d7d",
+        "diskSha256": "8ef5a7a184855aab05b1aeb5c2b51ff30aa4b1e00e28ddf51f5dc06f969e8d7d",
+        "expected": "8ef5a7a184855aab05b1aeb5c2b51ff30aa4b1e00e28ddf51f5dc06f969e8d7d"
+      },
+      {
+        "name": "sky-softened-2k.jpg",
+        "status": 200,
+        "bytes": 118806,
+        "sha256": "afd97440b1fbcbf98c534a8a269a2ccba525e75396c49c84d051b4e9ee6e3f12",
+        "diskSha256": "afd97440b1fbcbf98c534a8a269a2ccba525e75396c49c84d051b4e9ee6e3f12",
+        "expected": "afd97440b1fbcbf98c534a8a269a2ccba525e75396c49c84d051b4e9ee6e3f12"
+      }
+    ],
+    "photosRawTotalBytes": 16445531,
+    "authorizedOriginalImageHashes": [
+      {
+        "name": "house-front.png",
+        "bytes": 1175370,
+        "sourceSha256": "385901ee5d5560651d2bc7decd308a49ef3f578b79e35bfc96c9dab44243b90b",
+        "destinationSha256": "385901ee5d5560651d2bc7decd308a49ef3f578b79e35bfc96c9dab44243b90b",
+        "identical": true
+      },
+      {
+        "name": "step-assess.png",
+        "bytes": 2369130,
+        "sourceSha256": "2643daf3f03a05377c48d5416089cbaaed91226e55ee9e128356688d4d4075ac",
+        "destinationSha256": "2643daf3f03a05377c48d5416089cbaaed91226e55ee9e128356688d4d4075ac",
+        "identical": true
+      },
+      {
+        "name": "step-plan.png",
+        "bytes": 2167224,
+        "sourceSha256": "0414ceb3a9dc3ccfcbc03251cefba4abc7c4556ed8463e2217d15543d8100874",
+        "destinationSha256": "0414ceb3a9dc3ccfcbc03251cefba4abc7c4556ed8463e2217d15543d8100874",
+        "identical": true
+      },
+      {
+        "name": "step-install.png",
+        "bytes": 2284612,
+        "sourceSha256": "3f43ffb14b03a5e5b98d6e194a7e0262076126a9c796c980502e8952b6c6da98",
+        "destinationSha256": "3f43ffb14b03a5e5b98d6e194a7e0262076126a9c796c980502e8952b6c6da98",
+        "identical": true
+      },
+      {
+        "name": "crew-ray.png",
+        "bytes": 2078175,
+        "sourceSha256": "236d31adff6dabe49436414ddce8d765063d69b0245a05922163266efd3de599",
+        "destinationSha256": "236d31adff6dabe49436414ddce8d765063d69b0245a05922163266efd3de599",
+        "identical": true
+      },
+      {
+        "name": "crew-danielle.png",
+        "bytes": 2153042,
+        "sourceSha256": "3dffd458d0edb81f94135481329565e4ca0604e05f9804dae7367769105b9347",
+        "destinationSha256": "3dffd458d0edb81f94135481329565e4ca0604e05f9804dae7367769105b9347",
+        "identical": true
+      },
+      {
+        "name": "crew-okafor.png",
+        "bytes": 2113854,
+        "sourceSha256": "0fb6d067f6f810f2801d906b3a57485661758386b3b7d19717d9e5bfd326b384",
+        "destinationSha256": "0fb6d067f6f810f2801d906b3a57485661758386b3b7d19717d9e5bfd326b384",
+        "identical": true
+      },
+      {
+        "name": "closing-home.png",
+        "bytes": 2104124,
+        "sourceSha256": "973875bfbf0f366cdc4da4725c99840921986f8f2429c761533e1d47f03c972a",
+        "destinationSha256": "973875bfbf0f366cdc4da4725c99840921986f8f2429c761533e1d47f03c972a",
+        "identical": true
+      }
+    ],
+    "posters": {
+      "desktop": {
+        "width": 1440,
+        "height": 820
+      },
+      "mobile": {
+        "width": 390,
+        "height": 780
+      },
+      "rawTotalBytes": 800089,
+      "origin": "Actual CASA_BASE WebGL captures with approved frontal presets, no HTML copy"
+    }
+  },
+  "finance": {
+    "eightActualUiCases": [
+      {
+        "bill": 220,
+        "coverage": 80,
+        "panels": 17,
+        "net": 14726.25,
+        "savings": 179.01,
+        "payback": 6.855413105413105,
+        "expected": ["17", "$14,726", "$179", "6.9"],
+        "immediate": true,
+        "matched": true,
+        "result": "Your solar estimate\nClose\n×\nNumber of panels\n17 panels\nInvestment after federal credit\n$14,726.25\nEstimated monthly savings\n$179.01\nEstimated payback\n6.9 years\n\nArizona adds a state tax credit worth 25% of the system cost, capped at $1,000. It is not included in the estimate below.\n\nEdit estimate\n→\nSee how it is calculated\nSee the installation steps",
+        "matchedExact": true
+      },
+      {
+        "bill": 430,
+        "coverage": 80,
+        "panels": 33,
+        "net": 28586.25,
+        "savings": 347.48999999999995,
+        "payback": 6.855413105413107,
+        "expected": ["33", "$28,586", "$347", "6.9"],
+        "immediate": true,
+        "matched": true,
+        "result": "Your solar estimate\nClose\n×\nNumber of panels\n33 panels\nInvestment after federal credit\n$28,586.25\nEstimated monthly savings\n$347.49\nEstimated payback\n6.9 years\n\nArizona adds a state tax credit worth 25% of the system cost, capped at $1,000. It is not included in the estimate below.\n\nEdit estimate\n→\nSee how it is calculated\nSee the installation steps",
+        "matchedExact": true
+      },
+      {
+        "bill": 430,
+        "coverage": 100,
+        "panels": 41,
+        "net": 35516.25,
+        "savings": 430,
+        "payback": 6.882994186046512,
+        "expected": ["41", "$35,516", "$430", "6.9"],
+        "immediate": true,
+        "matched": true,
+        "result": "Your solar estimate\nClose\n×\nNumber of panels\n41 panels\nInvestment after federal credit\n$35,516.25\nEstimated monthly savings\n$430.00\nEstimated payback\n6.9 years\n\nArizona adds a state tax credit worth 25% of the system cost, capped at $1,000. It is not included in the estimate below.\n\nEstimated savings stop at the size of your electricity bill.\n\nEnergy generated beyond your usage becomes credit with Arizona Public Service, not cash back.\n\nEdit estimate\n→\nSee how it is calculated\nSee the installation steps",
+        "matchedExact": true
+      },
+      {
+        "bill": 90,
+        "coverage": 100,
+        "panels": 9,
+        "net": 7796.25,
+        "savings": 90,
+        "payback": 7.21875,
+        "expected": ["9", "$7,796", "$90", "7.2"],
+        "immediate": true,
+        "matched": true,
+        "result": "Your solar estimate\nClose\n×\nNumber of panels\n9 panels\nInvestment after federal credit\n$7,796.25\nEstimated monthly savings\n$90.00\nEstimated payback\n7.2 years\n\nArizona adds a state tax credit worth 25% of the system cost, capped at $1,000. It is not included in the estimate below.\n\nEstimated savings stop at the size of your electricity bill.\n\nEnergy generated beyond your usage becomes credit with Arizona Public Service, not cash back.\n\nEdit estimate\n→\nSee how it is calculated\nSee the installation steps",
+        "matchedExact": true
+      },
+      {
+        "bill": 90,
+        "coverage": 80,
+        "panels": 8,
+        "net": 6930,
+        "savings": 84.24,
+        "payback": 6.855413105413106,
+        "expected": ["8", "$6,930", "$84", "6.9"],
+        "immediate": true,
+        "matched": true,
+        "result": "Your solar estimate\nClose\n×\nNumber of panels\n8 panels\nInvestment after federal credit\n$6,930.00\nEstimated monthly savings\n$84.24\nEstimated payback\n6.9 years\n\nArizona adds a state tax credit worth 25% of the system cost, capped at $1,000. It is not included in the estimate below.\n\nEvery installation in Phoenix has a minimum of 8 panels. Your selected usage needs fewer panels, so the minimum applies.\n\nEdit estimate\n→\nSee how it is calculated\nSee the installation steps",
+        "matchedExact": true
+      },
+      {
+        "bill": 60,
+        "coverage": 100,
+        "panels": 8,
+        "net": 6930,
+        "savings": 60,
+        "payback": 9.625,
+        "expected": ["8", "$6,930", "$60", "9.6"],
+        "immediate": true,
+        "matched": true,
+        "result": "Your solar estimate\nClose\n×\nNumber of panels\n8 panels\nInvestment after federal credit\n$6,930.00\nEstimated monthly savings\n$60.00\nEstimated payback\n9.6 years\n\nArizona adds a state tax credit worth 25% of the system cost, capped at $1,000. It is not included in the estimate below.\n\nEvery installation in Phoenix has a minimum of 8 panels. Your selected usage needs fewer panels, so the minimum applies.\n\nEstimated savings stop at the size of your electricity bill.\n\nEnergy generated beyond your usage becomes credit with Arizona Public Service, not cash back.\n\nEdit estimate\n→\nSee how it is calculated\nSee the installation steps",
+        "matchedExact": true
+      },
+      {
+        "bill": 60,
+        "coverage": 50,
+        "panels": 8,
+        "net": 6930,
+        "savings": 60,
+        "payback": 9.625,
+        "expected": ["8", "$6,930", "$60", "9.6"],
+        "immediate": true,
+        "matched": true,
+        "result": "Your solar estimate\nClose\n×\nNumber of panels\n8 panels\nInvestment after federal credit\n$6,930.00\nEstimated monthly savings\n$60.00\nEstimated payback\n9.6 years\n\nArizona adds a state tax credit worth 25% of the system cost, capped at $1,000. It is not included in the estimate below.\n\nEvery installation in Phoenix has a minimum of 8 panels. Your selected usage needs fewer panels, so the minimum applies.\n\nEstimated savings stop at the size of your electricity bill.\n\nEnergy generated beyond your usage becomes credit with Arizona Public Service, not cash back.\n\nEdit estimate\n→\nSee how it is calculated\nSee the installation steps",
+        "matchedExact": true
+      },
+      {
+        "bill": 600,
+        "coverage": 100,
+        "panels": 57,
+        "net": 49376.25,
+        "savings": 600,
+        "payback": 6.8578125,
+        "expected": ["57", "$49,376", "$600", "6.9"],
+        "immediate": true,
+        "matched": true,
+        "result": "Your solar estimate\nClose\n×\nNumber of panels\n57 panels\nInvestment after federal credit\n$49,376.25\nEstimated monthly savings\n$600.00\nEstimated payback\n6.9 years\n\nArizona adds a state tax credit worth 25% of the system cost, capped at $1,000. It is not included in the estimate below.\n\nEstimated savings stop at the size of your electricity bill.\n\nEnergy generated beyond your usage becomes credit with Arizona Public Service, not cash back.\n\nYour estimate includes 57 panels. This illustrative roof displays up to 51; the financial calculation includes every panel.\n\nEdit estimate\n→\nSee how it is calculated\nSee the installation steps",
+        "matchedExact": true
+      }
+    ],
+    "profilePreservesCoverage": {
+      "coverage": "55",
+      "summary": "From your bill to a clearer picture.Close ×2 / 2Solar coverage target%50%–100% · increments of 5 percentage pointsContinue→BackIllustrative panel layout. Your estimate is shown in the numbers.8 panels · $6,930.00 after federal credit · $84.24/month · 6.9 years paybackEvery installation in Phoenix has a minimum of 8 panels. Your selected usage needs fewer panels, so the minimum applies.",
+      "bill": 8
+    },
+    "finalProductionInvalidDraft": {
+      "value": "",
+      "invalid": null,
+      "lastValid33": true,
+      "lastValidNet": true,
+      "noNaN": true,
+      "text": "From your bill to a clearer picture.Close ×1 / 2Average monthly electricity bill$$40–$600 · increments of $10Household profilesApartment or small condo, 1–2 people · $90Three-bedroom house, no pool · $220Four-bedroom house with central AC · $310House with a pool and an EV in the garage · $430Continue→Next: Solar coverage targetEnter a bill from $40 to $600 in steps of $10 and coverage from 50% to 100% in steps of 5. The last valid estimate remains visible until both fields are valid. 33 panels · $28,586.25 after federal credit · $347.49/month · 6.9 years paybackView house"
+    }
+  },
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "closed": {
+        "viewport": [1440, 900],
+        "hero": {
+          "x": 0,
+          "y": 80,
+          "width": 1440,
+          "height": 820
+        },
+        "canvas": {
+          "x": 0,
+          "y": 80,
+          "width": 1440,
+          "height": 820
+        },
+        "poster": {
+          "x": 0,
+          "y": 80,
+          "width": 1440,
+          "height": 820
+        },
+        "h1Count": 1,
+        "h1Visibility": "visible",
+        "overflow": 0,
+        "phase": "frontal",
+        "ready": "true",
+        "active": "false",
+        "modal": null,
+        "inertCount": 0,
+        "bodyOverflow": "",
+        "debugExposed": false
+      },
+      "opened": {
+        "viewport": [1440, 900],
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 820
+        },
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 820
+        },
+        "poster": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 820
+        },
+        "h1Count": 1,
+        "h1Visibility": "hidden",
+        "overflow": 0,
+        "phase": "elevated",
+        "ready": "true",
+        "active": "true",
+        "modal": {
+          "role": null,
+          "ariaModal": null,
+          "focusInside": true
+        },
+        "inertCount": 2,
+        "bodyOverflow": "",
+        "debugExposed": false
+      },
+      "returned": {
+        "viewport": [1440, 900],
+        "hero": {
+          "x": 0,
+          "y": 80,
+          "width": 1440,
+          "height": 820
+        },
+        "canvas": {
+          "x": 0,
+          "y": 80,
+          "width": 1440,
+          "height": 820
+        },
+        "poster": {
+          "x": 0,
+          "y": 80,
+          "width": 1440,
+          "height": 820
+        },
+        "h1Count": 1,
+        "h1Visibility": "visible",
+        "overflow": 0,
+        "phase": "frontal",
+        "ready": "true",
+        "active": "false",
+        "modal": null,
+        "inertCount": 0,
+        "bodyOverflow": "",
+        "debugExposed": false
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "closed": {
+        "viewport": [1920, 1080],
+        "hero": {
+          "x": 0,
+          "y": 80,
+          "width": 1920,
+          "height": 1000
+        },
+        "canvas": {
+          "x": 0,
+          "y": 80,
+          "width": 1920,
+          "height": 1000
+        },
+        "poster": {
+          "x": 0,
+          "y": 80,
+          "width": 1920,
+          "height": 1000
+        },
+        "h1Count": 1,
+        "h1Visibility": "visible",
+        "overflow": 0,
+        "phase": "frontal",
+        "ready": "true",
+        "active": "false",
+        "modal": null,
+        "inertCount": 0,
+        "bodyOverflow": "",
+        "debugExposed": false
+      },
+      "opened": {
+        "viewport": [1920, 1080],
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1000
+        },
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1000
+        },
+        "poster": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1000
+        },
+        "h1Count": 1,
+        "h1Visibility": "hidden",
+        "overflow": 0,
+        "phase": "elevated",
+        "ready": "true",
+        "active": "true",
+        "modal": {
+          "role": null,
+          "ariaModal": null,
+          "focusInside": true
+        },
+        "inertCount": 2,
+        "bodyOverflow": "",
+        "debugExposed": false
+      },
+      "returned": {
+        "viewport": [1920, 1080],
+        "hero": {
+          "x": 0,
+          "y": 80,
+          "width": 1920,
+          "height": 1000
+        },
+        "canvas": {
+          "x": 0,
+          "y": 80,
+          "width": 1920,
+          "height": 1000
+        },
+        "poster": {
+          "x": 0,
+          "y": 80,
+          "width": 1920,
+          "height": 1000
+        },
+        "h1Count": 1,
+        "h1Visibility": "visible",
+        "overflow": 0,
+        "phase": "frontal",
+        "ready": "true",
+        "active": "false",
+        "modal": null,
+        "inertCount": 0,
+        "bodyOverflow": "",
+        "debugExposed": false
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "closed": {
+        "viewport": [390, 844],
+        "hero": {
+          "x": 0,
+          "y": 64,
+          "width": 390,
+          "height": 780
+        },
+        "canvas": {
+          "x": 0,
+          "y": 64,
+          "width": 390,
+          "height": 780
+        },
+        "poster": {
+          "x": 0,
+          "y": 64,
+          "width": 390,
+          "height": 780
+        },
+        "h1Count": 1,
+        "h1Visibility": "visible",
+        "overflow": 0,
+        "phase": "frontal",
+        "ready": "true",
+        "active": "false",
+        "modal": null,
+        "inertCount": 0,
+        "bodyOverflow": "",
+        "debugExposed": false
+      },
+      "opened": {
+        "viewport": [390, 844],
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 780
+        },
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 780
+        },
+        "poster": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 780
+        },
+        "h1Count": 1,
+        "h1Visibility": "hidden",
+        "overflow": 0,
+        "phase": "elevated",
+        "ready": "true",
+        "active": "true",
+        "modal": {
+          "role": "dialog",
+          "ariaModal": "true",
+          "focusInside": true
+        },
+        "inertCount": 17,
+        "bodyOverflow": "hidden",
+        "debugExposed": false
+      },
+      "keyboard": {
+        "backward": {
+          "label": "View house",
+          "inside": true
+        },
+        "forward": {
+          "label": "Close simulation",
+          "inside": true
+        }
+      },
+      "house": {
+        "viewport": [390, 844],
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 780
+        },
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 780
+        },
+        "poster": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 780
+        },
+        "h1Count": 1,
+        "h1Visibility": "hidden",
+        "overflow": 0,
+        "phase": "elevated",
+        "ready": "true",
+        "active": "true",
+        "modal": null,
+        "inertCount": 2,
+        "bodyOverflow": "",
+        "debugExposed": false
+      },
+      "back": {
+        "bill": "430",
+        "phase": "elevated",
+        "modal": "true",
+        "focusInside": true,
+        "bodyOverflow": "hidden"
+      },
+      "returned": {
+        "viewport": [390, 844],
+        "hero": {
+          "x": 0,
+          "y": -256,
+          "width": 390,
+          "height": 780
+        },
+        "canvas": {
+          "x": 0,
+          "y": -256,
+          "width": 390,
+          "height": 780
+        },
+        "poster": {
+          "x": 0,
+          "y": -256,
+          "width": 390,
+          "height": 780
+        },
+        "h1Count": 1,
+        "h1Visibility": "visible",
+        "overflow": 0,
+        "phase": "frontal",
+        "ready": "true",
+        "active": "false",
+        "modal": null,
+        "inertCount": 0,
+        "bodyOverflow": "",
+        "debugExposed": false
+      },
+      "returnFocusHero": true
+    },
+    {
+      "width": 470,
+      "height": 815,
+      "closed": {
+        "viewport": [470, 815],
+        "hero": {
+          "x": 0,
+          "y": 64,
+          "width": 470,
+          "height": 751
+        },
+        "canvas": {
+          "x": 0,
+          "y": 64,
+          "width": 470,
+          "height": 751
+        },
+        "poster": {
+          "x": 0,
+          "y": 64,
+          "width": 470,
+          "height": 751
+        },
+        "h1Count": 1,
+        "h1Visibility": "visible",
+        "overflow": 0,
+        "phase": "frontal",
+        "ready": "true",
+        "active": "false",
+        "modal": null,
+        "inertCount": 0,
+        "bodyOverflow": "",
+        "debugExposed": false
+      },
+      "opened": {
+        "viewport": [470, 815],
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 470,
+          "height": 751
+        },
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 470,
+          "height": 751
+        },
+        "poster": {
+          "x": 0,
+          "y": 0,
+          "width": 470,
+          "height": 751
+        },
+        "h1Count": 1,
+        "h1Visibility": "hidden",
+        "overflow": 0,
+        "phase": "elevated",
+        "ready": "true",
+        "active": "true",
+        "modal": {
+          "role": "dialog",
+          "ariaModal": "true",
+          "focusInside": true
+        },
+        "inertCount": 17,
+        "bodyOverflow": "hidden",
+        "debugExposed": false
+      },
+      "keyboard": {
+        "inside": true,
+        "label": "View house"
+      },
+      "touchTargets": [
+        {
+          "name": "Close simulation",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "name": "Apartment or small condo, 1–2 people · $90",
+          "width": 394,
+          "height": 44
+        },
+        {
+          "name": "Three-bedroom house, no pool · $220",
+          "width": 394,
+          "height": 44
+        },
+        {
+          "name": "Four-bedroom house with central AC · $310",
+          "width": 394,
+          "height": 44
+        },
+        {
+          "name": "House with a pool and an EV in the garage · $430",
+          "width": 394,
+          "height": 44
+        },
+        {
+          "name": "Continue→",
+          "width": 394,
+          "height": 52
+        },
+        {
+          "name": "Next: Solar coverage target",
+          "width": 148.8125,
+          "height": 44
+        },
+        {
+          "name": "View house",
+          "width": 62.984375,
+          "height": 44
+        }
+      ],
+      "house": {
+        "viewport": [470, 815],
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 470,
+          "height": 751
+        },
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 470,
+          "height": 751
+        },
+        "poster": {
+          "x": 0,
+          "y": 0,
+          "width": 470,
+          "height": 751
+        },
+        "h1Count": 1,
+        "h1Visibility": "hidden",
+        "overflow": 0,
+        "phase": "elevated",
+        "ready": "true",
+        "active": "true",
+        "modal": null,
+        "inertCount": 2,
+        "bodyOverflow": "",
+        "debugExposed": false
+      },
+      "back": {
+        "bill": "220",
+        "phase": "elevated",
+        "focusInside": true
+      },
+      "returned": {
+        "viewport": [470, 815],
+        "hero": {
+          "x": 0,
+          "y": -242,
+          "width": 470,
+          "height": 751
+        },
+        "canvas": {
+          "x": 0,
+          "y": -242,
+          "width": 470,
+          "height": 751
+        },
+        "poster": {
+          "x": 0,
+          "y": -242,
+          "width": 470,
+          "height": 751
+        },
+        "h1Count": 1,
+        "h1Visibility": "visible",
+        "overflow": 0,
+        "phase": "frontal",
+        "ready": "true",
+        "active": "false",
+        "modal": null,
+        "inertCount": 0,
+        "bodyOverflow": "",
+        "debugExposed": false
+      }
+    }
+  ],
+  "finalProductionSafeFocusBeforePanelRemoval": [
+    {
+      "panelPresent": true,
+      "outside": true,
+      "inert": false,
+      "ancestorInert": false,
+      "becameActive": true
+    }
+  ],
+  "productionBrowserErrors": {
+    "entries": [],
+    "nextSeq": 0,
+    "dropped": 0
+  },
+  "camera": {
+    "fullOutboundObserved": {
+      "rows": [
+        {
+          "time": 26,
+          "phase": "frontal",
+          "elapsed": null,
+          "duration": null,
+          "visible": 0,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [2.2103307929347302, 3.274060126534069, 26.846999963155735],
+          "height": 820
+        },
+        {
+          "time": 52,
+          "phase": "outbound",
+          "elapsed": 0,
+          "duration": 4,
+          "visible": 0,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.2103307929347302, 3.274060126534069, 26.846999963155735],
+          "height": 820
+        },
+        {
+          "time": 76,
+          "phase": "outbound",
+          "elapsed": 0.033299999999999955,
+          "duration": 4,
+          "visible": 1,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.210380990664153, 3.274123207848126, 26.84702711756206],
+          "height": 820
+        },
+        {
+          "time": 101,
+          "phase": "outbound",
+          "elapsed": 0.04989999999999998,
+          "duration": 4,
+          "visible": 2,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.210499702519126, 3.2742723872711332, 26.847091333884123],
+          "height": 820
+        },
+        {
+          "time": 126,
+          "phase": "outbound",
+          "elapsed": 0.08320000000000005,
+          "duration": 4,
+          "visible": 2,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.2111137343654397, 3.2750439971947305, 26.84742347372005],
+          "height": 820
+        },
+        {
+          "time": 150,
+          "phase": "outbound",
+          "elapsed": 0.09989999999999999,
+          "duration": 4,
+          "visible": 3,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [
+            2.2116861756739308, 3.2757633220136095, 26.847733092005626
+          ],
+          "height": 820
+        },
+        {
+          "time": 176,
+          "phase": "outbound",
+          "elapsed": 0.13329999999999997,
+          "duration": 4,
+          "visible": 4,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.213550942879881, 3.2781064302638834, 26.84874153075192],
+          "height": 820
+        },
+        {
+          "time": 201,
+          "phase": "outbound",
+          "elapsed": 0.1499,
+          "duration": 4,
+          "visible": 4,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.2149101576958503, 3.2798141672364474, 26.84947641582739],
+          "height": 820
+        },
+        {
+          "time": 226,
+          "phase": "outbound",
+          "elapsed": 0.18320000000000008,
+          "duration": 4,
+          "visible": 5,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.21869101101227, 3.2845638780465265, 26.85151990325501],
+          "height": 820
+        },
+        {
+          "time": 251,
+          "phase": "outbound",
+          "elapsed": 0.20000000000000004,
+          "duration": 4,
+          "visible": 5,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.221209026722601, 3.287726648951747, 26.852880275438064],
+          "height": 820
+        },
+        {
+          "time": 275,
+          "phase": "outbound",
+          "elapsed": 0.2333,
+          "duration": 4,
+          "visible": 6,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [
+            2.2276003672993996, 3.2957527584667146, 26.856331177696834
+          ],
+          "height": 820
+        },
+        {
+          "time": 301,
+          "phase": "outbound",
+          "elapsed": 0.24990000000000004,
+          "duration": 4,
+          "visible": 7,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.2315573174710854, 3.300720535029836, 26.858466192359785],
+          "height": 820
+        },
+        {
+          "time": 327,
+          "phase": "outbound",
+          "elapsed": 0.28320000000000006,
+          "duration": 4,
+          "visible": 7,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.241231200346673, 3.312861560700212, 26.863681085200405],
+          "height": 820
+        },
+        {
+          "time": 407,
+          "phase": "outbound",
+          "elapsed": 0.36660000000000004,
+          "duration": 4,
+          "visible": 10,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.27741977937521, 3.358227817490207, 26.88312951842175],
+          "height": 820
+        },
+        {
+          "time": 426,
+          "phase": "outbound",
+          "elapsed": 0.3833,
+          "duration": 4,
+          "visible": 10,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.2870304597140834, 3.370262212463227, 26.88827867856696],
+          "height": 820
+        },
+        {
+          "time": 451,
+          "phase": "outbound",
+          "elapsed": 0.4,
+          "duration": 4,
+          "visible": 10,
+          "wrappers": 17,
+          "pending": 17,
+          "camera": [2.297521359180336, 3.3833923058754927, 26.893891883315078],
+          "height": 820
+        },
+        {
+          "time": 493,
+          "phase": "outbound",
+          "elapsed": 0.4499000000000001,
+          "duration": 4,
+          "visible": 11,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.334505507137847, 3.429626601353871, 26.913617664192426],
+          "height": 820
+        },
+        {
+          "time": 502,
+          "phase": "outbound",
+          "elapsed": 0.4499000000000001,
+          "duration": 4,
+          "visible": 11,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.334505507137847, 3.429626601353871, 26.913617664192426],
+          "height": 820
+        },
+        {
+          "time": 525,
+          "phase": "outbound",
+          "elapsed": 0.48329999999999995,
+          "duration": 4,
+          "visible": 11,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [
+            2.3643780888941723, 3.4669095818167475, 26.929479263018663
+          ],
+          "height": 820
+        },
+        {
+          "time": 551,
+          "phase": "outbound",
+          "elapsed": 0.49990000000000007,
+          "duration": 4,
+          "visible": 11,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.3808716924182836, 3.487471441285643, 26.938209791378206],
+          "height": 820
+        },
+        {
+          "time": 576,
+          "phase": "outbound",
+          "elapsed": 0.5332999999999999,
+          "duration": 4,
+          "visible": 11,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.417575414234084, 3.533169295930233, 26.95756896695645],
+          "height": 820
+        },
+        {
+          "time": 600,
+          "phase": "outbound",
+          "elapsed": 0.5499,
+          "duration": 4,
+          "visible": 11,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.4376478424481896, 3.558126083511034, 26.968115818603344],
+          "height": 820
+        },
+        {
+          "time": 626,
+          "phase": "outbound",
+          "elapsed": 0.5832999999999999,
+          "duration": 4,
+          "visible": 11,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.4819269834938047, 3.6130946783037463, 26.9912816146146],
+          "height": 820
+        },
+        {
+          "time": 650,
+          "phase": "outbound",
+          "elapsed": 0.5999000000000001,
+          "duration": 4,
+          "visible": 11,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.5059528277595025, 3.642871764506703, 27.00379383673743],
+          "height": 820
+        },
+        {
+          "time": 676,
+          "phase": "outbound",
+          "elapsed": 0.6332000000000001,
+          "duration": 4,
+          "visible": 12,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.5584051433221946, 3.70776145223191, 27.030970061952445],
+          "height": 820
+        },
+        {
+          "time": 702,
+          "phase": "outbound",
+          "elapsed": 0.6499000000000001,
+          "duration": 4,
+          "visible": 12,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.586936053388203, 3.7429897207493057, 27.045671984575847],
+          "height": 820
+        },
+        {
+          "time": 726,
+          "phase": "outbound",
+          "elapsed": 0.6834000000000001,
+          "duration": 4,
+          "visible": 13,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.648876236879111, 3.8193067119134576, 27.07739589199434],
+          "height": 820
+        },
+        {
+          "time": 751,
+          "phase": "outbound",
+          "elapsed": 0.7001,
+          "duration": 4,
+          "visible": 13,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.6821917966711073, 3.860263433417766, 27.09434990317298],
+          "height": 820
+        },
+        {
+          "time": 777,
+          "phase": "outbound",
+          "elapsed": 0.7334000000000002,
+          "duration": 4,
+          "visible": 14,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [
+            2.7536955365383156, 3.9479528204813246, 27.130481184316213
+          ],
+          "height": 820
+        },
+        {
+          "time": 801,
+          "phase": "outbound",
+          "elapsed": 0.7500000000000001,
+          "duration": 4,
+          "visible": 15,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.791956571159629, 3.9947556446538055, 27.14967181009499],
+          "height": 820
+        },
+        {
+          "time": 826,
+          "phase": "outbound",
+          "elapsed": 0.7833000000000001,
+          "duration": 4,
+          "visible": 16,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.874196119919171, 4.095077619931213, 27.190585889717745],
+          "height": 820
+        },
+        {
+          "time": 851,
+          "phase": "outbound",
+          "elapsed": 0.8000000000000002,
+          "duration": 4,
+          "visible": 16,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [2.9182944529780794, 4.148717561265459, 27.21233758848298],
+          "height": 820
+        },
+        {
+          "time": 876,
+          "phase": "outbound",
+          "elapsed": 0.8333000000000002,
+          "duration": 4,
+          "visible": 17,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [3.0121694529189487, 4.262549890754721, 27.2582100893125],
+          "height": 820
+        },
+        {
+          "time": 901,
+          "phase": "outbound",
+          "elapsed": 0.8500000000000002,
+          "duration": 4,
+          "visible": 17,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [3.062330417722851, 4.32317926150363, 27.28248224049566],
+          "height": 820
+        },
+        {
+          "time": 925,
+          "phase": "outbound",
+          "elapsed": 0.8832000000000002,
+          "duration": 4,
+          "visible": 18,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [3.1684267861014432, 4.450975436004478, 27.333276433980913],
+          "height": 820
+        },
+        {
+          "time": 951,
+          "phase": "outbound",
+          "elapsed": 0.8999000000000003,
+          "duration": 4,
+          "visible": 18,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [3.2251082321480307, 4.519006907349342, 27.360112261740518],
+          "height": 820
+        },
+        {
+          "time": 976,
+          "phase": "outbound",
+          "elapsed": 0.9334000000000002,
+          "duration": 4,
+          "visible": 19,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [3.3457745259004303, 4.66328138591546, 27.416550881201506],
+          "height": 820
+        },
+        {
+          "time": 1002,
+          "phase": "outbound",
+          "elapsed": 0.9499000000000002,
+          "duration": 4,
+          "visible": 20,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [3.4087348410835974, 4.738264481083355, 27.445628739114312],
+          "height": 820
+        },
+        {
+          "time": 1026,
+          "phase": "outbound",
+          "elapsed": 0.9833000000000001,
+          "duration": 4,
+          "visible": 21,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [3.5435966435797828, 4.898210171851694, 27.507068390826145],
+          "height": 820
+        },
+        {
+          "time": 1051,
+          "phase": "outbound",
+          "elapsed": 0.9999000000000002,
+          "duration": 4,
+          "visible": 21,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [
+            3.6144338008954557, 4.9818629854009036, 27.538882229954545
+          ],
+          "height": 820
+        },
+        {
+          "time": 1076,
+          "phase": "outbound",
+          "elapsed": 1.0334,
+          "duration": 4,
+          "visible": 22,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [3.76539848644022, 5.159329458003329, 27.60564219574255],
+          "height": 820
+        },
+        {
+          "time": 1102,
+          "phase": "outbound",
+          "elapsed": 1.0500999999999998,
+          "duration": 4,
+          "visible": 22,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [3.844782044651347, 5.25221370735447, 27.6401846891599],
+          "height": 820
+        },
+        {
+          "time": 1126,
+          "phase": "outbound",
+          "elapsed": 1.0833,
+          "duration": 4,
+          "visible": 23,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [4.011070688806589, 5.44583228120496, 27.711300656544818],
+          "height": 820
+        },
+        {
+          "time": 1151,
+          "phase": "outbound",
+          "elapsed": 1.0999999999999999,
+          "duration": 4,
+          "visible": 23,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [4.099108447159102, 5.547827793775239, 27.74827755772233],
+          "height": 820
+        },
+        {
+          "time": 1176,
+          "phase": "outbound",
+          "elapsed": 1.1334,
+          "duration": 4,
+          "visible": 24,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [4.284341797628473, 5.761299912089411, 27.82457404813497],
+          "height": 820
+        },
+        {
+          "time": 1201,
+          "phase": "outbound",
+          "elapsed": 1.1500999999999997,
+          "duration": 4,
+          "visible": 25,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [4.3816762459708, 5.872871994817052, 27.86385720491295],
+          "height": 820
+        },
+        {
+          "time": 1226,
+          "phase": "outbound",
+          "elapsed": 1.1833999999999998,
+          "duration": 4,
+          "visible": 26,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [4.585504784401552, 6.105209123573426, 27.94434087416116],
+          "height": 820
+        },
+        {
+          "time": 1251,
+          "phase": "outbound",
+          "elapsed": 1.2001999999999997,
+          "duration": 4,
+          "visible": 26,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [4.693409159796117, 6.227505199184686, 27.985983908771743],
+          "height": 820
+        },
+        {
+          "time": 1276,
+          "phase": "outbound",
+          "elapsed": 1.2333999999999996,
+          "duration": 4,
+          "visible": 27,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [4.917022600154696, 6.479442639986964, 28.07018793148174],
+          "height": 820
+        },
+        {
+          "time": 1303,
+          "phase": "outbound",
+          "elapsed": 1.2499999999999996,
+          "duration": 4,
+          "visible": 27,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [5.03414675058221, 6.610613451162475, 28.11317821605042],
+          "height": 820
+        },
+        {
+          "time": 1326,
+          "phase": "outbound",
+          "elapsed": 1.2834999999999994,
+          "duration": 4,
+          "visible": 28,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [5.281700791366583, 6.886125901396646, 28.20156035856664],
+          "height": 820
+        },
+        {
+          "time": 1350,
+          "phase": "outbound",
+          "elapsed": 1.3000999999999994,
+          "duration": 4,
+          "visible": 28,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [5.410073578318449, 7.0280950279731, 28.246081568934173],
+          "height": 820
+        },
+        {
+          "time": 1377,
+          "phase": "outbound",
+          "elapsed": 1.3332999999999995,
+          "duration": 4,
+          "visible": 29,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [5.678565114845199, 7.323096409236628, 28.336348758644775],
+          "height": 820
+        },
+        {
+          "time": 1401,
+          "phase": "outbound",
+          "elapsed": 1.3500999999999994,
+          "duration": 4,
+          "visible": 30,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [5.82056442050141, 7.478090478788327, 28.382550378326403],
+          "height": 820
+        },
+        {
+          "time": 1426,
+          "phase": "outbound",
+          "elapsed": 1.3833999999999995,
+          "duration": 4,
+          "visible": 31,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [6.1146417758280025, 7.796901383571307, 28.474901780651926],
+          "height": 820
+        },
+        {
+          "time": 1451,
+          "phase": "outbound",
+          "elapsed": 1.3999999999999995,
+          "duration": 4,
+          "visible": 31,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [6.267675447195812, 7.961677315797605, 28.52120587690318],
+          "height": 820
+        },
+        {
+          "time": 1476,
+          "phase": "outbound",
+          "elapsed": 1.4331999999999994,
+          "duration": 4,
+          "visible": 32,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [6.587029417905386, 8.303138799079182, 28.614029483134445],
+          "height": 820
+        },
+        {
+          "time": 1501,
+          "phase": "outbound",
+          "elapsed": 1.4498999999999993,
+          "duration": 4,
+          "visible": 32,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [6.754545413154268, 8.480995419166387, 28.660689853331075],
+          "height": 820
+        },
+        {
+          "time": 1527,
+          "phase": "outbound",
+          "elapsed": 1.4832999999999994,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [7.103847764539101, 8.849190416880898, 28.75356659173273],
+          "height": 820
+        },
+        {
+          "time": 1551,
+          "phase": "outbound",
+          "elapsed": 1.500099999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [7.286926385184149, 9.04077746119684, 28.799891729644088],
+          "height": 820
+        },
+        {
+          "time": 1576,
+          "phase": "outbound",
+          "elapsed": 1.5332999999999994,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [7.663724837052624, 9.43219842675981, 28.890223974276967],
+          "height": 820
+        },
+        {
+          "time": 1602,
+          "phase": "outbound",
+          "elapsed": 1.5499999999999992,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [7.860980387133912, 9.635612772550374, 28.934859413271717],
+          "height": 820
+        },
+        {
+          "time": 1626,
+          "phase": "outbound",
+          "elapsed": 1.5832999999999995,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [8.270218583670456, 10.054496834431895, 29.021741250171388],
+          "height": 820
+        },
+        {
+          "time": 1652,
+          "phase": "outbound",
+          "elapsed": 1.5999999999999992,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [8.483624876426934, 10.271319604385177, 29.06402468532087],
+          "height": 820
+        },
+        {
+          "time": 1677,
+          "phase": "outbound",
+          "elapsed": 1.6332999999999995,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [8.925943111528287, 10.71736687637381, 29.145171577324177],
+          "height": 820
+        },
+        {
+          "time": 1702,
+          "phase": "outbound",
+          "elapsed": 1.6499999999999992,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 27,
+          "pending": 27,
+          "camera": [9.156379278056052, 10.94802600347301, 29.184021081362037],
+          "height": 820
+        },
+        {
+          "time": 1728,
+          "phase": "outbound",
+          "elapsed": 1.6833999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [9.635002188433308, 11.423542028185906, 29.257330125545916],
+          "height": 820
+        },
+        {
+          "time": 1751,
+          "phase": "outbound",
+          "elapsed": 1.6999999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [9.881878794797649, 11.66701320629054, 29.291294783899712],
+          "height": 820
+        },
+        {
+          "time": 1777,
+          "phase": "outbound",
+          "elapsed": 1.7332999999999996,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            10.395613564146858, 12.169946808973762, 29.353701512654577
+          ],
+          "height": 820
+        },
+        {
+          "time": 1801,
+          "phase": "outbound",
+          "elapsed": 1.7499999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            10.662736238972387, 12.429562449314414, 29.381786112995655
+          ],
+          "height": 820
+        },
+        {
+          "time": 1826,
+          "phase": "outbound",
+          "elapsed": 1.783199999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            11.213062554268094, 12.960589449747978, 29.430363063488166
+          ],
+          "height": 820
+        },
+        {
+          "time": 1852,
+          "phase": "outbound",
+          "elapsed": 1.7999999999999992,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [11.501500704841401, 13.23695496902129, 29.450884099700804],
+          "height": 820
+        },
+        {
+          "time": 1876,
+          "phase": "outbound",
+          "elapsed": 1.833199999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            12.091631998610055, 13.798465721701433, 29.482417230133915
+          ],
+          "height": 820
+        },
+        {
+          "time": 1900,
+          "phase": "outbound",
+          "elapsed": 1.8498999999999994,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [12.39874738625562, 14.088718083961085, 29.49332534032301],
+          "height": 820
+        },
+        {
+          "time": 1927,
+          "phase": "outbound",
+          "elapsed": 1.883699999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            13.041792690647467, 14.692407323193613, 29.504099575052496
+          ],
+          "height": 820
+        },
+        {
+          "time": 1952,
+          "phase": "outbound",
+          "elapsed": 1.900199999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            13.366292562329901, 14.995095384844836, 29.503386998056698
+          ],
+          "height": 820
+        },
+        {
+          "time": 1977,
+          "phase": "outbound",
+          "elapsed": 1.9332999999999994,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            14.038553031546801, 15.618340690384542, 29.488905573150536
+          ],
+          "height": 820
+        },
+        {
+          "time": 2001,
+          "phase": "outbound",
+          "elapsed": 1.949999999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            14.388645677700906, 15.941004553006536, 29.474461810131988
+          ],
+          "height": 820
+        },
+        {
+          "time": 2026,
+          "phase": "outbound",
+          "elapsed": 1.983199999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [15.106669688311719, 16.599071008549398, 29.43014895379744],
+          "height": 820
+        },
+        {
+          "time": 2051,
+          "phase": "outbound",
+          "elapsed": 1.9998999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            15.479026300859763, 16.938532668346575, 29.399427016032398
+          ],
+          "height": 820
+        },
+        {
+          "time": 2077,
+          "phase": "outbound",
+          "elapsed": 2.0332999999999997,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            16.221263782190608, 17.611922417756293, 29.322477161579386
+          ],
+          "height": 820
+        },
+        {
+          "time": 2100,
+          "phase": "outbound",
+          "elapsed": 2.0499999999999994,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [16.584650307978663, 17.940160535417498, 29.27719027076112],
+          "height": 820
+        },
+        {
+          "time": 2127,
+          "phase": "outbound",
+          "elapsed": 2.0831999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [17.291428206804966, 18.57619620149348, 29.174790832392084],
+          "height": 820
+        },
+        {
+          "time": 2151,
+          "phase": "outbound",
+          "elapsed": 2.0998999999999994,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [17.638966784496777, 18.88792010118537, 29.117500908468262],
+          "height": 820
+        },
+        {
+          "time": 2176,
+          "phase": "outbound",
+          "elapsed": 2.1332999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            18.317798570253068, 19.495120805214853, 28.992385267045478
+          ],
+          "height": 820
+        },
+        {
+          "time": 2201,
+          "phase": "outbound",
+          "elapsed": 2.1498999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [18.64705589376361, 19.78893897898645, 28.92539038436192],
+          "height": 820
+        },
+        {
+          "time": 2226,
+          "phase": "outbound",
+          "elapsed": 2.183199999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [19.291162178967276, 20.36263732709176, 28.782367431630757],
+          "height": 820
+        },
+        {
+          "time": 2252,
+          "phase": "outbound",
+          "elapsed": 2.199899999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [19.605913729325895, 20.642549544678268, 28.70669451820352],
+          "height": 820
+        },
+        {
+          "time": 2276,
+          "phase": "outbound",
+          "elapsed": 2.2331999999999987,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [20.217006030785125, 21.185384758728844, 28.54886984437735],
+          "height": 820
+        },
+        {
+          "time": 2301,
+          "phase": "outbound",
+          "elapsed": 2.249999999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [20.516950727817818, 21.45160263910963, 28.466108362688956],
+          "height": 820
+        },
+        {
+          "time": 2326,
+          "phase": "outbound",
+          "elapsed": 2.283199999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [21.09325719831058, 21.962858418226773, 28.297231354375363],
+          "height": 820
+        },
+        {
+          "time": 2350,
+          "phase": "outbound",
+          "elapsed": 2.2999999999999994,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [21.37658976060316, 22.214151882133507, 28.209417626964385],
+          "height": 820
+        },
+        {
+          "time": 2377,
+          "phase": "outbound",
+          "elapsed": 2.3332999999999995,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [21.92182316425266, 22.697763280510962, 28.031472570576835],
+          "height": 820
+        },
+        {
+          "time": 2401,
+          "phase": "outbound",
+          "elapsed": 2.3498999999999994,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            22.185541801554784, 22.931743733864643, 27.941140642430586
+          ],
+          "height": 820
+        },
+        {
+          "time": 2426,
+          "phase": "outbound",
+          "elapsed": 2.3832999999999998,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [22.700017187609692, 23.38844896636111, 27.756835342591565],
+          "height": 820
+        },
+        {
+          "time": 2451,
+          "phase": "outbound",
+          "elapsed": 2.3999999999999995,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [22.94923815613898, 23.60984548403887, 27.66368059948712],
+          "height": 820
+        },
+        {
+          "time": 2476,
+          "phase": "outbound",
+          "elapsed": 2.4332999999999996,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [23.430426198475878, 24.037707151975013, 27.47658873520934],
+          "height": 820
+        },
+        {
+          "time": 2501,
+          "phase": "outbound",
+          "elapsed": 2.4499999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [23.663922640303248, 24.245552315873674, 27.38233807563009],
+          "height": 820
+        },
+        {
+          "time": 2527,
+          "phase": "outbound",
+          "elapsed": 2.4832999999999994,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [24.11415033982442, 24.64681907382934, 27.194140054799437],
+          "height": 820
+        },
+        {
+          "time": 2552,
+          "phase": "outbound",
+          "elapsed": 2.499999999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [24.332330379696113, 24.841540816932095, 27.09984847395294],
+          "height": 820
+        },
+        {
+          "time": 2576,
+          "phase": "outbound",
+          "elapsed": 2.533199999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            24.751231404545027, 25.215963410311943, 26.913087031418655
+          ],
+          "height": 820
+        },
+        {
+          "time": 2601,
+          "phase": "outbound",
+          "elapsed": 2.5497999999999994,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [24.953378782435, 25.396936886676535, 26.820243960682948],
+          "height": 820
+        },
+        {
+          "time": 2626,
+          "phase": "outbound",
+          "elapsed": 2.5832999999999995,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [25.346776786353153, 25.74972907216589, 26.634428055053345],
+          "height": 820
+        },
+        {
+          "time": 2651,
+          "phase": "outbound",
+          "elapsed": 2.599999999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [25.535735263158006, 25.919487772626447, 26.5427410940445],
+          "height": 820
+        },
+        {
+          "time": 2676,
+          "phase": "outbound",
+          "elapsed": 2.6332999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [25.898604904315892, 26.24608962160142, 26.362183042630413],
+          "height": 820
+        },
+        {
+          "time": 2702,
+          "phase": "outbound",
+          "elapsed": 2.6498999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [26.072689734920285, 26.403074609635723, 26.27344700767704],
+          "height": 820
+        },
+        {
+          "time": 2726,
+          "phase": "outbound",
+          "elapsed": 2.683299999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [26.40953965367264, 26.707428853184, 26.09780491048995],
+          "height": 820
+        },
+        {
+          "time": 2751,
+          "phase": "outbound",
+          "elapsed": 2.699899999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [26.57040952957218, 26.853070060450953, 26.01207264665113],
+          "height": 820
+        },
+        {
+          "time": 2777,
+          "phase": "outbound",
+          "elapsed": 2.733199999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [26.880320357873696, 27.1342056260942, 25.843499593527014],
+          "height": 820
+        },
+        {
+          "time": 2801,
+          "phase": "outbound",
+          "elapsed": 2.7498999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [27.029434820258686, 27.26975080040014, 25.76077415985653],
+          "height": 820
+        },
+        {
+          "time": 2826,
+          "phase": "outbound",
+          "elapsed": 2.783299999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            27.315340778904794, 27.530168308696936, 25.599189072949898
+          ],
+          "height": 820
+        },
+        {
+          "time": 2851,
+          "phase": "outbound",
+          "elapsed": 2.800099999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [27.453066703527256, 27.655874050384462, 25.5199442933815],
+          "height": 820
+        },
+        {
+          "time": 2878,
+          "phase": "outbound",
+          "elapsed": 2.8331999999999993,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [27.71281787104251, 27.893433343843164, 25.36797186752303],
+          "height": 820
+        },
+        {
+          "time": 2901,
+          "phase": "outbound",
+          "elapsed": 2.850199999999999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            27.840371423402296, 28.010326239100202, 25.292129313279226
+          ],
+          "height": 820
+        },
+        {
+          "time": 2926,
+          "phase": "outbound",
+          "elapsed": 2.8832999999999998,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [28.077640726658952, 28.228197330517965, 25.14889882176853],
+          "height": 820
+        },
+        {
+          "time": 2952,
+          "phase": "outbound",
+          "elapsed": 2.8998999999999997,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [28.191242974364485, 28.332717119818007, 25.07932232344779],
+          "height": 820
+        },
+        {
+          "time": 2976,
+          "phase": "outbound",
+          "elapsed": 2.9333,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [28.409215547542665, 28.533648519985654, 24.94399334484076],
+          "height": 820
+        },
+        {
+          "time": 3001,
+          "phase": "outbound",
+          "elapsed": 2.9501,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [28.513626832575117, 28.630081431645422, 24.87831010483352],
+          "height": 820
+        },
+        {
+          "time": 3026,
+          "phase": "outbound",
+          "elapsed": 2.9833000000000003,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [28.709980980097903, 28.81176581046033, 24.753265338509618],
+          "height": 820
+        },
+        {
+          "time": 3051,
+          "phase": "outbound",
+          "elapsed": 2.9999000000000002,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [28.80330811948798, 28.898277113838418, 24.693129628575928],
+          "height": 820
+        },
+        {
+          "time": 3077,
+          "phase": "outbound",
+          "elapsed": 3.0332,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [28.981077993327354, 29.063351458123044, 24.57732038632599],
+          "height": 820
+        },
+        {
+          "time": 3103,
+          "phase": "outbound",
+          "elapsed": 3.0501,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [29.06659744808537, 29.142900607340714, 24.521014247118206],
+          "height": 820
+        },
+        {
+          "time": 3126,
+          "phase": "outbound",
+          "elapsed": 3.0833000000000004,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            29.225683701939474, 29.291123640337297, 24.415236472044644
+          ],
+          "height": 820
+        },
+        {
+          "time": 3151,
+          "phase": "outbound",
+          "elapsed": 3.0998000000000006,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [29.30046814503801, 29.360912680830502, 24.365043432355517],
+          "height": 820
+        },
+        {
+          "time": 3176,
+          "phase": "outbound",
+          "elapsed": 3.1333000000000006,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            29.443856655235134, 29.494926652692897, 24.267961467673366
+          ],
+          "height": 820
+        },
+        {
+          "time": 3201,
+          "phase": "outbound",
+          "elapsed": 3.1499000000000006,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [29.51083105333666, 29.55761550601494, 24.22223376411876],
+          "height": 820
+        },
+        {
+          "time": 3226,
+          "phase": "outbound",
+          "elapsed": 3.1832000000000003,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [29.637323382243544, 29.67617883678188, 24.135200606281817],
+          "height": 820
+        },
+        {
+          "time": 3252,
+          "phase": "outbound",
+          "elapsed": 3.2001000000000004,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            29.697622769915323, 29.732775482698777, 24.093402112564945
+          ],
+          "height": 820
+        },
+        {
+          "time": 3276,
+          "phase": "outbound",
+          "elapsed": 3.2334000000000005,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [29.809044387233715, 29.83748827445673, 24.015637567134696],
+          "height": 820
+        },
+        {
+          "time": 3300,
+          "phase": "outbound",
+          "elapsed": 3.2500000000000004,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [29.861036169642865, 29.886409443770262, 23.97911488275024],
+          "height": 820
+        },
+        {
+          "time": 3326,
+          "phase": "outbound",
+          "elapsed": 3.2833000000000006,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [29.95848475973455, 29.978206917148064, 23.910253278222772],
+          "height": 820
+        },
+        {
+          "time": 3351,
+          "phase": "outbound",
+          "elapsed": 3.2999000000000005,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.003758211933736, 30.020901655006305, 23.87807970433621],
+          "height": 820
+        },
+        {
+          "time": 3376,
+          "phase": "outbound",
+          "elapsed": 3.3333000000000004,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.088462062838808, 30.1008615360181, 23.817574471536773],
+          "height": 820
+        },
+        {
+          "time": 3401,
+          "phase": "outbound",
+          "elapsed": 3.35,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.127722233319826, 30.137958872020647, 23.78939259011337],
+          "height": 820
+        },
+        {
+          "time": 3426,
+          "phase": "outbound",
+          "elapsed": 3.3833,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.20012363563121, 30.206432147708384, 23.73719131836871],
+          "height": 820
+        },
+        {
+          "time": 3452,
+          "phase": "outbound",
+          "elapsed": 3.4,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.23358931062237, 30.23810885661269, 23.712961583024917],
+          "height": 820
+        },
+        {
+          "time": 3476,
+          "phase": "outbound",
+          "elapsed": 3.4333,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.29491444976718, 30.296199988695577, 23.668394684887627],
+          "height": 820
+        },
+        {
+          "time": 3501,
+          "phase": "outbound",
+          "elapsed": 3.4501,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            30.323227099571533, 30.323039004913035, 23.647746135556396
+          ],
+          "height": 820
+        },
+        {
+          "time": 3526,
+          "phase": "outbound",
+          "elapsed": 3.4833000000000003,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            30.374259272396145, 30.371446295456337, 23.610411509710353
+          ],
+          "height": 820
+        },
+        {
+          "time": 3550,
+          "phase": "outbound",
+          "elapsed": 3.4999,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            30.397428765646954, 30.393437399839677, 23.593411308512223
+          ],
+          "height": 820
+        },
+        {
+          "time": 3576,
+          "phase": "outbound",
+          "elapsed": 3.5333000000000006,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.43956519577611, 30.433452304467323, 23.562414802815688],
+          "height": 820
+        },
+        {
+          "time": 3601,
+          "phase": "outbound",
+          "elapsed": 3.5498000000000007,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.458272944141623, 30.45122707740422, 23.548619949771542],
+          "height": 820
+        },
+        {
+          "time": 3626,
+          "phase": "outbound",
+          "elapsed": 3.5832000000000006,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.492130572120047, 30.483410241855978, 23.52360203967101],
+          "height": 820
+        },
+        {
+          "time": 3651,
+          "phase": "outbound",
+          "elapsed": 3.600000000000001,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.50723421804207, 30.497772782548573, 23.512420200458653],
+          "height": 820
+        },
+        {
+          "time": 3676,
+          "phase": "outbound",
+          "elapsed": 3.633300000000001,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.533615579964035, 30.522868375146587, 23.49285709526524],
+          "height": 820
+        },
+        {
+          "time": 3701,
+          "phase": "outbound",
+          "elapsed": 3.6499000000000006,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.545101685044255, 30.53379814478138, 23.48432687103766],
+          "height": 820
+        },
+        {
+          "time": 3726,
+          "phase": "outbound",
+          "elapsed": 3.6832000000000007,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.56505442923766, 30.552789490897204, 23.469490505592574],
+          "height": 820
+        },
+        {
+          "time": 3750,
+          "phase": "outbound",
+          "elapsed": 3.700000000000001,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.57365796589486, 30.560980448730334, 23.463085938915867],
+          "height": 820
+        },
+        {
+          "time": 3777,
+          "phase": "outbound",
+          "elapsed": 3.733300000000001,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.588063766880296, 30.574698092546633, 23.45235239261841],
+          "height": 820
+        },
+        {
+          "time": 3800,
+          "phase": "outbound",
+          "elapsed": 3.7499000000000007,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            30.594030199651066, 30.580380491566977, 23.447903329691787
+          ],
+          "height": 820
+        },
+        {
+          "time": 3826,
+          "phase": "outbound",
+          "elapsed": 3.783200000000001,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.603811173620862, 30.58969708267402, 23.44060531256788],
+          "height": 820
+        },
+        {
+          "time": 3851,
+          "phase": "outbound",
+          "elapsed": 3.799800000000001,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.607695480774947, 30.59339739889183, 23.43770550134569],
+          "height": 820
+        },
+        {
+          "time": 3876,
+          "phase": "outbound",
+          "elapsed": 3.8333000000000013,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.61377700845235, 30.59919134848073, 23.43316358580791],
+          "height": 820
+        },
+        {
+          "time": 3901,
+          "phase": "outbound",
+          "elapsed": 3.850000000000001,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            30.616031514757317, 30.601339397745036, 23.431479282972553
+          ],
+          "height": 820
+        },
+        {
+          "time": 3926,
+          "phase": "outbound",
+          "elapsed": 3.883200000000001,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            30.619225714073146, 30.604382908999703, 23.429092440327086
+          ],
+          "height": 820
+        },
+        {
+          "time": 3951,
+          "phase": "outbound",
+          "elapsed": 3.8999000000000006,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            30.620284220731588, 30.605391516515226, 23.428301346503094
+          ],
+          "height": 820
+        },
+        {
+          "time": 3977,
+          "phase": "outbound",
+          "elapsed": 3.933300000000001,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            30.621550404380457, 30.606598034762115, 23.427354955072104
+          ],
+          "height": 820
+        },
+        {
+          "time": 4001,
+          "phase": "outbound",
+          "elapsed": 3.9499000000000004,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.62185694947638, 30.60689013867656, 23.427125818016417],
+          "height": 820
+        },
+        {
+          "time": 4026,
+          "phase": "outbound",
+          "elapsed": 3.9832000000000005,
+          "duration": 4,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [
+            30.622073891598145, 30.607096861687495, 23.426963654266547
+          ],
+          "height": 820
+        },
+        {
+          "time": 4051,
+          "phase": "elevated",
+          "elapsed": null,
+          "duration": null,
+          "visible": 33,
+          "wrappers": 0,
+          "pending": 0,
+          "camera": [30.6220823922084, 30.60710496189, 23.4269573000231],
+          "height": 820
+        }
+      ],
+      "final": {
+        "phase": "elevated",
+        "visible": 33,
+        "wrappers": 0,
+        "frames": 242,
+        "raf": null
+      },
+      "childrenUnchanged": true,
+      "nodeCount": 210
+    },
+    "fullReturnObserved": [
+      {
+        "time": 1,
+        "phase": "elevated",
+        "camera": [30.6220823922084, 30.60710496189, 23.4269573000231],
+        "target": [1.1276240260174646, 2.18117328073665, 4.8200001437217],
+        "duration": null,
+        "elapsed": null,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 241,
+        "raf": false,
+        "heroHeight": 820
+      },
+      {
+        "time": 115,
+        "phase": "returning",
+        "camera": [30.620265710732845, 30.60535812857066, 23.428350887700603],
+        "target": [1.1276932209522739, 2.1811220351363483, 4.820017442455402],
+        "duration": 4,
+        "elapsed": 0.10074599999999918,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 248,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 215,
+        "phase": "returning",
+        "camera": [30.607708068616354, 30.593284939954362, 23.43797833338837],
+        "target": [1.1281714597687642, 2.1807678526328726, 4.820137002159525],
+        "duration": 4,
+        "elapsed": 0.20074599999999918,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 254,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 316,
+        "phase": "returning",
+        "camera": [30.565273164858993, 30.552508170929222, 23.470439199698646],
+        "target": [1.1297866945156605, 2.1795716137107473, 4.820540810846249],
+        "duration": 4,
+        "elapsed": 0.317346000000005,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 261,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 417,
+        "phase": "returning",
+        "camera": [30.49278121015685, 30.482923491651846, 23.52563515906668],
+        "target": [1.1325430578692937, 2.1775302577199405, 4.821229901684657],
+        "duration": 4,
+        "elapsed": 0.4173460000000051,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 267,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 521,
+        "phase": "returning",
+        "camera": [30.37537609094135, 30.370424104791994, 23.61434396355812],
+        "target": [1.13699934322502, 2.1742299436319352, 4.822343973023589],
+        "duration": 4,
+        "elapsed": 0.5174459999999964,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 273,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 632,
+        "phase": "returning",
+        "camera": [30.202258770979682, 30.204976349251282, 23.743617683521318],
+        "target": [1.1435530003669236, 2.169376321104018, 4.823982387309065],
+        "duration": 4,
+        "elapsed": 0.6174459999999964,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 279,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 732,
+        "phase": "returning",
+        "camera": [29.961768584916577, 29.975977214228188, 23.920214524110225],
+        "target": [1.1526240319552887, 2.162658337188254, 4.8262501452061555],
+        "duration": 4,
+        "elapsed": 0.7175460000000021,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 285,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 833,
+        "phase": "returning",
+        "camera": [29.581691856195484, 29.615958025990626, 24.192362617161177],
+        "target": [1.1668849828911565, 2.152096711635816, 4.829815382940122],
+        "duration": 4,
+        "elapsed": 0.8340460000000021,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 292,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 933,
+        "phase": "returning",
+        "camera": [29.155646006658124, 29.214997293079477, 24.48754717862831],
+        "target": [1.182767695607797, 2.1403340132558495, 4.833786061119283],
+        "duration": 4,
+        "elapsed": 0.934046000000002,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 298,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 1033,
+        "phase": "returning",
+        "camera": [28.624080167027465, 28.718297855682263, 24.841624056786465],
+        "target": [1.202442775542483, 2.1257626969446903, 4.838704831102954],
+        "duration": 4,
+        "elapsed": 1.0340460000000018,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 304,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 1133,
+        "phase": "returning",
+        "camera": [27.97384435765079, 28.11560982198572, 25.25399133985612],
+        "target": [1.2263162377328078, 2.1080820689537236, 4.844673196650535],
+        "duration": 4,
+        "elapsed": 1.1340460000000014,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 310,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 1238,
+        "phase": "returning",
+        "camera": [27.190512918191203, 27.395902774534296, 25.721570616381516],
+        "target": [1.2548250151181128, 2.086968537811553, 4.8518003909968614],
+        "duration": 4,
+        "elapsed": 1.2341459999999924,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 316,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 1348,
+        "phase": "returning",
+        "camera": [26.261830352362857, 26.550356254348557, 26.236284372587537],
+        "target": [1.2883185005553546, 2.0621633440187255, 4.8601737623561725],
+        "duration": 4,
+        "elapsed": 1.3341459999999923,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 322,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 1450,
+        "phase": "returning",
+        "camera": [24.973892662480473, 25.388892233935113, 26.88229081846254],
+        "target": [1.3343259966834833, 2.0280903043669003, 4.871675636388204],
+        "duration": 4,
+        "elapsed": 1.450945999999995,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 329,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 1565,
+        "phase": "returning",
+        "camera": [23.685106505359016, 24.236362633211826, 27.453604936958577],
+        "target": [1.3799795857838628, 1.9942793673984285, 4.883089033663299],
+        "duration": 4,
+        "elapsed": 1.5507459999999975,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 335,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 1667,
+        "phase": "returning",
+        "camera": [21.94048889992881, 22.68571306138104, 28.113169065318605],
+        "target": [1.441403360363375, 1.9487890694482015, 4.898444977308177],
+        "duration": 4,
+        "elapsed": 1.667546,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 342,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 1772,
+        "phase": "returning",
+        "camera": [20.236535731084878, 21.175046310255006, 28.6363725969235],
+        "target": [1.5012433497920474, 1.9044717189258076, 4.913404974665346],
+        "duration": 4,
+        "elapsed": 1.767445999999994,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 348,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 1882,
+        "phase": "returning",
+        "camera": [18.331200023400513, 19.481793243070207, 29.084756725075398],
+        "target": [1.5683158828738002, 1.8547979641777053, 4.930173107935784],
+        "duration": 4,
+        "elapsed": 1.8674459999999937,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 354,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 1983,
+        "phase": "returning",
+        "camera": [15.861124854069683, 17.265034123118742, 29.45603448075543],
+        "target": [1.6561253499219974, 1.7897664866070402, 4.952125474697833],
+        "duration": 4,
+        "elapsed": 1.9840459999999993,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 361,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 2098,
+        "phase": "returning",
+        "camera": [13.699628238031007, 15.28904600936644, 29.587146962355096],
+        "target": [1.7343974822436907, 1.731798335921278, 4.971693507778256],
+        "duration": 4,
+        "elapsed": 2.0840459999999994,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 367,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 2200,
+        "phase": "returning",
+        "camera": [11.499265739025086, 13.22457290286389, 29.531214765376422],
+        "target": [1.8161746503562524, 1.671234364259936, 4.992137799806397],
+        "duration": 4,
+        "elapsed": 2.2007459999999965,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 374,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 2300,
+        "phase": "returning",
+        "camera": [9.87702384710902, 11.655968978297917, 29.36282811191248],
+        "target": [1.8783096263155998, 1.6252173522988427, 5.007671543796233],
+        "duration": 4,
+        "elapsed": 2.300745999999996,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 380,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 2415,
+        "phase": "returning",
+        "camera": [8.47702090969431, 10.261536750364407, 29.126161787733132],
+        "target": [1.93354537550803, 1.5843098908888469, 5.021480481094341],
+        "duration": 4,
+        "elapsed": 2.400745999999996,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 386,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 2516,
+        "phase": "returning",
+        "camera": [7.097298069914513, 8.841909423410264, 28.805069891940498],
+        "target": [1.9897791439247037, 1.542663298870521, 5.0355389231985095],
+        "duration": 4,
+        "elapsed": 2.5173460000000016,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 393,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 2618,
+        "phase": "returning",
+        "camera": [6.105953051747591, 7.788608805337947, 28.51699362915171],
+        "target": [2.031502110160427, 1.5117633716286125, 5.04596966475744],
+        "duration": 4,
+        "elapsed": 2.6174459999999926,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 399,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 2732,
+        "phase": "returning",
+        "camera": [5.27273815418677, 6.878144998378666, 28.235296485453755],
+        "target": [2.0675670758737597, 1.4850537458022073, 5.054985906185773],
+        "duration": 4,
+        "elapsed": 2.7174459999999923,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 405,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 2833,
+        "phase": "returning",
+        "camera": [4.475013968053853, 5.981833299201362, 27.929585798239074],
+        "target": [2.103071453370376, 1.45875929024465, 5.0638620005599275],
+        "duration": 4,
+        "elapsed": 2.8340459999999976,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 412,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 2948,
+        "phase": "returning",
+        "camera": [3.9207724815337484, 5.343169375227298, 27.69521196289959],
+        "target": [2.1283699796208513, 1.4400232632792926, 5.070186632122546],
+        "duration": 4,
+        "elapsed": 2.9340459999999977,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 418,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 3050,
+        "phase": "returning",
+        "camera": [3.4045353319578897, 4.735279220859802, 27.45979414524877],
+        "target": [2.1524495063490527, 1.4221900243931282, 5.076206513804596],
+        "duration": 4,
+        "elapsed": 3.0507459999999944,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 425,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 3150,
+        "phase": "returning",
+        "camera": [3.0589994101020146, 4.320789087329043, 27.292572931032478],
+        "target": [2.1688681408296766, 1.4100304236591712, 5.080311172424752],
+        "duration": 4,
+        "elapsed": 3.150645999999988,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 431,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 3265,
+        "phase": "returning",
+        "camera": [2.7894287153890356, 3.992894971015925, 27.156531953555486],
+        "target": [2.1818565649406034, 1.4004112283759975, 5.083558278452484],
+        "duration": 4,
+        "elapsed": 3.2506459999999886,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 436,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 3366,
+        "phase": "returning",
+        "camera": [2.556686153482439, 3.706435400499686, 27.03501856481869],
+        "target": [2.193203698687114, 1.392007568741866, 5.086395061889111],
+        "duration": 4,
+        "elapsed": 3.3674459999999917,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 443,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 3482,
+        "phase": "returning",
+        "camera": [2.4164188275284175, 3.5322288392560033, 26.959925677386437],
+        "target": [2.2001043064985035, 1.3868969953925934, 5.088120213841959],
+        "duration": 4,
+        "elapsed": 3.467346000000001,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 449,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 3583,
+        "phase": "returning",
+        "camera": [2.3082057971822745, 3.397003166106497, 26.901019350741247],
+        "target": [2.2054608173542034, 1.3829299764904255, 5.089459341555884],
+        "duration": 4,
+        "elapsed": 3.584045999999998,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 456,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 3683,
+        "phase": "returning",
+        "camera": [2.2531660644106117, 3.327941617527518, 26.870728832393777],
+        "target": [2.2081964586422727, 1.3809039672109384, 5.090143251877901],
+        "duration": 4,
+        "elapsed": 3.6840459999999977,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 462,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 3795,
+        "phase": "returning",
+        "camera": [2.223998359477589, 3.2912650121282034, 26.85458598108665],
+        "target": [2.2096492791784623, 1.3798280118579518, 5.090506457011949],
+        "duration": 4,
+        "elapsed": 3.784045999999998,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 468,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 3898,
+        "phase": "returning",
+        "camera": [2.212445920845213, 3.2767234580952938, 26.84817484699282],
+        "target": [2.210225294000366, 1.37940141668285, 5.090650460717424],
+        "duration": 4,
+        "elapsed": 3.8840459999999974,
+        "visible": 17,
+        "wrapperCount": 1,
+        "frames": 474,
+        "raf": true,
+        "heroHeight": 820
+      },
+      {
+        "time": 4000,
+        "phase": "returning",
+        "camera": [2.2103307929347302, 3.274060126534069, 26.846999963155735],
+        "target": [2.2103307929347604, 1.3793232844288186, 5.090676835451023],
+        "duration": null,
+        "elapsed": null,
+        "visible": 0,
+        "wrapperCount": 0,
+        "frames": 481,
+        "raf": false,
+        "heroHeight": 820
+      },
+      {
+        "time": 4115,
+        "phase": "frontal",
+        "camera": [2.2103307929347302, 3.274060126534069, 26.846999963155735],
+        "target": [2.2103307929347604, 1.3793232844288186, 5.090676835451023],
+        "duration": null,
+        "elapsed": null,
+        "visible": 0,
+        "wrapperCount": 0,
+        "frames": 481,
+        "raf": false,
+        "heroHeight": 820
+      },
+      {
+        "time": 4231,
+        "phase": "frontal",
+        "camera": [2.2103307929347302, 3.274060126534069, 26.846999963155735],
+        "target": [2.2103307929347604, 1.3793232844288186, 5.090676835451023],
+        "duration": null,
+        "elapsed": null,
+        "visible": 0,
+        "wrapperCount": 0,
+        "frames": 481,
+        "raf": false,
+        "heroHeight": 820
+      },
+      {
+        "time": 4340,
+        "phase": "frontal",
+        "camera": [2.2103307929347302, 3.274060126534069, 26.846999963155735],
+        "target": [2.2103307929347604, 1.3793232844288186, 5.090676835451023],
+        "duration": null,
+        "elapsed": null,
+        "visible": 0,
+        "wrapperCount": 0,
+        "frames": 481,
+        "raf": false,
+        "heroHeight": 820
+      },
+      {
+        "time": 4452,
+        "phase": "frontal",
+        "camera": [2.2103307929347302, 3.274060126534069, 26.846999963155735],
+        "target": [2.2103307929347604, 1.3793232844288186, 5.090676835451023],
+        "duration": null,
+        "elapsed": null,
+        "visible": 0,
+        "wrapperCount": 0,
+        "frames": 481,
+        "raf": false,
+        "heroHeight": 820
+      },
+      {
+        "time": 4563,
+        "phase": "frontal",
+        "camera": [2.2103307929347302, 3.274060126534069, 26.846999963155735],
+        "target": [2.2103307929347604, 1.3793232844288186, 5.090676835451023],
+        "duration": null,
+        "elapsed": null,
+        "visible": 0,
+        "wrapperCount": 0,
+        "frames": 481,
+        "raf": false,
+        "heroHeight": 820
+      }
+    ],
+    "latestIntentResponsiveReverse": {
+      "reversing": {
+        "active": false,
+        "revision": 4,
+        "reduced": false,
+        "phase": "returning",
+        "journey": {
+          "elapsed": 1.5164340000000087,
+          "duration": 4,
+          "destination": "frontal",
+          "revision": 4
+        },
+        "state": {
+          "mode": "MISTO_PREFIXO",
+          "n": 33
+        },
+        "visible": 33,
+        "wrappers": 0,
+        "raf": 1637,
+        "frames": 815,
+        "resources": {
+          "scene": {
+            "meshes": 148,
+            "geometries": 48,
+            "materials": 3,
+            "textures": 3
+          },
+          "renderer": {
+            "geometries": 46,
+            "textures": 5
+          },
+          "sharedRefs": 1
+        },
+        "camera": {
+          "position": [
+            24.724232124857814, 25.60367670134996, 28.863798840055654
+          ],
+          "target": [
+            -3.1058518113680464, -4.4089664463533405, 4.255893803976312
+          ],
+          "fov": 28.633189080740763,
+          "aspect": 0.5,
+          "near": 0.1,
+          "far": 500
+        },
+        "viewport": {
+          "cssWidth": 390,
+          "cssHeight": 780,
+          "drawingWidth": 487,
+          "drawingHeight": 975,
+          "dpr": 1.25,
+          "insets": {
+            "top": 50.51255621782283,
+            "right": 261.56469534002593,
+            "bottom": 20,
+            "left": 19.128212679490776
+          }
+        }
+      },
+      "at768": {
+        "width": 768,
+        "height": 820,
+        "bodyOverflow": "",
+        "modal": null,
+        "overflow": 0,
+        "phase": "outbound"
+      },
+      "at1024": {
+        "width": 1024,
+        "height": 820,
+        "bodyOverflow": "",
+        "modal": null,
+        "overflow": 0,
+        "phase": "elevated"
+      },
+      "calls": [
+        {
+          "name": "startJourney",
+          "width": 390,
+          "args": [false, "frontal", 4],
+          "positionUnchanged": true,
+          "targetUnchanged": true,
+          "from": [30.6220823922084, 30.60710496189, 23.4269573000231],
+          "to": [0.0223608681227, 7.6499999761581, 34.1402330458625],
+          "duration": 4,
+          "destination": "frontal",
+          "revision": 4
+        },
+        {
+          "name": "startJourney",
+          "width": 390,
+          "args": [false, "elevated", 5],
+          "positionUnchanged": true,
+          "targetUnchanged": true,
+          "from": [24.292828108741887, 25.266768484723887, 29.17015572245492],
+          "to": [30.6220823922084, 30.60710496189, 23.4269573000231],
+          "duration": 0.9950630062604009,
+          "destination": "elevated",
+          "revision": 5
+        },
+        {
+          "name": "resizeJourney",
+          "width": 768,
+          "args": null,
+          "positionUnchanged": true,
+          "targetUnchanged": true,
+          "from": [24.420331021764255, 25.367022519939752, 29.078038964368766],
+          "to": [30.6220823922084, 30.60710496189, 23.4269573000231],
+          "duration": 1.476181396195151,
+          "destination": "elevated",
+          "revision": 5
+        }
+      ],
+      "roundTrip": {
+        "nodeCount": 210,
+        "mismatches": [],
+        "wrappers": 0,
+        "visible": 0,
+        "phase": "frontal",
+        "raf": null,
+        "resources": {
+          "scene": {
+            "meshes": 148,
+            "geometries": 48,
+            "materials": 3,
+            "textures": 3
+          },
+          "renderer": {
+            "geometries": 49,
+            "textures": 5
+          },
+          "sharedRefs": 1
+        },
+        "heroHeight": 820,
+        "inertCount": 0,
+        "bodyOverflow": "",
+        "focus": true
+      }
+    },
+    "coreSameTurnArrivalEdge": {
+      "arrivals": [
+        {
+          "destination": "frontal",
+          "revision": 4
+        },
+        {
+          "destination": "frontal",
+          "revision": 6
+        }
+      ],
+      "intent": {
+        "active": false,
+        "panelCount": 51,
+        "reducedMotion": false,
+        "revision": 6
+      },
+      "journey": null,
+      "wrappers": 0,
+      "visible": 0,
+      "raf": null,
+      "camera": [0.0223608681227, 7.6499999761581, 34.1402330458625],
+      "state": {
+        "mode": "CASA_BASE"
+      }
+    }
+  },
+  "panels": {
+    "firstObserved200msFailure": {
+      "rows": [
+        {
+          "time": 1,
+          "elapsed": 0,
+          "visible": 0,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 26,
+          "elapsed": 16.600000000093132,
+          "visible": 1,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 53,
+          "elapsed": 33.20000000006985,
+          "visible": 2,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 80,
+          "elapsed": 66.70000000006985,
+          "visible": 3,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 107,
+          "elapsed": 99.90000000002328,
+          "visible": 4,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 133,
+          "elapsed": 116.5,
+          "visible": 5,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 158,
+          "elapsed": 149.90000000002328,
+          "visible": 6,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 184,
+          "elapsed": 166.60000000009313,
+          "visible": 7,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 211,
+          "elapsed": 199.80000000004657,
+          "visible": 8,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 236,
+          "elapsed": 216.60000000009313,
+          "visible": 9,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 262,
+          "elapsed": 249.90000000002328,
+          "visible": 10,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 287,
+          "elapsed": 266.60000000009313,
+          "visible": 11,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 313,
+          "elapsed": 299.9000000000233,
+          "visible": 12,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 340,
+          "elapsed": 333.30000000004657,
+          "visible": 13,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 365,
+          "elapsed": 349.80000000004657,
+          "visible": 14,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 390,
+          "elapsed": 383.20000000006985,
+          "visible": 15,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 416,
+          "elapsed": 399.9000000000233,
+          "visible": 16,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 442,
+          "elapsed": 433.30000000004657,
+          "visible": 17,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 468,
+          "elapsed": 449.9000000000233,
+          "visible": 18,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 494,
+          "elapsed": 483.20000000006985,
+          "visible": 19,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 520,
+          "elapsed": 499.9000000000233,
+          "visible": 20,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 546,
+          "elapsed": 533.4000000000233,
+          "visible": 21,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 571,
+          "elapsed": 550.1000000000931,
+          "visible": 21,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 598,
+          "elapsed": 583.2000000000698,
+          "visible": 23,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 624,
+          "elapsed": 616.7000000000698,
+          "visible": 24,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 650,
+          "elapsed": 633.2000000000698,
+          "visible": 25,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 676,
+          "elapsed": 666.8000000000466,
+          "visible": 26,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 702,
+          "elapsed": 683.4000000000233,
+          "visible": 27,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 729,
+          "elapsed": 716.6000000000931,
+          "visible": 28,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 756,
+          "elapsed": 733.3000000000466,
+          "visible": 28,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 782,
+          "elapsed": 766.6000000000931,
+          "visible": 30,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 807,
+          "elapsed": 799.9000000000233,
+          "visible": 31,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 834,
+          "elapsed": 816.5,
+          "visible": 32,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 860,
+          "elapsed": 850.2000000000698,
+          "visible": 33,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 887,
+          "elapsed": 866.7000000000698,
+          "visible": 34,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 912,
+          "elapsed": 899.9000000000233,
+          "visible": 35,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 938,
+          "elapsed": 916.5,
+          "visible": 36,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 965,
+          "elapsed": 949.9000000000233,
+          "visible": 37,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 991,
+          "elapsed": 983.2000000000698,
+          "visible": 38,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1017,
+          "elapsed": 999.9000000000233,
+          "visible": 39,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1042,
+          "elapsed": 1033.4000000000233,
+          "visible": 40,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1069,
+          "elapsed": 1050,
+          "visible": 41,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1095,
+          "elapsed": 1083.3000000000466,
+          "visible": 42,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1120,
+          "elapsed": 1100,
+          "visible": 43,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1146,
+          "elapsed": 1133.3000000000466,
+          "visible": 44,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1173,
+          "elapsed": 1166.6000000000931,
+          "visible": 45,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1199,
+          "elapsed": 1183.3000000000466,
+          "visible": 46,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1225,
+          "elapsed": 1216.6000000000931,
+          "visible": 47,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1251,
+          "elapsed": 1233.2000000000698,
+          "visible": 48,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1276,
+          "elapsed": 1266.6000000000931,
+          "visible": 49,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1303,
+          "elapsed": 1283.2000000000698,
+          "visible": 50,
+          "wrappers": 51,
+          "minimumScale": 0
+        },
+        {
+          "time": 1329,
+          "elapsed": 1316.6000000000931,
+          "visible": 51,
+          "wrappers": 51,
+          "minimumScale": 0.002287148000038495
+        },
+        {
+          "time": 1355,
+          "elapsed": 1333.3000000000466,
+          "visible": 51,
+          "wrappers": 51,
+          "minimumScale": 0.018463018500077453
+        },
+        {
+          "time": 1381,
+          "elapsed": 1366.5,
+          "visible": 51,
+          "wrappers": 51,
+          "minimumScale": 0.1470398125
+        },
+        {
+          "time": 1406,
+          "elapsed": 1399.9000000000233,
+          "visible": 51,
+          "wrappers": 51,
+          "minimumScale": 0.49850149950034855
+        },
+        {
+          "time": 1433,
+          "elapsed": 1416.6000000000931,
+          "visible": 51,
+          "wrappers": 51,
+          "minimumScale": 0.7099531480009718
+        },
+        {
+          "time": 1459,
+          "elapsed": 1449.9000000000233,
+          "visible": 51,
+          "wrappers": 51,
+          "minimumScale": 0.9371242495000877
+        },
+        {
+          "time": 1485,
+          "elapsed": 1466.5,
+          "visible": 51,
+          "wrappers": 51,
+          "minimumScale": 0.9812023125
+        },
+        {
+          "time": 1511,
+          "elapsed": 1499.8000000000466,
+          "visible": 51,
+          "wrappers": 51,
+          "minimumScale": 0.999999996
+        },
+        {
+          "time": 1537,
+          "elapsed": null,
+          "visible": 51,
+          "wrappers": 0,
+          "minimumScale": 1
+        },
+        {
+          "time": 1563,
+          "elapsed": null,
+          "visible": 51,
+          "wrappers": 0,
+          "minimumScale": 1
+        },
+        {
+          "time": 1589,
+          "elapsed": null,
+          "visible": 51,
+          "wrappers": 0,
+          "minimumScale": 1
+        },
+        {
+          "time": 1615,
+          "elapsed": null,
+          "visible": 51,
+          "wrappers": 0,
+          "minimumScale": 1
+        },
+        {
+          "time": 1640,
+          "elapsed": null,
+          "visible": 51,
+          "wrappers": 0,
+          "minimumScale": 1
+        },
+        {
+          "time": 1667,
+          "elapsed": null,
+          "visible": 51,
+          "wrappers": 0,
+          "minimumScale": 1
+        }
+      ],
+      "nodeCount": 210,
+      "panelCount": 51,
+      "childCount": 102,
+      "childMismatches": [],
+      "final": {
+        "visible": 51,
+        "wrappers": 0,
+        "pending": null,
+        "sourceMeshes": 148
+      }
+    },
+    "observed180msPaintDeadlineFailure": {
+      "timing": {
+        "started": 1378937.900000006,
+        "firstVisible": 23.5,
+        "settled": 1506.7999999821186
+      },
+      "visible": 51,
+      "wrappers": 0,
+      "clock": null,
+      "nodes": 210,
+      "finance": "Your solar estimateClose ×Number of panels57 panelsInvestment after federal credit$49,376.25Estimated monthly savings$600.00Estimated payback6.9 yearsArizona adds a state tax credit worth 25% of the system cost, capped at $1,000. It is not included in the estimate below.Estimated savings stop at the size of your electricity bill.Energy generated beyond your usage becomes credit with Arizona Public Service, not cash back.Your estimate includes 57 panels. This illustrative roof displays up to 51; the financial calculation includes every panel.Edit estimate→See how it is calculatedMonthly consumption is your bill divided by Arizona Public Service's $0.15/kWh rate. Each 450 W panel generates an estimated 70.2 kWh/month from 6.5 peak sun hours/day and a performance factor of 80%. Panel counts round up, with a minimum of 8 panels. Installation costs $2.75/W; the 30% federal credit reduces the investment. Savings are capped at your bill; payback divides net investment by twelve months of capped savings. These are fictional estimates, not tax advice.See the installation steps"
+    },
+    "final150msPaintDeadline": {
+      "timing": {
+        "started": 136477.90000000596,
+        "firstVisible": 12.5,
+        "settled": 1462.9000000059605
+      },
+      "visible": 51,
+      "wrappers": 0,
+      "clock": null,
+      "nodes": 210
+    },
+    "finalResizeClock": {
+      "resizeCalls": [
+        {
+          "before": {
+            "elapsed": 279.7999999880558,
+            "last": 357702.6
+          },
+          "after": {
+            "elapsed": 279.7999999880558,
+            "last": 357702.6
+          }
+        },
+        {
+          "before": {
+            "width": 1024,
+            "panelElapsed": 296.3999999880907,
+            "clock": 357719.2
+          },
+          "after": {
+            "width": 768,
+            "panelElapsed": 296.3999999880907,
+            "clock": 357719.2
+          }
+        },
+        {
+          "before": {
+            "elapsed": 396.49999998806743,
+            "last": 357819.3
+          },
+          "after": {
+            "elapsed": 396.49999998806743,
+            "last": 357819.3
+          }
+        },
+        {
+          "before": {
+            "width": 768,
+            "panelElapsed": 413.09999998810235,
+            "clock": 357835.9
+          },
+          "after": {
+            "width": 1024,
+            "panelElapsed": 413.09999998810235,
+            "clock": 357835.9
+          }
+        }
+      ],
+      "timing": {
+        "started": 357422.8000000119,
+        "firstVisible": 13.799999982118607,
+        "settled": 1464
+      },
+      "finalPanels": 51,
+      "wrappers": 0,
+      "resizeEvents": 3
+    },
+    "partialScaleFailureBefore": [
+      {
+        "drops": [
+          {
+            "id": "PANEL_002",
+            "before": 0.10782729214361642,
+            "after": 0.02801500899591098
+          },
+          {
+            "id": "PANEL_003",
+            "before": 0.003980830703616044,
+            "after": 0.002677926706701537
+          }
+        ]
+      }
+    ],
+    "partialScaleContinuityAfter": [
+      {
+        "drops": [],
+        "elapsedBefore": 0.1,
+        "elapsedAfter": 0.1
+      }
+    ],
+    "finalBaseAfterClockChanges": {
+      "state": {
+        "mode": "CASA_BASE"
+      },
+      "activeIds": 0,
+      "nodes": 210,
+      "wrappers": 0,
+      "raf": null,
+      "resources": {
+        "scene": {
+          "meshes": 148,
+          "geometries": 48,
+          "materials": 3,
+          "textures": 3
+        },
+        "renderer": {
+          "geometries": 49,
+          "textures": 5
+        },
+        "sharedRefs": 1
+      },
+      "height": 820,
+      "overflow": 0,
+      "inert": 0,
+      "bodyOverflow": ""
+    }
+  },
+  "lifecycle": {
+    "reducedMotion": {
+      "opened": {
+        "active": true,
+        "revision": 1,
+        "reduced": true,
+        "phase": "outbound",
+        "journey": null,
+        "state": {
+          "mode": "MISTO_PREFIXO",
+          "n": 17
+        },
+        "visible": 17,
+        "wrappers": 0,
+        "raf": 2,
+        "frames": 3,
+        "resources": {
+          "scene": {
+            "meshes": 148,
+            "geometries": 48,
+            "materials": 3,
+            "textures": 3
+          },
+          "renderer": {
+            "geometries": 45,
+            "textures": 5
+          },
+          "sharedRefs": 1
+        },
+        "camera": {
+          "position": [30.6220823922084, 30.60710496189, 23.4269573000231],
+          "target": [-3.97763913187727, -5.81882671926335, 3.8200001437217],
+          "fov": 30.3812212878179,
+          "aspect": 0.5,
+          "near": 0.1,
+          "far": 500
+        },
+        "viewport": {
+          "cssWidth": 390,
+          "cssHeight": 780,
+          "drawingWidth": 487,
+          "drawingHeight": 975,
+          "dpr": 1.25,
+          "insets": {
+            "top": 20,
+            "right": 330,
+            "bottom": 20,
+            "left": 20
+          }
+        }
+      },
+      "maximum": {
+        "active": true,
+        "revision": 1,
+        "reduced": true,
+        "phase": "elevated",
+        "journey": null,
+        "state": {
+          "mode": "MISTO_PREFIXO",
+          "n": 51
+        },
+        "visible": 51,
+        "wrappers": 0,
+        "raf": null,
+        "frames": 6,
+        "resources": {
+          "scene": {
+            "meshes": 148,
+            "geometries": 48,
+            "materials": 3,
+            "textures": 3
+          },
+          "renderer": {
+            "geometries": 45,
+            "textures": 5
+          },
+          "sharedRefs": 1
+        },
+        "camera": {
+          "position": [30.6220823922084, 30.60710496189, 23.4269573000231],
+          "target": [-3.97763913187727, -5.81882671926335, 3.8200001437217],
+          "fov": 30.3812212878179,
+          "aspect": 0.5,
+          "near": 0.1,
+          "far": 500
+        },
+        "viewport": {
+          "cssWidth": 390,
+          "cssHeight": 780,
+          "drawingWidth": 487,
+          "drawingHeight": 975,
+          "dpr": 1.25,
+          "insets": {
+            "top": 20,
+            "right": 330,
+            "bottom": 20,
+            "left": 20
+          }
+        }
+      },
+      "closed": {
+        "active": false,
+        "revision": 2,
+        "reduced": true,
+        "phase": "frontal",
+        "journey": null,
+        "state": {
+          "mode": "CASA_BASE"
+        },
+        "visible": 0,
+        "wrappers": 0,
+        "raf": null,
+        "frames": 7,
+        "resources": {
+          "scene": {
+            "meshes": 148,
+            "geometries": 48,
+            "materials": 3,
+            "textures": 3
+          },
+          "renderer": {
+            "geometries": 45,
+            "textures": 5
+          },
+          "sharedRefs": 1
+        },
+        "camera": {
+          "position": [0.0223608681227, 7.6499999761581, 34.1402330458625],
+          "target": [0.02236086812273, 0.649999976158142, 5.8200001437217],
+          "fov": 22.3607687487464,
+          "aspect": 0.5,
+          "near": 0.1,
+          "far": 500
+        },
+        "viewport": {
+          "cssWidth": 390,
+          "cssHeight": 780,
+          "drawingWidth": 487,
+          "drawingHeight": 975,
+          "dpr": 1.25,
+          "insets": {
+            "top": 160,
+            "right": 16,
+            "bottom": 20,
+            "left": 16
+          }
+        }
+      },
+      "stable": {
+        "frames": 7,
+        "raf": null,
+        "phase": "frontal"
+      },
+      "nativeBill": {
+        "bill": "600",
+        "summary": "From your bill to a clearer picture.Close ×1 / 2Average monthly electricity bill$$40–$600 · increments of $10Household profilesApartment or small condo, 1–2 people · $90Three-bedroom house, no pool · $220Four-bedroom house with central AC · $310House with a pool and an EV in the garage · $430Continue→Next: Solar coverage target46 panels · $39,847.50 after federal credit · $484.38/month · 6.9 years paybackView house"
+      },
+      "invalidDraftAfter": {
+        "empty": "",
+        "valid": false,
+        "hasPolicy": true,
+        "hasLastValidNumbers": true,
+        "nan": false
+      }
+    },
+    "actualOffscreen": {
+      "before": {
+        "visible": false,
+        "ratio": 0,
+        "frames": 22,
+        "raf": null,
+        "journeyElapsed": 0.31653400000000004,
+        "panelElapsed": 316.534
+      },
+      "after": {
+        "visible": false,
+        "ratio": 0,
+        "frames": 22,
+        "raf": null,
+        "journeyElapsed": 0.31653400000000004,
+        "panelElapsed": 316.534
+      }
+    },
+    "finalSyntheticDocumentVisibilityClock": {
+      "method": "Synthetic document.hidden getter plus visibilitychange, not physical backgrounding",
+      "paused": {
+        "panelElapsed": 257.59999998210697,
+        "clock": null,
+        "cameraElapsed": 0.2666999999999826,
+        "frames": 260,
+        "raf": null,
+        "backgrounded": true
+      },
+      "frozen": {
+        "panelElapsed": 257.59999998210697,
+        "clock": null,
+        "cameraElapsed": 0.2666999999999826,
+        "frames": 260,
+        "raf": null,
+        "backgrounded": true
+      },
+      "resumed": {
+        "panelElapsed": 507.59999998210697,
+        "clock": 201121.9,
+        "cameraElapsed": 0.5166999999999827,
+        "frames": 276,
+        "raf": 375,
+        "backgrounded": false
+      }
+    },
+    "simulatedDprCapAndSharedOwnership": {
+      "simulatedDeviceDpr": 3,
+      "effectiveDpr": 1.5,
+      "drawingBuffer": {
+        "width": 150,
+        "height": 150
+      },
+      "refsDuring": 2,
+      "tempNodes": 210,
+      "refsAfter": 1,
+      "temporaryDisposed": true,
+      "canvasAfterDispose": 0
+    },
+    "installationAnchor": {
+      "hash": "#installation",
+      "scrollY": 844,
+      "installationTop": 0,
+      "bodyOverflow": "",
+      "hasPanel": false,
+      "focusTag": "BODY"
+    },
+    "additionalFailureRecoveryFile": "failure-recovery-qa.json",
+    "calibrationAnd102ChildInspectionFile": "calibration-qa.json"
+  },
+  "budgets": {
+    "coldProductionResourceTiming": {
+      "viewport": [1440, 900],
+      "cacheDisabled": true,
+      "method": "Page-scoped cache disabled before navigation; actual full-page scroll and image.decode; ResourceTiming values exclude transport beyond reported transferSize",
+      "navigation": [
+        {
+          "url": "http://127.0.0.1:3239/city/phoenix-az",
+          "transferBytes": 9250,
+          "encodedBytes": 8950,
+          "decodedBytes": 56238
+        }
+      ],
+      "groups": {
+        "fonts": {
+          "requests": 3,
+          "transferBytes": 327495,
+          "encodedBytes": 326595,
+          "decodedBytes": 615828
+        },
+        "css": {
+          "requests": 3,
+          "transferBytes": 6436,
+          "encodedBytes": 5536,
+          "decodedBytes": 25312
+        },
+        "javascript": {
+          "requests": 11,
+          "transferBytes": 320689,
+          "encodedBytes": 317389,
+          "decodedBytes": 1167328
+        },
+        "optimizedPoster": {
+          "requests": 1,
+          "transferBytes": 16658,
+          "encodedBytes": 16358,
+          "decodedBytes": 16358
+        },
+        "optimizedPhotos": {
+          "requests": 7,
+          "transferBytes": 467366,
+          "encodedBytes": 465266,
+          "decodedBytes": 465266
+        },
+        "finished3D": {
+          "requests": 3,
+          "transferBytes": 1563912,
+          "encodedBytes": 1563012,
+          "decodedBytes": 2866541
+        }
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:3239/_next/static/media/ibm_plex_400-s.p.263d7ogqy83uo.ttf",
+          "initiator": "link",
+          "transferBytes": 101433,
+          "encodedBytes": 101133,
+          "decodedBytes": 205252,
+          "durationMs": 50.10000002384186
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/media/ibm_plex_500-s.p.0lefmzus2tetz.ttf",
+          "initiator": "link",
+          "transferBytes": 112985,
+          "encodedBytes": 112685,
+          "decodedBytes": 205292,
+          "durationMs": 51.099999994039536
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/02gj1tnq99-6r.css",
+          "initiator": "link",
+          "transferBytes": 902,
+          "encodedBytes": 602,
+          "decodedBytes": 1350,
+          "durationMs": 38.400000005960464
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/media/ibm_plex_600-s.p.0aan_9b2i9ip8.ttf",
+          "initiator": "link",
+          "transferBytes": 113077,
+          "encodedBytes": 112777,
+          "decodedBytes": 205284,
+          "durationMs": 52.60000002384186
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/2t--5hx5g30ro.css",
+          "initiator": "link",
+          "transferBytes": 4941,
+          "encodedBytes": 4641,
+          "decodedBytes": 23669,
+          "durationMs": 37.5
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "initiator": "link",
+          "transferBytes": 2329,
+          "encodedBytes": 2029,
+          "decodedBytes": 5598,
+          "durationMs": 44.099999994039536
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/3450qyhportkm.js",
+          "initiator": "script",
+          "transferBytes": 9330,
+          "encodedBytes": 9030,
+          "decodedBytes": 34015,
+          "durationMs": 45.20000001788139
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/3g4px251sg85e.js",
+          "initiator": "script",
+          "transferBytes": 71876,
+          "encodedBytes": 71576,
+          "decodedBytes": 228922,
+          "durationMs": 63.400000005960464
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/0v0lnq0inw1__.js",
+          "initiator": "script",
+          "transferBytes": 44172,
+          "encodedBytes": 43872,
+          "decodedBytes": 160871,
+          "durationMs": 60
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/turbopack-0gc7_a5mv94nq.js",
+          "initiator": "script",
+          "transferBytes": 4148,
+          "encodedBytes": 3848,
+          "decodedBytes": 9721,
+          "durationMs": 55.29999998211861
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/3fntmmi971322.js",
+          "initiator": "script",
+          "transferBytes": 3961,
+          "encodedBytes": 3661,
+          "decodedBytes": 14377,
+          "durationMs": 58.5
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/0axdrs6tow-4n.js",
+          "initiator": "script",
+          "transferBytes": 3905,
+          "encodedBytes": 3605,
+          "decodedBytes": 8868,
+          "durationMs": 61.20000001788139
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/3qy0pr5_2oue7.js",
+          "initiator": "script",
+          "transferBytes": 548,
+          "encodedBytes": 248,
+          "decodedBytes": 248,
+          "durationMs": 61.70000001788139
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/15_64hoys-wtm.js",
+          "initiator": "script",
+          "transferBytes": 13280,
+          "encodedBytes": 12980,
+          "decodedBytes": 39823,
+          "durationMs": 64.39999997615814
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/073uq17xglnt1.css",
+          "initiator": "link",
+          "transferBytes": 593,
+          "encodedBytes": 293,
+          "decodedBytes": 293,
+          "durationMs": 11
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/image?url=%2Fassets%2Fposters%2Fhouse-desktop.png&w=1920&q=75",
+          "initiator": "img",
+          "transferBytes": 16658,
+          "encodedBytes": 16358,
+          "decodedBytes": 16358,
+          "durationMs": 223.40000000596046
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/image?url=%2Fassets%2Fapproved-v2%2Fstep-plan.png&w=1080&q=75",
+          "initiator": "img",
+          "transferBytes": 68928,
+          "encodedBytes": 68628,
+          "decodedBytes": 68628,
+          "durationMs": 132.7000000178814
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/image?url=%2Fassets%2Fapproved-v2%2Fstep-assess.png&w=1080&q=75",
+          "initiator": "img",
+          "transferBytes": 94386,
+          "encodedBytes": 94086,
+          "decodedBytes": 94086,
+          "durationMs": 132.60000002384186
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/40f_jp1vim-pf.js",
+          "initiator": "script",
+          "transferBytes": 449,
+          "encodedBytes": 149,
+          "decodedBytes": 149,
+          "durationMs": 2.5
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/static/chunks/2dnhw0y2p8xtv.js",
+          "initiator": "script",
+          "transferBytes": 166691,
+          "encodedBytes": 166391,
+          "decodedBytes": 664736,
+          "durationMs": 18.700000017881393
+        },
+        {
+          "url": "http://127.0.0.1:3239/assets/finished-v04/house.manifest.json",
+          "initiator": "fetch",
+          "transferBytes": 54732,
+          "encodedBytes": 54432,
+          "decodedBytes": 881999,
+          "durationMs": 14.400000005960464
+        },
+        {
+          "url": "http://127.0.0.1:3239/assets/finished-v04/house.glb",
+          "initiator": "fetch",
+          "transferBytes": 1390074,
+          "encodedBytes": 1389774,
+          "decodedBytes": 1865736,
+          "durationMs": 54.900000005960464
+        },
+        {
+          "url": "http://127.0.0.1:3239/assets/finished-v04/sky-softened-2k.jpg",
+          "initiator": "img",
+          "transferBytes": 119106,
+          "encodedBytes": 118806,
+          "decodedBytes": 118806,
+          "durationMs": 4.200000017881393
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/image?url=%2Fassets%2Fapproved-v2%2Fstep-install.png&w=1080&q=75",
+          "initiator": "img",
+          "transferBytes": 86518,
+          "encodedBytes": 86218,
+          "decodedBytes": 86218,
+          "durationMs": 15.699999988079071
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/image?url=%2Fassets%2Fapproved-v2%2Fcrew-ray.png&w=640&q=75",
+          "initiator": "img",
+          "transferBytes": 43042,
+          "encodedBytes": 42742,
+          "decodedBytes": 42742,
+          "durationMs": 6.600000023841858
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/image?url=%2Fassets%2Fapproved-v2%2Fcrew-danielle.png&w=640&q=75",
+          "initiator": "img",
+          "transferBytes": 50416,
+          "encodedBytes": 50116,
+          "decodedBytes": 50116,
+          "durationMs": 7.799999982118607
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/image?url=%2Fassets%2Fapproved-v2%2Fcrew-okafor.png&w=640&q=75",
+          "initiator": "img",
+          "transferBytes": 38420,
+          "encodedBytes": 38120,
+          "decodedBytes": 38120,
+          "durationMs": 8.799999982118607
+        },
+        {
+          "url": "http://127.0.0.1:3239/_next/image?url=%2Fassets%2Fapproved-v2%2Fclosing-home.png&w=1920&q=75",
+          "initiator": "img",
+          "transferBytes": 85656,
+          "encodedBytes": 85356,
+          "decodedBytes": 85356,
+          "durationMs": 4.0999999940395355
+        }
+      ],
+      "thirdParty": [],
+      "decodedImageFailures": [],
+      "total": {
+        "transferBytes": 2711806,
+        "encodedBytes": 2703106,
+        "decodedBytes": 5212871
+      }
+    },
+    "runtime": {
+      "state": {
+        "mode": "MISTO_PREFIXO",
+        "n": 51
+      },
+      "settings": {
+        "outputColorSpace": "srgb",
+        "toneMapping": 0,
+        "exposure": 1,
+        "shadows": false,
+        "lights": 0,
+        "fog": null
+      },
+      "source": {
+        "meshes": 148,
+        "geometries": 48,
+        "materials": 3,
+        "textures": 3
+      },
+      "gpu": {
+        "geometries": 49,
+        "textures": 5
+      },
+      "refs": 1,
+      "canvas": 1,
+      "wrappers": 0,
+      "raf": null,
+      "uniqueGeometryCpuBufferBytes": 469568,
+      "decodedMaterialImages": [
+        {
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "width": 2048,
+          "height": 2048
+        },
+        {
+          "width": 512,
+          "height": 512
+        }
+      ],
+      "sky": {
+        "width": 2048,
+        "height": 1024
+      },
+      "viewport": {
+        "cssWidth": 1024,
+        "cssHeight": 820,
+        "drawingWidth": 1280,
+        "drawingHeight": 1025,
+        "dpr": 1.25,
+        "insets": {
+          "top": 20,
+          "right": 330,
+          "bottom": 20,
+          "left": 20
+        }
+      }
+    },
+    "interpretation": "Raw source bytes, HTTP bodies, ResourceTiming transfer estimates, CPU geometry buffers, decoded image dimensions and GPU resource counts are different measurements. No claim of total RAM/VRAM below 3 MB."
+  },
+  "evidence": {
+    "referenceNativeWidths": [1440, 390],
+    "finalWidths": [1440, 1920, 390, 470],
+    "screenshots": [
+      "final-page-desktop-1440.png",
+      "final-page-desktop-1920.png",
+      "final-page-mobile-390.png",
+      "final-page-mobile-470.png",
+      "final-closed-desktop-1440.png",
+      "final-closed-desktop-1920.png",
+      "final-open-desktop-1440.png",
+      "final-open-desktop-1920.png",
+      "final-closed-mobile-390.png",
+      "final-closed-mobile-470.png",
+      "final-open-mobile-390.png",
+      "final-open-mobile-470.png",
+      "final-house-mobile-390.png",
+      "final-house-mobile-470.png",
+      "final-max-57-financial-51-visual.png",
+      "calibration-04.png",
+      "failure-abort.png",
+      "failure-recovered.png"
+    ]
+  },
+  "limitations": [
+    "Chromium desktop host at actual DPR1.25, not a physical phone/Safari.",
+    "DPR3 was simulated via getter; effective1.5 and shared ownership were observed.",
+    "Managed tabs did not become document.hidden=true by switching focus; visibility handler/clock proof uses a controlled getter plus real visibilitychange event. Actual offscreen IntersectionObserver pause was observed.",
+    "Blob JSON Download was clicked, but harness download list was empty. Copied JSON and schema were inspected; physical downloaded-file persistence was not certified.",
+    "Pending-load cleanup scenario invokes actual viewer.dispose manually, not React unmount.",
+    "Approved mobile camera crops preserved; no artistic recalibration or pixel-equivalence claim against the static reference photo.",
+    "ResourceTiming decodedBodySize measures HTTP decompression, not pixel memory. GPU counts do not measure VRAM bytes."
+  ]
+}

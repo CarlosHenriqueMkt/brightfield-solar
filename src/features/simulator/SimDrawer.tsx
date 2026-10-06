@@ -17,6 +17,11 @@ export function SimDrawer({
   stateIncentiveNote,
   explanation,
   installationHref,
+  modal = false,
+  liveSummary,
+  closeLabel = 'Close estimate',
+  onInstallation,
+  onViewHouse,
   onBillChange,
   onCoverageChange,
   onProfileSelect,
@@ -53,6 +58,16 @@ export function SimDrawer({
           aria-describedby={`${id}-bill-help`}
         />
       </div>
+      <input
+        className={styles.range}
+        type="range"
+        min="40"
+        max="600"
+        step="10"
+        aria-label="Adjust monthly electricity bill"
+        value={values.bill || '40'}
+        onChange={(event) => onBillChange(event.target.value)}
+      />
       <p id={`${id}-bill-help`} className={styles.fieldHelp}>
         $40–$600 · increments of $10
       </p>
@@ -77,6 +92,16 @@ export function SimDrawer({
         />
         <span aria-hidden="true">%</span>
       </div>
+      <input
+        className={styles.range}
+        type="range"
+        min="50"
+        max="100"
+        step="5"
+        aria-label="Adjust solar coverage target"
+        value={values.coverage || '50'}
+        onChange={(event) => onCoverageChange(event.target.value)}
+      />
       <p id={`${id}-coverage-help`} className={styles.fieldHelp}>
         50%–100% · increments of 5 percentage points
       </p>
@@ -193,7 +218,11 @@ export function SimDrawer({
             <summary>See how it is calculated</summary>
             <p>{explanation}</p>
           </details>
-          <a className={styles.link} href={installationHref}>
+          <a
+            className={styles.link}
+            href={installationHref}
+            onClick={onInstallation}
+          >
             See the installation steps
           </a>
         </>
@@ -212,6 +241,8 @@ export function SimDrawer({
       className={styles.drawer}
       id={id}
       aria-labelledby={`${id}-title`}
+      role={modal ? 'dialog' : undefined}
+      aria-modal={modal ? true : undefined}
       data-sim-drawer-open="true"
       onKeyDown={(event) => {
         if (event.key === 'Escape') {
@@ -227,7 +258,7 @@ export function SimDrawer({
         <button
           type="button"
           className={styles.close}
-          aria-label="Close estimate"
+          aria-label={closeLabel}
           onClick={() => onOpenChange(false)}
         >
           Close <span aria-hidden="true">×</span>
@@ -241,6 +272,21 @@ export function SimDrawer({
       >
         {content}
       </form>
+      {liveSummary && step !== 'result' && (
+        <p className={styles.notice}>{liveSummary}</p>
+      )}
+      {liveSummary &&
+        step !== 'result' &&
+        notices.map((notice) => (
+          <p className={styles.notice} key={notice}>
+            {notice}
+          </p>
+        ))}
+      {onViewHouse && (
+        <button type="button" className={styles.link} onClick={onViewHouse}>
+          View house
+        </button>
+      )}
     </section>
   );
 }

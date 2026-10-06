@@ -1,0 +1,105 @@
+.root {
+  position: relative;
+  isolation: isolate;
+  background: var(--sky);
+  scroll-margin-top: 0;
+}
+.root > section {
+  background: transparent;
+}
+.scene {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.root[data-copy-hidden='true'] [data-hero-intro] {
+  visibility: hidden;
+  pointer-events: none;
+}
+.root[data-scene-ready='true'] [data-hero-poster] {
+  visibility: hidden;
+}
+.panel {
+  position: absolute;
+  top: 32px;
+  right: clamp(20px, 5vw, 72px);
+  z-index: 4;
+  max-height: calc(100% - 64px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border-radius: var(--radius-md);
+  scrollbar-gutter: stable;
+}
+.safeFocus {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2;
+  color: var(--navy);
+  font-size: 12px;
+}
+.returnControl {
+  position: absolute;
+  right: 20px;
+  bottom: 32px;
+  z-index: 3;
+}
+.houseControls {
+  position: absolute;
+  bottom: 24px;
+  left: 20px;
+  right: 20px;
+  z-index: 3;
+  display: grid;
+  gap: 8px;
+}
+.closeHouse {
+  min-height: 44px;
+  border: 1px solid var(--navy);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--navy);
+  font: inherit;
+  cursor: pointer;
+}
+.announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.sceneError {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2;
+  max-width: 360px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--navy);
+  font-size: 12px;
+}
+@media (max-width: 700px) {
+  .panel {
+    position: fixed;
+    top: auto;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    left: max(14px, env(safe-area-inset-left));
+    right: max(14px, env(safe-area-inset-right));
+    max-height: calc(100vh - 28px);
+    max-height: calc(100dvh - 28px - env(safe-area-inset-top));
+    z-index: 10;
+    scrollbar-gutter: auto;
+  }
+  .panel > section {
+    width: 100%;
+  }
+  .sceneError {
+    bottom: 144px;
+    right: 20px;
+  }
+}

@@ -33,6 +33,12 @@
   overflow: hidden;
   width: 100%;
 }
+.mediaImage {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
 
 .copy {
   max-width: none;

@@ -1,0 +1,77 @@
+.page {
+  min-height: 100vh;
+  background: var(--paper);
+}
+.scene {
+  height: min(60vh, 620px);
+  min-height: 360px;
+  background: var(--sky);
+}
+.tool {
+  max-width: 1100px;
+  margin-inline: auto;
+  padding: 24px;
+  color: var(--text);
+}
+.tool h1 {
+  margin-bottom: 16px;
+}
+.tool p {
+  margin: 12px 0;
+}
+.tool fieldset {
+  margin-block: 16px;
+  border: 1px solid #afc2ce;
+  border-radius: var(--radius-sm);
+}
+.tool label {
+  display: grid;
+  gap: 4px;
+  margin-block: 12px;
+}
+.tool button,
+.tool input,
+.tool select,
+.tool textarea {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #afc2ce;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--navy);
+  font: inherit;
+}
+.tool button {
+  cursor: pointer;
+}
+.tool button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.vector {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.vector input {
+  width: 100%;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block: 12px;
+}
+.diagnostics {
+  max-height: 420px;
+  overflow: auto;
+  padding: 12px;
+  background: #fff;
+  font-size: 12px;
+}
+.error {
+  padding: 12px 24px;
+  color: var(--navy);
+  background: var(--sky);
+}
