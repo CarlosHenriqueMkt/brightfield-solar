@@ -1,0 +1,16 @@
+.gitattributes
+  h_1041c21ccc44e5 1
+README.md
+  h_1041c21ccc44e5 92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b478ab614ec11f918665db2edc746c5884a878f2",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
