@@ -1,0 +1,29 @@
+.heading {
+  max-width: 720px;
+  margin-bottom: clamp(40px, 4.5vw, 64px);
+}
+.eyebrow {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.heading h2 {
+  margin: 12px 0 0;
+  color: var(--navy);
+  font-size: clamp(31px, 3.2vw, 46px);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+}
+.description {
+  margin-top: 18px;
+  font-size: 18px;
+}
+@media (max-width: 640px) {
+  .description {
+    font-size: 16px;
+  }
+}

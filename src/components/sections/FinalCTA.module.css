@@ -1,0 +1,102 @@
+.section {
+  padding: 0 0 96px;
+}
+
+.frame {
+  border-radius: 12px;
+  margin: 0 auto;
+  max-width: 1672px;
+  overflow: hidden;
+  position: relative;
+}
+
+.media {
+  aspect-ratio: 1672 / 941;
+  background: #0d2744;
+  color: var(--sky);
+  position: relative;
+  width: 100%;
+}
+
+.media span {
+  color: var(--sky);
+  left: 24px;
+  position: absolute;
+  top: 24px;
+}
+
+.copy {
+  bottom: 64px;
+  color: white;
+  left: 64px;
+  max-width: 580px;
+  position: absolute;
+  z-index: 1;
+}
+
+.copy h2 {
+  color: white;
+  font-size: 52px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+  margin: 0;
+}
+
+.copy p {
+  color: var(--sky);
+  font-size: 18px;
+  margin: 18px 0 0;
+  max-width: 540px;
+}
+
+.copy > :last-child {
+  margin-top: 28px;
+}
+
+@media (max-width: 1024px) {
+  .frame {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .media {
+    aspect-ratio: 13 / 10;
+  }
+
+  .copy {
+    background: var(--navy);
+    bottom: auto;
+    left: auto;
+    max-width: none;
+    padding: 32px 20px 40px;
+    position: relative;
+  }
+
+  .copy h2 {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-bottom: 64px;
+  }
+
+  .frame {
+    border-radius: 0;
+    max-width: none;
+  }
+
+  .media {
+    aspect-ratio: 390 / 300;
+  }
+
+  .copy {
+    min-height: 232px;
+  }
+
+  .copy h2 {
+    font-size: 32px;
+  }
+}
