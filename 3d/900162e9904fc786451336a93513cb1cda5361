@@ -1,0 +1,110 @@
+.prettierignore
+  h_1041c21ccc44e5 9
+README.md
+  h_1041c21ccc44e5 3,7,14,22-59,61,63,65,67-72,74,76,78,80,82,84,86-90,92,94,96,98-107,109,111,113,115,117-124,126,128,130,132,134-136,138
+evidence/web03/acceptance.json
+  h_1041c21ccc44e5 1-4692
+evidence/web03/calibration-qa.json
+  h_1041c21ccc44e5 1-2899
+evidence/web03/failure-recovery-qa.json
+  h_1041c21ccc44e5 1-50
+licenses/finished-v04/CC0-1.0-NOTICE.txt
+  h_1041c21ccc44e5 1-28
+package-lock.json
+  h_1041c21ccc44e5 13-14,22,300-306,1632-1638,1708-1736,2612-2618,3216-3222,3788-3793
+package.json
+  h_1041c21ccc44e5 26-27,35
+public/assets/finished-v04/house.manifest.json
+  h_1041c21ccc44e5 1-37510
+src/app/city/[citySlug]/page.module.css
+  h_1041c21ccc44e5 1-6,11-27,29-94
+src/app/city/[citySlug]/page.tsx
+  h_1041c21ccc44e5 4-10,40-112
+src/app/preview/components/page.tsx
+  h_1041c21ccc44e5 2,34-36,62-67
+src/app/preview/components/preview.module.css
+  h_1041c21ccc44e5 110-112
+src/app/preview/scene/CameraCalibration.tsx
+  h_1041c21ccc44e5 1-490
+src/app/preview/scene/SceneCalibrationPanel.tsx
+  h_1041c21ccc44e5 1-54
+src/app/preview/scene/calibration.module.css
+  h_1041c21ccc44e5 1-12,14-76
+src/app/preview/scene/page.tsx
+  h_1041c21ccc44e5 1-12
+src/components/sections/FinalCTA.module.css
+  h_1041c21ccc44e5 2-4,22-27,85
+src/components/sections/FinalCTA.tsx
+  h_1041c21ccc44e5 1,14-23
+src/components/sections/Hero.module.css
+  h_1041c21ccc44e5 17-20,57-82,86,91-103
+src/components/sections/Hero.tsx
+  h_1041c21ccc44e5 11,18,21-27,29-46
+src/components/sections/ProcessSteps.module.css
+  h_1041c21ccc44e5 36-41
+src/components/sections/ProcessSteps.tsx
+  h_1041c21ccc44e5 1,11-12,18-19,25-26,46-55
+src/components/sections/SocialProof.module.css
+  h_1041c21ccc44e5 80,83,157-158,160
+src/components/sections/SocialProof.tsx
+  h_1041c21ccc44e5 1,51-57,61-65,67,87-88,150
+src/features/scene/SceneCanvas.tsx
+  h_1041c21ccc44e5 1-86
+src/features/scene/ScenePoster.tsx
+  h_1041c21ccc44e5 1,3-22,24-31
+src/features/scene/asset-source.test.ts
+  h_1041c21ccc44e5 1-28
+src/features/scene/asset-source.ts
+  h_1041c21ccc44e5 1-56
+src/features/scene/camera-calibration.test.ts
+  h_1041c21ccc44e5 1-123
+src/features/scene/camera-calibration.ts
+  h_1041c21ccc44e5 1-132
+src/features/scene/camera-presets.test.ts
+  h_1041c21ccc44e5 1-166
+src/features/scene/camera-presets.ts
+  h_1041c21ccc44e5 1-143
+src/features/scene/manifest-validation.test.ts
+  h_1041c21ccc44e5 1-179
+src/features/scene/solar.test.ts
+  h_1041c21ccc44e5 1-392
+src/features/scene/solar.ts
+  h_1041c21ccc44e5 1-1276
+src/features/scene/viewer.test.ts
+  h_1041c21ccc44e5 1-14
+src/features/scene/viewer.ts
+  h_1041c21ccc44e5 1-1528
+src/features/scene/visibility.test.ts
+  h_1041c21ccc44e5 1-76
+src/features/scene/visibility.ts
+  h_1041c21ccc44e5 1-25
+src/features/simulator/SimDrawer.module.css
+  h_1041c21ccc44e5 186-192
+src/features/simulator/SimDrawer.tsx
+  h_1041c21ccc44e5 20-24,61-70,95-104,221-225,244-245,261,275-289
+src/features/simulator/SimulatorHero.module.css
+  h_1041c21ccc44e5 1-105
+src/features/simulator/SimulatorHero.tsx
+  h_1041c21ccc44e5 1-440
+src/features/simulator/finance.test.ts
+  h_1041c21ccc44e5 1-171
+src/features/simulator/finance.ts
+  h_1041c21ccc44e5 1-100
+src/features/simulator/sim-drawer-types.ts
+  h_1041c21ccc44e5 29-33
+src/features/simulator/simulation-state.test.ts
+  h_1041c21ccc44e5 1-71
+src/features/simulator/simulation-state.ts
+  h_1041c21ccc44e5 1-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3d900162e9904fc786451336a93513cb1cda5361",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
