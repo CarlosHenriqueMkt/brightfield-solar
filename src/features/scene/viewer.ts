@@ -32,6 +32,7 @@ import {
 } from './solar';
 import {
   ChoreographyTimeline,
+  normalizeLeadIn,
   type ChoreographySnapshot,
 } from './choreography';
 
@@ -364,10 +365,13 @@ export class BrightfieldViewer {
   private disposed = false;
   private dirty = false;
   private pendingReadyCallback = false;
+  private pendingReadyGeneration: number | null = null;
+  private recoveryGeneration = 0;
+  private renderFailed = false;
   private firstFrameSnapshot: Record<string, unknown> | null = null;
+  private lastFrameTime: number | null = null;
   private lastRafTime: number | null = null;
   private lastRafInterval: number | null = null;
-  private lastFrameTime: number | null = null;
   private rendererRegistered = false;
   private calibrationNotifiedAt = 0;
 
@@ -455,7 +459,13 @@ export class BrightfieldViewer {
         this.createRenderer();
         if (!this.renderer) throw new Error('WebGL is unavailable.');
         this.scene = new THREE.Scene();
-        this.scene.background = await this.loadSkyTexture(source);
+        const skyTexture = await this.loadSkyTexture(source);
+        if (this.disposed || generation !== this.loadGeneration) {
+          if (this.skyTexture === skyTexture) this.skyTexture = null;
+          skyTexture.dispose();
+          throw new Error('Scene load superseded.');
+        }
+        this.scene.background = skyTexture;
         this.scene.backgroundRotation.y = source.backgroundYawRadians;
         this.scene.fog = null;
         this.scene.add(this.root);
@@ -464,7 +474,9 @@ export class BrightfieldViewer {
         this.assetSource = source;
         this.dirty = true;
         this.pendingReadyCallback = true;
+        this.pendingReadyGeneration = ++this.recoveryGeneration;
         this.renderImmediately();
+        if (this.disposed || generation !== this.loadGeneration) return;
         this.counters.successfulLoads += 1;
         this.callbacks.onStatus?.(
           `Finished-v04 house loaded in ${Math.round(now())}ms`,
@@ -566,7 +578,8 @@ export class BrightfieldViewer {
     };
     const immediate =
       nextIntent.reducedMotion ||
-      (!nextIntent.active && (this.contextLost || !this.renderer));
+      (!nextIntent.active &&
+        (this.contextLost || this.renderFailed || !this.renderer));
     const choreographyWasAnimating = this.isChoreographyAnimating();
     this.intent = nextIntent;
     if (nextIntent.active || immediate) this.pendingReturn = null;
@@ -654,7 +667,7 @@ export class BrightfieldViewer {
       duration,
       leadIn:
         destination === 'elevated' && this.intent.active
-          ? clamp(this.intent.leadInSeconds ?? 1, 1, 2)
+          ? normalizeLeadIn(this.intent.leadInSeconds)
           : 0,
       from: current,
       to,
@@ -762,14 +775,17 @@ export class BrightfieldViewer {
       return;
     }
     if (this.contextLost) {
-      const wasJourney = this.journey !== null;
       if (this.contextRecovery) this.contextRecovery.restoreContext();
-      this.contextLost = false;
-      this.lastRafTime = null;
-      this.counters.contextRestored += 1;
-      this.pendingReadyCallback = true;
-      if (wasJourney || this.intent.active) this.setIntent(this.intent);
+      else this.renderer?.forceContextRestore();
+      return;
     }
+    if (!this.renderFailed) return;
+    this.renderFailed = false;
+    this.dirty = true;
+    this.lastRafTime = null;
+    this.pendingReadyCallback = true;
+    this.pendingReadyGeneration = ++this.recoveryGeneration;
+    this.setIntent(this.intent);
     this.scheduleFrame();
   }
 
@@ -1474,8 +1490,41 @@ export class BrightfieldViewer {
     renderer.setScissor(0, 0, width, height);
   }
 
+  private handleRenderFailure(error: unknown): void {
+    if (this.disposed) return;
+    this.renderFailed = true;
+    this.pendingReadyCallback = false;
+    this.pendingReadyGeneration = null;
+    this.recoveryGeneration += 1;
+    this.dirty = false;
+    this.lastRafTime = null;
+    this.cancelFrame();
+    if (!this.intent.active) {
+      this.setIntent(this.intent);
+      this.dirty = false;
+    }
+    this.callbacks.onError(
+      error instanceof Error ? error.message : 'WebGL render failed.',
+    );
+  }
+
+  private paintFrame(): boolean {
+    try {
+      this.renderer!.setScissorTest(true);
+      this.renderer!.clear(true, true, true);
+      this.renderer!.render(this.scene!, this.camera!);
+      this.renderFailed = false;
+      return true;
+    } catch (error: unknown) {
+      this.handleRenderFailure(error);
+      return false;
+    }
+  }
+
   private renderImmediately(): void {
     if (
+      this.disposed ||
+      this.renderFailed ||
       !this.loaded ||
       !this.renderer ||
       !this.scene ||
@@ -1486,10 +1535,8 @@ export class BrightfieldViewer {
     )
       return;
     this.updateViewport();
-    this.renderer.setScissorTest(true);
     const started = now();
-    this.renderer.clear(true, true, true);
-    this.renderer.render(this.scene, this.camera);
+    if (!this.paintFrame()) return;
     this.recordFrame(now() - started);
     this.dirty = false;
   }
@@ -1508,6 +1555,7 @@ export class BrightfieldViewer {
       !this.visible ||
       this.backgrounded ||
       this.contextLost ||
+      this.renderFailed ||
       this.rafId !== null
     )
       return;
@@ -1543,7 +1591,8 @@ export class BrightfieldViewer {
       !this.camera ||
       !this.visible ||
       this.backgrounded ||
-      this.contextLost
+      this.contextLost ||
+      this.renderFailed
     )
       return;
     this.counters.rafExecuted += 1;
@@ -1570,8 +1619,7 @@ export class BrightfieldViewer {
       this.choreographySnapshot.phase === 'revealing' &&
       (before.phase === 'lead-in' || before.phase === 'camera')
     ) {
-      const entryDuration =
-        clamp(this.intent.leadInSeconds ?? 1, 1, 2) + JOURNEY_DURATION;
+      const entryDuration = this.choreography.entryDuration;
       panelDelta = Math.max(
         0,
         delta - (1 - before.curtainProgress) * entryDuration,
@@ -1654,9 +1702,7 @@ export class BrightfieldViewer {
     }
     this.updateViewport();
     const started = now();
-    this.renderer.setScissorTest(true);
-    this.renderer.clear(true, true, true);
-    this.renderer.render(this.scene, this.camera);
+    if (!this.paintFrame()) return;
     this.recordFrame(now() - started, interval);
     if (
       this.journey ||
@@ -1669,6 +1715,7 @@ export class BrightfieldViewer {
   };
 
   private recordFrame(renderMs: number, rafInterval = 0): void {
+    if (this.disposed) return;
     this.lastFrameTime = renderMs;
     this.lastRafInterval = rafInterval > 0 ? rafInterval : null;
     this.counters.frames += 1;
@@ -1691,8 +1738,27 @@ export class BrightfieldViewer {
       };
     }
     if (this.pendingReadyCallback) {
+      const readyGeneration = this.pendingReadyGeneration;
+      const readyLoadGeneration = this.loadGeneration;
       this.pendingReadyCallback = false;
+      this.pendingReadyGeneration = null;
+      if (
+        this.contextLost ||
+        this.renderFailed ||
+        readyGeneration === null ||
+        readyGeneration !== this.recoveryGeneration
+      )
+        return;
       this.callbacks.onReady();
+      if (
+        this.disposed ||
+        this.contextLost ||
+        readyGeneration === null ||
+        readyGeneration !== this.recoveryGeneration ||
+        readyLoadGeneration !== this.loadGeneration
+      )
+        return;
+      this.emitChoreography();
     }
   }
 
@@ -1703,11 +1769,13 @@ export class BrightfieldViewer {
   }
 
   private handleContextLost = (event: Event): void => {
+    if (this.disposed) return;
     event.preventDefault();
     this.contextLost = true;
     this.counters.contextLost += 1;
     this.lastRafTime = null;
     this.cancelFrame();
+    if (!this.intent.active) this.setIntent(this.intent);
     this.callbacks.onError('WebGL context lost; use retry to recover.');
   };
 
@@ -1715,9 +1783,11 @@ export class BrightfieldViewer {
     if (this.disposed) return;
     const wasJourney = this.journey !== null;
     this.contextLost = false;
+    this.renderFailed = false;
     this.counters.contextRestored += 1;
     this.lastRafTime = null;
     this.pendingReadyCallback = true;
+    this.pendingReadyGeneration = ++this.recoveryGeneration;
     if (wasJourney || this.intent.active) this.setIntent(this.intent);
     this.dirty = true;
     this.scheduleFrame();

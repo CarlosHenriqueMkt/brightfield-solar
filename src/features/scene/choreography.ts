@@ -34,10 +34,12 @@ export interface ChoreographyTimelineOptions {
   cameraDuration?: number;
 }
 
-const DEFAULT_LEAD_IN = 1;
-const DEFAULT_CAMERA_DURATION = 4;
+const DEFAULT_LEAD_IN = 0.4;
+const DEFAULT_CAMERA_DURATION = 3;
 const DEFAULT_DRAWER_DURATION = 0.4;
 const DEFAULT_CONCEAL_DRAWER_DURATION = 0.2;
+const DEFAULT_RETURN_DURATION = 2.4;
+const WHITE_MILESTONE = 0.03;
 
 function clamp(value: number, min = 0, max = 1): number {
   return Math.max(min, Math.min(max, value));
@@ -47,12 +49,19 @@ function normalizeCount(count: number): number {
   return clamp(Math.round(Number.isFinite(count) ? count : 0), 0, 51);
 }
 
-function normalizeLeadIn(seconds: number | undefined): number {
+export function normalizeLeadIn(seconds: number | undefined): number {
   return clamp(
     Number.isFinite(seconds ?? NaN) ? (seconds as number) : DEFAULT_LEAD_IN,
-    1,
-    2,
+    0.3,
+    0.5,
   );
+}
+
+export function curtainLiftAt(progress: number): number {
+  const normalized = clamp(Number.isFinite(progress) ? progress : 0);
+  if (normalized <= WHITE_MILESTONE) return 0;
+  const t = (normalized - WHITE_MILESTONE) / (1 - WHITE_MILESTONE);
+  return t * t * (3 - 2 * t);
 }
 
 export function initialChoreographySnapshot(
@@ -83,11 +92,14 @@ export class ChoreographyTimeline {
     revision: 0,
   };
   private phase: ChoreographyPhase = 'covered';
-  /** Composite forward coordinate q. Entry q += dt; return q -= 2*dt. */
+  /** Composite forward coordinate q. Return remaps this same coordinate. */
   private compositeTime = 0;
   private drawerElapsed = 0;
   private panelsSettled = true;
   private drawerComplete = true;
+  private returnElapsed = 0;
+  private returnOrigin = 0;
+  private returnDuration = 0;
 
   constructor(options: ChoreographyTimelineOptions = {}) {
     this.drawerDuration = options.drawerDuration ?? DEFAULT_DRAWER_DURATION;
@@ -96,25 +108,32 @@ export class ChoreographyTimeline {
     this.cameraDuration = options.cameraDuration ?? DEFAULT_CAMERA_DURATION;
   }
 
+  get entryDuration(): number {
+    return this.totalTime();
+  }
+
   snapshot(): ChoreographySnapshot {
     const leadIn = normalizeLeadIn(this.intent.leadInSeconds);
-    const total = leadIn + this.cameraDuration;
+    const total = this.entryDuration;
+    const curtainProgress = clamp(this.compositeTime / total);
     const cameraProgress = clamp(
       (this.compositeTime - leadIn) / this.cameraDuration,
     );
-    const curtainProgress = clamp(this.compositeTime / total);
     return {
       revision: this.intent.revision,
       phase: this.phase,
       cameraProgress,
       curtainProgress,
-      drawerProgress: clamp(this.drawerElapsed / this.drawerDuration),
+      drawerProgress:
+        this.drawerDuration > 0
+          ? clamp(this.drawerElapsed / this.drawerDuration)
+          : 1,
       cameraComplete: this.intent.active
         ? this.compositeTime >= total
         : this.compositeTime <= leadIn,
       curtainComplete: this.intent.active
         ? this.compositeTime >= total
-        : this.compositeTime <= 0,
+        : curtainLiftAt(curtainProgress) === 0,
       panelsComplete: this.panelsSettled,
       drawerComplete: this.drawerComplete,
     };
@@ -134,37 +153,45 @@ export class ChoreographyTimeline {
     const countChanged = previousCount !== this.intent.panelCount;
 
     if (next.reducedMotion) {
-      this.compositeTime = next.active
-        ? normalizeLeadIn(next.leadInSeconds) + this.cameraDuration
-        : 0;
+      this.compositeTime = next.active ? this.entryDuration : 0;
       this.drawerElapsed = next.active ? this.drawerDuration : 0;
       this.drawerComplete = true;
       this.panelsSettled = true;
       this.phase = next.active ? 'active' : 'covered';
+      this.resetReturn();
       return this.snapshot();
     }
 
     if (next.active && !wasActive) {
       this.phase =
-        this.compositeTime >= this.totalTime()
+        this.compositeTime >= this.entryDuration
           ? 'revealing'
           : this.compositeTime < normalizeLeadIn(this.intent.leadInSeconds)
             ? 'lead-in'
             : 'camera';
       this.panelsSettled = false;
-      this.drawerComplete = this.drawerElapsed >= this.drawerDuration;
+      this.drawerComplete =
+        this.drawerDuration <= 0 || this.drawerElapsed >= this.drawerDuration;
+      this.resetReturn();
     } else if (!next.active && wasActive) {
       this.phase = 'concealing';
       this.panelsSettled = false;
       this.drawerElapsed = Math.min(this.drawerElapsed, this.drawerDuration);
-      this.drawerComplete = this.drawerElapsed <= 0;
+      this.drawerComplete = this.drawerDuration <= 0 || this.drawerElapsed <= 0;
+      this.resetReturn();
     } else if (next.active && countChanged) {
-      if (this.compositeTime >= this.totalTime()) this.phase = 'revealing';
+      if (this.compositeTime >= this.entryDuration) this.phase = 'revealing';
       this.panelsSettled = false;
-      this.drawerComplete = this.drawerElapsed >= this.drawerDuration;
+      this.drawerComplete =
+        this.drawerDuration <= 0 || this.drawerElapsed >= this.drawerDuration;
     } else if (next.active && this.phase === 'concealing') {
       this.phase =
-        this.compositeTime >= this.totalTime() ? 'revealing' : 'camera';
+        this.compositeTime >= this.entryDuration
+          ? 'revealing'
+          : this.compositeTime < normalizeLeadIn(this.intent.leadInSeconds)
+            ? 'lead-in'
+            : 'camera';
+      this.resetReturn();
     }
     return this.snapshot();
   }
@@ -178,6 +205,7 @@ export class ChoreographyTimeline {
       this.drawerElapsed = 0;
       this.drawerComplete = false;
       this.panelsSettled = false;
+      this.resetReturn();
     }
     return this.snapshot();
   }
@@ -200,10 +228,9 @@ export class ChoreographyTimeline {
       return this.snapshot();
 
     if (this.intent.active) {
-      if (this.phase === 'concealing') this.phase = 'camera';
       const previousTime = this.compositeTime;
       this.compositeTime = Math.min(
-        this.totalTime(),
+        this.entryDuration,
         this.compositeTime + delta,
       );
       if (
@@ -211,42 +238,89 @@ export class ChoreographyTimeline {
         this.compositeTime >= normalizeLeadIn(this.intent.leadInSeconds)
       )
         this.phase = 'camera';
-      if (this.compositeTime >= this.totalTime() && this.phase === 'camera') {
-        this.phase = 'revealing';
-        this.drawerElapsed = 0;
-        this.drawerComplete = false;
-        this.panelsSettled = this.intent.panelCount === 0;
+
+      let revealDelta = 0;
+      if (this.compositeTime >= this.entryDuration) {
+        if (this.phase !== 'revealing' && this.phase !== 'active') {
+          this.phase = 'revealing';
+          this.panelsSettled = this.intent.panelCount === 0;
+        }
+        revealDelta =
+          previousTime >= this.entryDuration
+            ? delta
+            : Math.max(0, delta - (this.entryDuration - previousTime));
       }
-      if (this.phase === 'revealing') {
-        const revealDelta =
-          this.compositeTime >= this.totalTime()
-            ? Math.max(0, delta - (this.totalTime() - previousTime))
-            : delta;
+      if (this.phase === 'revealing' || this.phase === 'active') {
         this.drawerElapsed = Math.min(
           this.drawerDuration,
           this.drawerElapsed + revealDelta,
         );
-        this.drawerComplete = this.drawerElapsed >= this.drawerDuration;
+        this.drawerComplete =
+          this.drawerDuration <= 0 || this.drawerElapsed >= this.drawerDuration;
       }
     } else if (this.phase === 'concealing') {
-      this.drawerElapsed = Math.max(
-        0,
-        this.drawerElapsed -
-          (delta * this.drawerDuration) / this.concealDrawerDuration,
-      );
-      this.drawerComplete = this.drawerElapsed <= 0;
-      if (this.drawerComplete && this.panelsSettled) this.phase = 'returning';
+      const before = this.drawerElapsed;
+      const concealRate =
+        this.drawerDuration > 0 && this.concealDrawerDuration > 0
+          ? this.drawerDuration / this.concealDrawerDuration
+          : 0;
+      this.drawerElapsed = Math.max(0, before - delta * concealRate);
+      this.drawerComplete = this.drawerDuration <= 0 || this.drawerElapsed <= 0;
+      const consumed =
+        concealRate > 0 ? Math.min(delta, before / concealRate) : 0;
+      const residual = Math.max(0, delta - consumed);
+      if (this.drawerComplete && this.panelsSettled) {
+        this.beginReturn();
+        if (residual > 0) this.advanceReturn(residual);
+      }
+    } else if (this.phase === 'returning') {
+      this.advanceReturn(delta);
     }
-    if (this.phase === 'returning') {
-      this.compositeTime = Math.max(0, this.compositeTime - 2 * delta);
-      if (this.compositeTime <= 0) this.phase = 'covered';
-    }
+
     this.updatePhase();
     return this.snapshot();
   }
 
   private totalTime(): number {
     return normalizeLeadIn(this.intent.leadInSeconds) + this.cameraDuration;
+  }
+
+  private resetReturn(): void {
+    this.returnElapsed = 0;
+    this.returnOrigin = 0;
+    this.returnDuration = 0;
+  }
+
+  private beginReturn(): void {
+    if (this.phase !== 'concealing') return;
+    this.returnOrigin = clamp(this.compositeTime, 0, this.entryDuration);
+    this.returnElapsed = 0;
+    this.returnDuration =
+      DEFAULT_RETURN_DURATION * (this.returnOrigin / this.entryDuration);
+    if (this.returnOrigin <= 0 || this.returnDuration <= 0) {
+      this.compositeTime = 0;
+      this.phase = 'covered';
+      return;
+    }
+    this.phase = 'returning';
+  }
+
+  private advanceReturn(delta: number): void {
+    if (this.returnDuration <= 0) {
+      this.compositeTime = 0;
+      this.phase = 'covered';
+      return;
+    }
+    this.returnElapsed = Math.min(
+      this.returnDuration,
+      this.returnElapsed + delta,
+    );
+    const ratio = this.returnElapsed / this.returnDuration;
+    this.compositeTime =
+      this.returnElapsed >= this.returnDuration
+        ? 0
+        : this.returnOrigin * 0.5 * (1 + Math.cos(Math.PI * ratio));
+    if (this.returnElapsed >= this.returnDuration) this.phase = 'covered';
   }
 
   private updatePhase(): void {
@@ -263,6 +337,6 @@ export class ChoreographyTimeline {
       this.panelsSettled &&
       this.drawerComplete
     )
-      this.phase = 'returning';
+      this.beginReturn();
   }
 }

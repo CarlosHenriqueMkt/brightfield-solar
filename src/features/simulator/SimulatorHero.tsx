@@ -14,7 +14,10 @@ import {
 import type { CityConfig } from '@/domain/cities/city-config';
 import { Button } from '@/components/ui/Button';
 import type { BrightfieldViewer } from '@/features/scene/viewer';
-import type { ChoreographySnapshot } from '@/features/scene/choreography';
+import {
+  curtainLiftAt,
+  type ChoreographySnapshot,
+} from '@/features/scene/choreography';
 import { calculateSolarEstimate, validateSimulationInput } from './finance';
 import { SimDrawer } from './SimDrawer';
 import type { SimDrawerStep, SimDrawerValues } from './sim-drawer-types';
@@ -122,7 +125,9 @@ export function SimulatorHero({
     notices.push(
       'The 3D house could not be displayed. Your estimate and choices are still available. Use View house or close the panel to retry the illustration.',
     );
-  const copyHidden = simulation.active || simulation.phase !== 'covered';
+  const copyHidden =
+    simulation.active ||
+    (simulation.phase !== 'covered' && !simulation.curtainComplete);
   const sceneIntent = useMemo(
     () => ({
       active: simulation.active,
@@ -143,10 +148,7 @@ export function SimulatorHero({
     const host = root.current;
     if (host) {
       const curtain = Math.max(0, Math.min(1, snapshot.curtainProgress));
-      const lift =
-        curtain <= 0.92
-          ? curtain * (0.07 / 0.92)
-          : 0.07 + (curtain - 0.92) * (0.93 / 0.08);
+      const lift = curtainLiftAt(curtain);
       host.style.setProperty('--curtain-progress', String(curtain));
       host.style.setProperty(
         '--curtain-lift',
@@ -160,7 +162,7 @@ export function SimulatorHero({
         `${drawerProgress * drawerInnerWidth}px`,
       );
     }
-    if (snapshot.phase === 'covered' && !simulationRef.current.active)
+    if (snapshot.curtainComplete && !simulationRef.current.active)
       setIntroVisible(true);
     const previous = previousChoreography.current;
     if (
@@ -206,7 +208,7 @@ export function SimulatorHero({
       const headerHeight =
         document.querySelector('header')?.getBoundingClientRect().height ?? 0;
       const bounds = host.getBoundingClientRect();
-      if (bounds.top < 0 || bounds.bottom > window.innerHeight + 1)
+      if (bounds.top < headerHeight || bounds.bottom > window.innerHeight + 1)
         window.scrollTo({
           top: window.scrollY + bounds.top - headerHeight,
           behavior: 'instant',
@@ -314,12 +316,7 @@ export function SimulatorHero({
     intro?.forEach((element) => {
       element.toggleAttribute('inert', copyHidden);
     });
-    if (
-      !copyHidden &&
-      simulation.phase === 'covered' &&
-      !simulation.active &&
-      returnFocusPending.current
-    ) {
+    if (!copyHidden && !simulation.active && returnFocusPending.current) {
       returnFocusPending.current = false;
       root.current
         ?.querySelector<HTMLElement>('[data-open-simulation]')
@@ -330,7 +327,7 @@ export function SimulatorHero({
         element.removeAttribute('inert');
       });
     };
-  }, [copyHidden, simulation.active, simulation.phase]);
+  }, [copyHidden, simulation.active, simulation.phase, ready]);
 
   useEffect(() => {
     if (!simulation.active || simulation.drawerUsable || simulation.houseView)
@@ -348,9 +345,14 @@ export function SimulatorHero({
     simulation.houseView,
     closeSimulation,
   ]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     leavingPanel.current = false;
-    if (simulation.active && !simulation.panelVisible) {
+    if (
+      simulation.active &&
+      (!simulation.panelVisible ||
+        (!simulation.drawerUsable &&
+          panel.current?.contains(document.activeElement)))
+    ) {
       (returnControl.current ?? safeFocus.current)?.focus({
         preventScroll: true,
       });
@@ -439,34 +441,31 @@ export function SimulatorHero({
 
   const onSceneReady = useCallback(() => {
     failedScene.current = false;
+    previousChoreography.current = null;
     setReady(true);
     setSceneError(null);
   }, []);
   const onViewer = useCallback((next: BrightfieldViewer | null) => {
     viewer.current = next;
   }, []);
-  const onSceneError = useCallback(
-    (message: string) => {
-      failedScene.current = true;
-      setReady(false);
-      setSceneError(message);
-      previousChoreography.current = null;
-      const host = root.current;
-      host?.style.setProperty('--curtain-progress', '0');
-      host?.style.setProperty('--curtain-lift', '0%');
-      const fallbackWidth = drawerWidth.current;
-      host?.style.setProperty(
-        '--drawer-progress',
-        simulation.active ? '1' : '0',
-      );
-      host?.style.setProperty(
-        '--drawer-reveal-width',
-        simulation.active ? `${fallbackWidth}px` : '0px',
-      );
-      dispatch({ type: 'unavailable' });
-    },
-    [simulation.active],
-  );
+  const onSceneError = useCallback((message: string) => {
+    failedScene.current = true;
+    setReady(false);
+    setSceneError(message);
+    previousChoreography.current = null;
+    const active = simulationRef.current.active;
+    setIntroVisible(!active);
+    const host = root.current;
+    host?.style.setProperty('--curtain-progress', '0');
+    host?.style.setProperty('--curtain-lift', '0%');
+    const fallbackWidth = drawerWidth.current;
+    host?.style.setProperty('--drawer-progress', active ? '1' : '0');
+    host?.style.setProperty(
+      '--drawer-reveal-width',
+      active ? `${fallbackWidth}px` : '0px',
+    );
+    dispatch({ type: 'unavailable' });
+  }, []);
   const onSceneArrival = useCallback(
     (destination: 'frontal' | 'elevated', revision: number) => {
       dispatch({ type: 'arrival', destination, revision });
@@ -536,6 +535,7 @@ export function SimulatorHero({
           </Button>
         )}
       {!simulation.active &&
+        !introVisible &&
         (simulation.phase === 'concealing' ||
           simulation.phase === 'returning') && (
           <Button
@@ -621,7 +621,14 @@ export function SimulatorHero({
             The 3D house could not be displayed. Your estimate and choices are
             still available.
           </p>
-          <button type="button" onClick={() => viewer.current?.recover()}>
+          <button
+            type="button"
+            onClick={() => {
+              if (!simulationRef.current.active)
+                returnFocusPending.current = true;
+              viewer.current?.recover();
+            }}
+          >
             Retry 3D house
           </button>
         </div>

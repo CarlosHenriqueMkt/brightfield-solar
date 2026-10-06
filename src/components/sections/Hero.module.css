@@ -86,7 +86,7 @@
   align-items: center;
   justify-content: safe center;
   overflow: auto;
-  overscroll-behavior: contain;
+  overscroll-behavior-y: auto;
   padding: max(24px, env(safe-area-inset-top)) clamp(20px, 5vw, 72px)
     max(18px, env(safe-area-inset-bottom));
 }

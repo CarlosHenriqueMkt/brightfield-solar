@@ -3,11 +3,14 @@ import { describe, expect, it } from 'vitest';
 import {
   ChoreographyTimeline,
   initialChoreographySnapshot,
+  curtainLiftAt,
+  type ChoreographySnapshot,
 } from './choreography';
 import {
   BrightfieldViewer,
   PANEL_TWEEN_DURATION,
   panelAnimationInterval,
+  type BrightfieldViewerCallbacks,
   type SceneIntent,
 } from './viewer';
 import {
@@ -48,6 +51,17 @@ interface FixtureViewer {
   panelTransition: { pendingIds: string[] } | null;
   panelWrappers: Map<string, FixtureWrapper>;
   [key: string]: unknown;
+}
+
+interface PaintFixtureViewer extends FixtureViewer {
+  callbacks: BrightfieldViewerCallbacks;
+  disposed: boolean;
+  choreographySnapshot: ChoreographySnapshot;
+  currentState: SolarState;
+  loadGeneration: number;
+  rafId: number | null;
+  renderImmediately(): void;
+  recover(): void;
 }
 
 function makePanelFixture(count: number): {
@@ -392,14 +406,14 @@ describe('active-clock choreography contract', () => {
       reducedMotion: false,
       revision: 1,
     });
-    expect(timeline.advance(0.99)).toMatchObject({
+    expect(timeline.advance(0.39)).toMatchObject({
       phase: 'lead-in',
       cameraProgress: 0,
       cameraComplete: false,
       curtainComplete: false,
     });
     expect(timeline.advance(0.01).phase).toBe('camera');
-    const camera = timeline.advance(4);
+    const camera = timeline.advance(3);
     expect(camera).toMatchObject({
       phase: 'revealing',
       cameraProgress: 1,
@@ -478,5 +492,239 @@ describe('active-clock choreography contract', () => {
       cameraProgress: 0,
       curtainProgress: 0,
     });
+  });
+});
+describe('recovered paint lifecycle', () => {
+  function makePaintFixture() {
+    const events: string[] = [];
+    const camera = new THREE.PerspectiveCamera();
+    const scene = new THREE.Scene();
+    let shouldThrow = false;
+    let renders = 0;
+    let ready = false;
+    let visibleLift = 0;
+    const renderer = {
+      outputColorSpace: THREE.SRGBColorSpace,
+      toneMapping: THREE.NoToneMapping,
+      toneMappingExposure: 1,
+      shadowMap: { enabled: false },
+      info: { memory: {} },
+      setScissorTest: () => undefined,
+      clear: () => undefined,
+      render: () => {
+        if (shouldThrow) throw new Error('software paint failure');
+        renders += 1;
+      },
+      getSize: (size: THREE.Vector2) => size.set(815, 390),
+      setSize: () => undefined,
+      setViewport: () => undefined,
+      setScissor: () => undefined,
+      getDrawingBufferSize: (size: THREE.Vector2) => size.set(815, 390),
+    };
+    const viewer = Object.create(
+      BrightfieldViewer.prototype,
+    ) as PaintFixtureViewer;
+    Object.assign(viewer, {
+      loaded: true,
+      visible: true,
+      backgrounded: false,
+      contextLost: false,
+      disposed: false,
+      dirty: true,
+      renderSize: new THREE.Vector2(),
+      insets: { top: 0, right: 0, bottom: 0, left: 0 },
+      renderer,
+      scene,
+      camera,
+      actualCameraTarget: new THREE.Vector3(),
+      host: { clientWidth: 815, clientHeight: 390 },
+      callbacks: {
+        onReady: () => {
+          ready = true;
+          events.push('ready');
+        },
+        onError: (message: string) => {
+          ready = false;
+          visibleLift = 0;
+          events.push(`error:${message}`);
+        },
+        onArrival: () => undefined,
+        onChoreography: (snapshot: ChoreographySnapshot) => {
+          if (ready) visibleLift = curtainLiftAt(snapshot.curtainProgress);
+          events.push(`snapshot:${snapshot.phase}`);
+        },
+      },
+      choreographySnapshot: {
+        ...initialChoreographySnapshot(7),
+        phase: 'active',
+        cameraProgress: 1,
+        curtainProgress: 1,
+        drawerProgress: 1,
+        cameraComplete: true,
+        curtainComplete: true,
+        panelsComplete: true,
+        drawerComplete: true,
+      },
+      choreography: new ChoreographyTimeline(),
+      intent: {
+        active: true,
+        panelCount: 17,
+        reducedMotion: false,
+        revision: 7,
+      },
+      currentState: { mode: 'MISTO_PREFIXO', n: 17 },
+      pendingReadyCallback: true,
+      pendingReadyGeneration: 1,
+      recoveryGeneration: 1,
+      loadGeneration: 1,
+      renderFailed: false,
+      rafId: null,
+      panelWrappers: new Map(),
+      panelEntranceOrder: [],
+      counters: {
+        frames: 0,
+        firstFrames: 0,
+        rafCanceled: 0,
+      },
+      root: null,
+      resolvedAsset: null,
+      firstFrameSnapshot: null,
+      lastFrameTime: null,
+      lastRafInterval: null,
+    });
+    viewer.scheduleFrame = () => undefined;
+    return {
+      viewer,
+      events,
+      renderer,
+      get renders() {
+        return renders;
+      },
+      get ready() {
+        return ready;
+      },
+      get visibleLift() {
+        return visibleLift;
+      },
+      failPaint(value: boolean) {
+        shouldThrow = value;
+      },
+    };
+  }
+
+  it('replays the authoritative active snapshot after recovered onReady', () => {
+    const fixture = makePaintFixture();
+
+    fixture.viewer.renderImmediately();
+
+    expect(fixture.ready).toBe(true);
+    expect(fixture.visibleLift).toBe(1);
+    expect(fixture.renders).toBe(1);
+  });
+
+  it('does not replay readiness after a reentrant dispose', () => {
+    const fixture = makePaintFixture();
+    fixture.viewer.callbacks.onReady = () => {
+      fixture.events.push('dispose');
+      fixture.viewer.disposed = true;
+    };
+
+    fixture.viewer.renderImmediately();
+
+    expect(fixture.events).toEqual(['dispose']);
+  });
+  it('does not replay a snapshot after the ready scene generation is replaced', () => {
+    const fixture = makePaintFixture();
+    fixture.viewer.callbacks.onReady = () => {
+      fixture.events.push('replace');
+      fixture.viewer.loadGeneration += 1;
+    };
+
+    fixture.viewer.renderImmediately();
+
+    expect(fixture.events).toEqual(['replace']);
+  });
+
+  it('does not release the white fallback for an obsolete ready generation', () => {
+    const fixture = makePaintFixture();
+    Object.assign(fixture.viewer, { pendingReadyGeneration: 0 });
+    fixture.viewer.renderImmediately();
+    expect(fixture.ready).toBe(false);
+    expect(fixture.visibleLift).toBe(0);
+  });
+
+  it('recovers the accepted active view without discarding the current estimate', () => {
+    const fixture = makePaintFixture();
+    const timeline = new ChoreographyTimeline();
+    timeline.setIntent({
+      active: true,
+      panelCount: 17,
+      reducedMotion: true,
+      revision: 7,
+    });
+    Object.assign(fixture.viewer, { choreography: timeline });
+    fixture.viewer.renderImmediately();
+    expect(fixture.visibleLift).toBe(1);
+    fixture.failPaint(true);
+    fixture.viewer.renderImmediately();
+    expect(fixture.ready).toBe(false);
+    expect(fixture.visibleLift).toBe(0);
+    expect(fixture.viewer.currentState).toEqual({
+      mode: 'MISTO_PREFIXO',
+      n: 17,
+    });
+    fixture.failPaint(false);
+    fixture.viewer.recover();
+    fixture.viewer.renderImmediately();
+    expect(fixture.ready).toBe(true);
+    expect(fixture.visibleLift).toBe(1);
+  });
+
+  it('reports a paint failure as recoverable inactive state and retries', () => {
+    const fixture = makePaintFixture();
+    const { asset } = makePanelFixture(17);
+    applySolarState(asset, { mode: 'MISTO_PREFIXO', n: 17 });
+    Object.assign(fixture.viewer, {
+      intent: {
+        active: false,
+        panelCount: 17,
+        reducedMotion: false,
+        revision: 8,
+      },
+      currentState: { mode: 'MISTO_PREFIXO', n: 17 },
+      resolvedAsset: asset,
+      choreography: new ChoreographyTimeline(),
+      choreographySnapshot: initialChoreographySnapshot(8),
+      pendingReadyCallback: false,
+    });
+    fixture.failPaint(true);
+
+    fixture.viewer.renderImmediately();
+    expect(fixture.events).toContain('error:software paint failure');
+    expect(fixture.viewer.contextLost).toBe(false);
+    expect(fixture.viewer.choreographySnapshot).toMatchObject({
+      phase: 'covered',
+      cameraProgress: 0,
+      curtainProgress: 0,
+      drawerProgress: 0,
+    });
+    expect(fixture.viewer.currentState).toEqual({ mode: 'CASA_BASE' });
+    asset.panels.forEach((panel) => {
+      expect(panel.parent.visible).toBe(false);
+      expect(panel.module.visible).toBe(false);
+      expect(panel.support.visible).toBe(false);
+    });
+    expect(fixture.ready).toBe(false);
+    fixture.viewer.renderImmediately();
+    expect(
+      fixture.events.filter((event) => event.startsWith('error:')),
+    ).toHaveLength(1);
+
+    fixture.failPaint(false);
+    fixture.viewer.recover();
+    fixture.viewer.renderImmediately();
+    expect(fixture.renders).toBe(1);
+    expect(fixture.ready).toBe(true);
+    expect(fixture.visibleLift).toBe(0);
   });
 });
