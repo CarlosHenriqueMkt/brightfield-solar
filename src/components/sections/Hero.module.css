@@ -14,6 +14,12 @@
   width: 100%;
   height: 100%;
 }
+.cover {
+  display: contents;
+}
+.coverContent {
+  display: contents;
+}
 .intro {
   position: relative;
   z-index: 1;
@@ -55,16 +61,40 @@
   font-size: 12px;
 }
 .fullViewport {
-  min-height: calc(100vh - 80px);
-  min-height: calc(100svh - 80px);
+  position: relative;
+  min-height: calc(100vh - var(--header-height, 80px));
+  min-height: calc(100svh - var(--header-height, 80px));
+  height: calc(100svh - var(--header-height, 80px));
+  overflow: clip;
+}
+.fullViewport .cover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  background: #fff;
+  pointer-events: auto;
+  transform: translateY(calc(-1 * var(--curtain-lift, 0%)));
+  will-change: transform;
+}
+.fullViewport .coverContent {
+  box-sizing: border-box;
   display: flex;
+  width: 100%;
+  height: 100%;
   flex-direction: column;
-  row-gap: 300px;
+  align-items: center;
+  justify-content: safe center;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: max(24px, env(safe-area-inset-top)) clamp(20px, 5vw, 72px)
+    max(18px, env(safe-area-inset-bottom));
 }
 .fullViewport .intro {
-  margin: -56px calc(-1 * clamp(20px, 5vw, 72px)) 0;
-  padding: 56px clamp(20px, 5vw, 72px) 16px;
-  background: var(--sky);
+  width: min(100%, 980px);
+  flex-shrink: 0;
+  padding: 0;
+  background: transparent;
 }
 .fullViewport .copy,
 .fullViewport .controls,
@@ -76,9 +106,10 @@
   text-align: center;
 }
 .fullViewport .caption {
-  margin-top: auto;
-  margin-inline: calc(-1 * clamp(20px, 5vw, 72px));
-  background: var(--sky);
+  width: 100%;
+  flex-shrink: 0;
+  margin: 12px 0 0;
+  background: transparent;
 }
 @media (max-width: 640px) {
   .hero {
@@ -89,16 +120,17 @@
     font-size: 16px;
   }
   .fullViewport {
-    min-height: calc(100vh - 64px);
-    min-height: calc(100svh - 64px);
-    row-gap: 230px;
+    min-height: calc(100vh - var(--header-height, 64px));
+    min-height: calc(100svh - var(--header-height, 64px));
+    height: calc(100svh - var(--header-height, 64px));
+  }
+  .fullViewport .coverContent {
+    padding-inline: 20px;
   }
   .fullViewport .intro {
-    margin: -48px -20px 0;
-    padding: 48px 20px 16px;
-    background: var(--sky);
+    width: 100%;
   }
   .fullViewport .caption {
-    margin-inline: -20px;
+    margin-inline: 0;
   }
 }

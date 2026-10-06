@@ -6,17 +6,20 @@ import {
   type BrightfieldInsets,
   type SceneIntent,
 } from './viewer';
+import type { ChoreographySnapshot } from './choreography';
 
 export interface SceneCanvasProps {
   intent: SceneIntent;
   onReady?: () => void;
   onError?: (message: string) => void;
   onArrival?: (destination: 'frontal' | 'elevated', revision: number) => void;
+  onChoreography?: (snapshot: ChoreographySnapshot) => void;
   onViewer?: (viewer: BrightfieldViewer | null) => void;
   className?: string;
   style?: CSSProperties;
 }
 export type { BrightfieldInsets, SceneIntent };
+export type { ChoreographySnapshot };
 
 interface DevHost extends HTMLDivElement {
   __brightfieldViewer?: BrightfieldViewer;
@@ -27,6 +30,7 @@ export default function SceneCanvas({
   onReady,
   onError,
   onArrival,
+  onChoreography,
   onViewer,
   className,
   style,
@@ -36,14 +40,15 @@ export default function SceneCanvas({
   const readyRef = useRef(onReady);
   const errorRef = useRef(onError);
   const arrivalRef = useRef(onArrival);
+  const choreographyRef = useRef(onChoreography);
   const viewerCallbackRef = useRef(onViewer);
-
   useEffect(() => {
     readyRef.current = onReady;
     errorRef.current = onError;
     arrivalRef.current = onArrival;
+    choreographyRef.current = onChoreography;
     viewerCallbackRef.current = onViewer;
-  }, [onReady, onError, onArrival, onViewer]);
+  }, [onReady, onError, onArrival, onChoreography, onViewer]);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -53,6 +58,7 @@ export default function SceneCanvas({
       onError: (message) => errorRef.current?.(message),
       onArrival: (destination, revision) =>
         arrivalRef.current?.(destination, revision),
+      onChoreography: (snapshot) => choreographyRef.current?.(snapshot),
     });
     viewerRef.current = viewer;
     viewerCallbackRef.current?.(viewer);

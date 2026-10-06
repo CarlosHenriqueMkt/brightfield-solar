@@ -1,12 +1,18 @@
 .drawer {
-  width: 340px;
-  max-width: 100%;
+  box-sizing: border-box;
+  flex: 0 0 var(--drawer-inner-width, 340px);
+  width: var(--drawer-inner-width, 340px);
+  min-width: var(--drawer-inner-width, 340px);
+  max-width: none;
   padding: 24px;
   border-radius: var(--radius-md);
   background: #fff;
   color: var(--text);
   box-shadow: 0 18px 36px rgb(16 43 78 / 18%);
   text-align: left;
+}
+.closed {
+  pointer-events: none;
 }
 .top {
   display: flex;
@@ -192,6 +198,8 @@
 }
 @media (max-width: 640px) {
   .drawer {
-    width: 100%;
+    flex-basis: var(--drawer-inner-width, 100%);
+    width: var(--drawer-inner-width, 100%);
+    min-width: var(--drawer-inner-width, 100%);
   }
 }

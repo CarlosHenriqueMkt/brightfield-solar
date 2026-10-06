@@ -1,8 +1,13 @@
 .root {
+  --curtain-progress: 0;
+  --curtain-lift: 0%;
+  --drawer-progress: 0;
+  --drawer-reveal-width: 0px;
   position: relative;
   isolation: isolate;
   background: var(--sky);
   scroll-margin-top: 0;
+  overflow: clip;
 }
 .root > section {
   background: transparent;
@@ -13,23 +18,39 @@
   z-index: -1;
   pointer-events: none;
 }
-.root[data-copy-hidden='true'] [data-hero-intro] {
+.root[data-intro-visible='false'] [data-hero-intro] {
   visibility: hidden;
-  pointer-events: none;
 }
 .root[data-scene-ready='true'] [data-hero-poster] {
   visibility: hidden;
 }
 .panel {
   position: absolute;
-  top: 32px;
+  top: max(32px, env(safe-area-inset-top));
   right: clamp(20px, 5vw, 72px);
   z-index: 4;
+  display: flex;
+  justify-content: flex-end;
+  width: var(--drawer-reveal-width);
+  max-width: calc(100vw - 40px);
   max-height: calc(100% - 64px);
-  overflow: auto;
+  overflow: hidden;
   overscroll-behavior: contain;
   border-radius: var(--radius-md);
-  scrollbar-gutter: stable;
+  pointer-events: none;
+}
+.panel[data-drawer-usable='true'] {
+  pointer-events: auto;
+}
+.root[data-house-view='true'] .panel {
+  visibility: hidden;
+}
+.panel > section {
+  flex: 0 0 var(--drawer-inner-width, 340px);
+  width: var(--drawer-inner-width, 340px);
+  max-height: calc(100svh - var(--header-height, 80px) - 64px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .safeFocus {
   position: absolute;
@@ -85,18 +106,23 @@
 }
 @media (max-width: 700px) {
   .panel {
+    --drawer-inner-width: calc(
+      100vw - env(safe-area-inset-left) - env(safe-area-inset-right) - 28px
+    );
     position: fixed;
     top: auto;
-    bottom: max(14px, env(safe-area-inset-bottom));
-    left: max(14px, env(safe-area-inset-left));
     right: max(14px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom));
+    left: auto;
     max-height: calc(100vh - 28px);
     max-height: calc(100dvh - 28px - env(safe-area-inset-top));
     z-index: 10;
     scrollbar-gutter: auto;
+    max-width: var(--drawer-inner-width);
   }
   .panel > section {
-    width: 100%;
+    width: var(--drawer-inner-width);
+    max-height: calc(100dvh - 28px - env(safe-area-inset-top));
   }
   .sceneError {
     bottom: 144px;

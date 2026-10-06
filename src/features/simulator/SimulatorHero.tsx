@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useReducer,
   useRef,
@@ -13,6 +14,7 @@ import {
 import type { CityConfig } from '@/domain/cities/city-config';
 import { Button } from '@/components/ui/Button';
 import type { BrightfieldViewer } from '@/features/scene/viewer';
+import type { ChoreographySnapshot } from '@/features/scene/choreography';
 import { calculateSolarEstimate, validateSimulationInput } from './finance';
 import { SimDrawer } from './SimDrawer';
 import type { SimDrawerStep, SimDrawerValues } from './sim-drawer-types';
@@ -61,6 +63,7 @@ export function SimulatorHero({
   const [ready, setReady] = useState(false);
   const [sceneError, setSceneError] = useState<string | null>(null);
   const [announcement, setAnnouncement] = useState('');
+  const [introVisible, setIntroVisible] = useState(true);
   const root = useRef<HTMLDivElement>(null);
   const panel = useRef<HTMLDivElement>(null);
   const safeFocus = useRef<HTMLDivElement>(null);
@@ -68,10 +71,18 @@ export function SimulatorHero({
   const returnFocusPending = useRef(false);
   const leavingPanel = useRef(false);
   const viewer = useRef<BrightfieldViewer | null>(null);
-  const estimate = calculateSolarEstimate(
-    city,
-    accepted.bill,
-    accepted.coverage,
+  const previousChoreography = useRef<ChoreographySnapshot | null>(null);
+  const drawerWidth = useRef(340);
+  const failedScene = useRef(false);
+  const revisionRef = useRef(simulation.revision);
+  const simulationRef = useRef(simulation);
+  useLayoutEffect(() => {
+    revisionRef.current = simulation.revision;
+    simulationRef.current = simulation;
+  }, [simulation]);
+  const estimate = useMemo(
+    () => calculateSolarEstimate(city, accepted.bill, accepted.coverage),
+    [city, accepted.bill, accepted.coverage],
   );
   const formatted = {
     panelCount: `${estimate.installedPanels} panels`,
@@ -111,8 +122,7 @@ export function SimulatorHero({
     notices.push(
       'The 3D house could not be displayed. Your estimate and choices are still available. Use View house or close the panel to retry the illustration.',
     );
-  const copyHidden =
-    simulation.active || simulation.cameraPhase === 'returning';
+  const copyHidden = simulation.active || simulation.phase !== 'covered';
   const sceneIntent = useMemo(
     () => ({
       active: simulation.active,
@@ -127,12 +137,139 @@ export function SimulatorHero({
       reducedMotion,
     ],
   );
+  const onChoreography = useCallback((snapshot: ChoreographySnapshot) => {
+    if (snapshot.revision !== revisionRef.current || failedScene.current)
+      return;
+    const host = root.current;
+    if (host) {
+      const curtain = Math.max(0, Math.min(1, snapshot.curtainProgress));
+      const lift =
+        curtain <= 0.92
+          ? curtain * (0.07 / 0.92)
+          : 0.07 + (curtain - 0.92) * (0.93 / 0.08);
+      host.style.setProperty('--curtain-progress', String(curtain));
+      host.style.setProperty(
+        '--curtain-lift',
+        `${Math.max(0, Math.min(1, lift)) * 100}%`,
+      );
+      const drawerProgress = Math.max(0, Math.min(1, snapshot.drawerProgress));
+      const drawerInnerWidth = drawerWidth.current;
+      host.style.setProperty('--drawer-progress', String(drawerProgress));
+      host.style.setProperty(
+        '--drawer-reveal-width',
+        `${drawerProgress * drawerInnerWidth}px`,
+      );
+    }
+    if (snapshot.phase === 'covered' && !simulationRef.current.active)
+      setIntroVisible(true);
+    const previous = previousChoreography.current;
+    if (
+      !previous ||
+      previous.revision !== snapshot.revision ||
+      previous.phase !== snapshot.phase ||
+      previous.cameraComplete !== snapshot.cameraComplete ||
+      previous.curtainComplete !== snapshot.curtainComplete ||
+      previous.panelsComplete !== snapshot.panelsComplete ||
+      previous.drawerComplete !== snapshot.drawerComplete
+    ) {
+      dispatch({ type: 'choreography', snapshot });
+    }
+    previousChoreography.current = snapshot;
+  }, []);
 
+  const moveFocusOutsidePanel = useCallback(() => {
+    leavingPanel.current = true;
+    if (!safeFocus.current) return;
+    safeFocus.current.removeAttribute('inert');
+    safeFocus.current.focus({ preventScroll: true });
+  }, []);
+  const closeSimulation = useCallback(() => {
+    moveFocusOutsidePanel();
+    setIntroVisible(false);
+    if (!ready || sceneError || reducedMotion) {
+      root.current?.style.setProperty('--curtain-progress', '0');
+      root.current?.style.setProperty('--curtain-lift', '0%');
+      root.current?.style.setProperty('--drawer-progress', '0');
+      root.current?.style.setProperty('--drawer-reveal-width', '0px');
+      setIntroVisible(true);
+    }
+    returnFocusPending.current = true;
+    dispatch({
+      type: 'close',
+      animate: ready && !sceneError && !reducedMotion,
+    });
+  }, [ready, sceneError, reducedMotion, moveFocusOutsidePanel]);
   const openSimulation = useCallback(() => {
     safeFocus.current?.focus({ preventScroll: true });
-    root.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    const host = root.current;
+    if (host) {
+      const headerHeight =
+        document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+      const bounds = host.getBoundingClientRect();
+      if (bounds.top < 0 || bounds.bottom > window.innerHeight + 1)
+        window.scrollTo({
+          top: window.scrollY + bounds.top - headerHeight,
+          behavior: 'instant',
+        });
+    }
+    if (simulationRef.current.active) {
+      dispatch({ type: 'open' });
+      if (simulationRef.current.drawerUsable)
+        panel.current
+          ?.querySelector<HTMLElement>('h3')
+          ?.focus({ preventScroll: true });
+      return;
+    }
     returnFocusPending.current = false;
     dispatch({ type: 'open' });
+    if (sceneError) {
+      host?.style.setProperty('--curtain-progress', '0');
+      host?.style.setProperty('--curtain-lift', '0%');
+      host?.style.setProperty('--drawer-progress', '1');
+      host?.style.setProperty(
+        '--drawer-reveal-width',
+        `${drawerWidth.current}px`,
+      );
+      dispatch({ type: 'unavailable' });
+    }
+  }, [sceneError]);
+  useEffect(() => {
+    const host = root.current;
+    const header = document.querySelector<HTMLElement>('header');
+    if (!host || !header) return;
+    const measure = () => {
+      host.style.setProperty(
+        '--header-height',
+        `${Math.max(0, header.getBoundingClientRect().height)}px`,
+      );
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
+    const host = root.current;
+    const drawer = panel.current?.firstElementChild;
+    if (!host || !(drawer instanceof HTMLElement)) return;
+    const sync = () => {
+      drawerWidth.current = drawer.getBoundingClientRect().width;
+      const progress = Number(
+        host.style.getPropertyValue('--drawer-progress') || '0',
+      );
+      host.style.setProperty(
+        '--drawer-reveal-width',
+        `${Math.max(0, progress) * drawerWidth.current}px`,
+      );
+    };
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(drawer);
+    window.addEventListener('resize', sync);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', sync);
+    };
   }, []);
   useEffect(() => {
     const layout = window.matchMedia('(max-width: 700px)');
@@ -175,9 +312,14 @@ export function SimulatorHero({
     const intro =
       root.current?.querySelectorAll<HTMLElement>('[data-hero-intro]');
     intro?.forEach((element) => {
-      element.inert = copyHidden;
+      element.toggleAttribute('inert', copyHidden);
     });
-    if (!copyHidden && returnFocusPending.current) {
+    if (
+      !copyHidden &&
+      simulation.phase === 'covered' &&
+      !simulation.active &&
+      returnFocusPending.current
+    ) {
       returnFocusPending.current = false;
       root.current
         ?.querySelector<HTMLElement>('[data-open-simulation]')
@@ -185,16 +327,36 @@ export function SimulatorHero({
     }
     return () => {
       intro?.forEach((element) => {
-        element.inert = false;
+        element.removeAttribute('inert');
       });
     };
-  }, [copyHidden]);
+  }, [copyHidden, simulation.active, simulation.phase]);
 
   useEffect(() => {
+    if (!simulation.active || simulation.drawerUsable || simulation.houseView)
+      return;
+    function cancel(event: KeyboardEvent) {
+      if (event.key !== 'Escape') return;
+      event.preventDefault();
+      closeSimulation();
+    }
+    document.addEventListener('keydown', cancel);
+    return () => document.removeEventListener('keydown', cancel);
+  }, [
+    simulation.active,
+    simulation.drawerUsable,
+    simulation.houseView,
+    closeSimulation,
+  ]);
+  useEffect(() => {
     leavingPanel.current = false;
-    if (simulation.active && !simulation.panelVisible)
-      returnControl.current?.focus({ preventScroll: true });
-    if (!simulation.panelVisible || !panel.current) return;
+    if (simulation.active && !simulation.panelVisible) {
+      (returnControl.current ?? safeFocus.current)?.focus({
+        preventScroll: true,
+      });
+    }
+    if (!simulation.drawerUsable || !simulation.panelVisible || !panel.current)
+      return;
     const drawer = panel.current;
     if (!drawer.contains(document.activeElement))
       drawer.querySelector<HTMLElement>('h3')?.focus({ preventScroll: true });
@@ -208,7 +370,7 @@ export function SimulatorHero({
       for (const sibling of child.parentElement.children) {
         if (sibling !== child && sibling instanceof HTMLElement) {
           locked.push({ element: sibling, previous: sibling.inert });
-          sibling.inert = true;
+          sibling.setAttribute('inert', '');
         }
       }
       child = child.parentElement;
@@ -258,12 +420,17 @@ export function SimulatorHero({
       document.removeEventListener('keydown', trap);
       document.removeEventListener('focusin', contain);
       locked.forEach(({ element, previous }) => {
-        element.inert = previous;
+        element.toggleAttribute('inert', previous);
       });
       document.body.style.overflow = overflow;
       window.scrollTo(scrollX, scrollY);
     };
-  }, [simulation.active, simulation.panelVisible, mobile]);
+  }, [
+    simulation.active,
+    simulation.panelVisible,
+    simulation.drawerUsable,
+    mobile,
+  ]);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => setAnnouncement(summary), 600);
@@ -271,17 +438,35 @@ export function SimulatorHero({
   }, [summary]);
 
   const onSceneReady = useCallback(() => {
+    failedScene.current = false;
     setReady(true);
     setSceneError(null);
   }, []);
   const onViewer = useCallback((next: BrightfieldViewer | null) => {
     viewer.current = next;
   }, []);
-  const onSceneError = useCallback((message: string) => {
-    setReady(false);
-    setSceneError(message);
-    dispatch({ type: 'unavailable' });
-  }, []);
+  const onSceneError = useCallback(
+    (message: string) => {
+      failedScene.current = true;
+      setReady(false);
+      setSceneError(message);
+      previousChoreography.current = null;
+      const host = root.current;
+      host?.style.setProperty('--curtain-progress', '0');
+      host?.style.setProperty('--curtain-lift', '0%');
+      const fallbackWidth = drawerWidth.current;
+      host?.style.setProperty(
+        '--drawer-progress',
+        simulation.active ? '1' : '0',
+      );
+      host?.style.setProperty(
+        '--drawer-reveal-width',
+        simulation.active ? `${fallbackWidth}px` : '0px',
+      );
+      dispatch({ type: 'unavailable' });
+    },
+    [simulation.active],
+  );
   const onSceneArrival = useCallback(
     (destination: 'frontal' | 'elevated', revision: number) => {
       dispatch({ type: 'arrival', destination, revision });
@@ -289,21 +474,6 @@ export function SimulatorHero({
     [],
   );
 
-  function moveFocusOutsidePanel() {
-    leavingPanel.current = true;
-    if (!safeFocus.current) return;
-    safeFocus.current.inert = false;
-    safeFocus.current.focus({ preventScroll: true });
-  }
-
-  function closeSimulation() {
-    moveFocusOutsidePanel();
-    returnFocusPending.current = true;
-    dispatch({
-      type: 'close',
-      animate: ready && !sceneError && !reducedMotion,
-    });
-  }
   function updateField(field: 'bill' | 'coverage', value: string) {
     const nextDraft = { ...values, [field]: value };
     setValues(nextDraft);
@@ -330,6 +500,9 @@ export function SimulatorHero({
       data-camera-phase={simulation.cameraPhase}
       data-copy-hidden={copyHidden}
       data-scene-ready={ready}
+      data-intro-visible={introVisible}
+      data-house-view={simulation.houseView}
+      data-choreography-phase={simulation.phase}
     >
       {children}
       <SceneCanvas
@@ -338,6 +511,7 @@ export function SimulatorHero({
         onReady={onSceneReady}
         onError={onSceneError}
         onArrival={onSceneArrival}
+        onChoreography={onChoreography}
         onViewer={onViewer}
       />
       <div
@@ -346,18 +520,32 @@ export function SimulatorHero({
         className={styles.safeFocus}
         aria-label="Solar simulation"
       >
-        {simulation.cameraPhase === 'returning' &&
-          'Returning to the house view.'}
+        {simulation.cameraPhase === 'returning'
+          ? 'Returning to the house view.'
+          : simulation.active && !simulation.drawerUsable
+            ? 'Preparing your house view.'
+            : simulation.active
+              ? 'Your solar estimate.'
+              : ''}
       </div>
-      {simulation.cameraPhase === 'returning' && (
-        <Button
-          className={styles.returnControl}
-          onClick={() => openSimulation()}
-        >
-          Reopen simulation
-        </Button>
-      )}
-      {simulation.active && !simulation.panelVisible && (
+      {simulation.active &&
+        !simulation.drawerUsable &&
+        !simulation.houseView && (
+          <Button className={styles.returnControl} onClick={closeSimulation}>
+            Cancel simulation
+          </Button>
+        )}
+      {!simulation.active &&
+        (simulation.phase === 'concealing' ||
+          simulation.phase === 'returning') && (
+          <Button
+            className={styles.returnControl}
+            onClick={() => openSimulation()}
+          >
+            Reopen simulation
+          </Button>
+        )}
+      {simulation.active && simulation.houseView && (
         <div className={styles.houseControls}>
           <Button
             ref={returnControl}
@@ -370,52 +558,55 @@ export function SimulatorHero({
           </button>
         </div>
       )}
-      {simulation.panelVisible && (
-        <div ref={panel} className={styles.panel}>
-          <SimDrawer
-            id="simulation-panel"
-            open
-            step={step}
-            values={values}
-            profiles={city.householdProfiles}
-            selectedProfile={selectedProfile}
-            result={formatted}
-            notices={notices}
-            stateIncentiveNote={city.stateIncentiveNote}
-            explanation={`Monthly consumption is your bill divided by ${city.utilityName}'s $${city.utilityRatePerKwh}/kWh rate. Each ${city.panelWatts} W panel generates an estimated ${numbers.format(estimate.generationPerPanelKwh)} kWh/month from ${city.peakSunHoursPerDay} peak sun hours/day and a performance factor of ${city.performanceRatio * 100}%. Panel counts round up, with a minimum of ${city.minPanels} panels. Installation costs $${city.costPerWattInstalled}/W; the ${city.federalCreditRate * 100}% federal credit reduces the investment. Savings are capped at your bill; payback divides net investment by twelve months of capped savings. These are fictional estimates, not tax advice.`}
-            installationHref="#installation"
-            modal={mobile}
-            closeLabel="Close simulation"
-            onInstallation={() => {
-              moveFocusOutsidePanel();
-              dispatch({ type: 'view-house' });
-            }}
-            liveSummary={draftError ? `${draftError} ${summary}` : summary}
-            onViewHouse={
-              mobile
-                ? () => {
-                    moveFocusOutsidePanel();
-                    dispatch({ type: 'view-house' });
-                  }
-                : undefined
-            }
-            onBillChange={(value) => updateField('bill', value)}
-            onCoverageChange={(value) => updateField('coverage', value)}
-            onProfileSelect={(index) => {
-              const profile = city.householdProfiles[index];
-              if (!profile) throw new RangeError('Unknown household profile');
-              updateField('bill', String(profile.typicalBill));
-              setSelectedProfile(index);
-            }}
-            onStepChange={(next) => {
-              if (!draftError) setStep(next);
-            }}
-            onOpenChange={(open) => {
-              if (!open) closeSimulation();
-            }}
-          />
-        </div>
-      )}
+      <div
+        ref={panel}
+        className={styles.panel}
+        data-drawer-usable={simulation.drawerUsable}
+      >
+        <SimDrawer
+          id="simulation-panel"
+          open={simulation.drawerUsable}
+          keepMounted
+          step={step}
+          values={values}
+          profiles={city.householdProfiles}
+          selectedProfile={selectedProfile}
+          result={formatted}
+          notices={notices}
+          stateIncentiveNote={city.stateIncentiveNote}
+          explanation={`Monthly consumption is your bill divided by ${city.utilityName}'s $${city.utilityRatePerKwh}/kWh rate. Each ${city.panelWatts} W panel generates an estimated ${numbers.format(estimate.generationPerPanelKwh)} kWh/month from ${city.peakSunHoursPerDay} peak sun hours/day and a performance factor of ${city.performanceRatio * 100}%. Panel counts round up, with a minimum of ${city.minPanels} panels. Installation costs $${city.costPerWattInstalled}/W; the ${city.federalCreditRate * 100}% federal credit reduces the investment. Savings are capped at your bill; payback divides net investment by twelve months of capped savings. These are fictional estimates, not tax advice.`}
+          installationHref="#installation"
+          modal={mobile}
+          closeLabel="Close simulation"
+          onInstallation={() => {
+            moveFocusOutsidePanel();
+            dispatch({ type: 'view-house' });
+          }}
+          liveSummary={draftError ? `${draftError} ${summary}` : summary}
+          onViewHouse={
+            mobile
+              ? () => {
+                  moveFocusOutsidePanel();
+                  dispatch({ type: 'view-house' });
+                }
+              : undefined
+          }
+          onBillChange={(value) => updateField('bill', value)}
+          onCoverageChange={(value) => updateField('coverage', value)}
+          onProfileSelect={(index) => {
+            const profile = city.householdProfiles[index];
+            if (!profile) throw new RangeError('Unknown household profile');
+            updateField('bill', String(profile.typicalBill));
+            setSelectedProfile(index);
+          }}
+          onStepChange={(next) => {
+            if (!draftError) setStep(next);
+          }}
+          onOpenChange={(open) => {
+            if (!open) closeSimulation();
+          }}
+        />
+      </div>
       <p
         className={styles.announcement}
         role="status"
