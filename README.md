@@ -89,7 +89,7 @@ Somente estes três arquivos do finished-v04 são servidos como assets 3D:
 | `house.manifest.json` |   881.999 | `8ef5a7a184855aab05b1aeb5c2b51ff30aa4b1e00e28ddf51f5dc06f969e8d7d` |
 | `sky-softened-2k.jpg` |   118.806 | `afd97440b1fbcbf98c534a8a269a2ccba525e75396c49c84d051b4e9ee6e3f12` |
 
-Total bruto 3D: **2.866.541 bytes**, abaixo de 3 MB decimais. `.prettierignore` exclui somente esse manifest imutável para preservar bytes/hash; não ignora código ou validação. As oito fotos somam **16.445.531 bytes brutos**; os dois posters, **800.089 bytes**. São orçamentos separados, não uma alegação de que a página inteira, RAM ou VRAM cabe em 3 MB.
+Total bruto 3D: **2.866.541 bytes**, abaixo de 3 MB decimais. `.prettierignore` exclui somente esse manifest imutável para preservar bytes/hash; não ignora código ou validação. `.gitattributes` desativa conversões de fim de linha nos três assets finished-v04, inclusive em checkouts Windows com `core.autocrlf=true`. As oito fotos somam **16.445.531 bytes brutos**; os dois posters, **800.089 bytes**. São orçamentos separados, não uma alegação de que a página inteira, RAM ou VRAM cabe em 3 MB.
 
 ### Tráfego e memória observados
 
