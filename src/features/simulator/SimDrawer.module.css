@@ -183,6 +183,13 @@
   background: var(--sky);
   border-radius: var(--radius-sm);
 }
+.range {
+  width: 100%;
+  min-height: 44px;
+  margin: 4px 0 0;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
 @media (max-width: 640px) {
   .drawer {
     width: 100%;

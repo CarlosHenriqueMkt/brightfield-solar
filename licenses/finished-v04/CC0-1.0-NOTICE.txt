@@ -1,0 +1,28 @@
+POLY HAVEN — CC0-1.0 ASSET NOTICE
+
+The downloaded texture/HDRI assets in this kit are released by Poly Haven under CC0 1.0 Universal. Commercial use, modification and redistribution are allowed; attribution is appreciated but not required by CC0. This notice records the source/license; it does not claim ownership of the assets or reproduce the Poly Haven website's separately protected copy or previews.
+
+Source license statement: https://polyhaven.com/license
+Canonical CC0 deed: https://creativecommons.org/publicdomain/zero/1.0/
+Canonical legal text: https://creativecommons.org/publicdomain/zero/1.0/legalcode
+Source license verification recorded in the original material kit on 2026-10-05.
+
+Assets and credited authors:
+
+White Stucco
+Authors: Amal Kumar
+Source: https://polyhaven.com/a/white_stucco
+
+Granular Concrete
+Authors: Michael Jenkins (fotografia), Dario Barresi (processamento)
+Source: https://polyhaven.com/a/granular_concrete
+
+Gravel Floor
+Authors: Matterfield (fotografia), Jenelle van Heerden (processamento)
+Source: https://polyhaven.com/a/gravel_floor
+
+Kloofendal 48d Partly Cloudy (Pure Sky)
+Authors: Greg Zaal (original), Jarod Guest (edição do céu)
+Source: https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky
+
+Only the source asset files were downloaded, not site logos, preview renders or a website copy. The local 2K sky is a technical resize of the licensed original; its provenance and exact transformation are recorded in house.manifest.json.

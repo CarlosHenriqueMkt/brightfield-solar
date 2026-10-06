@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Hero } from '@/components/sections/Hero';
 import { ProcessSteps } from '@/components/sections/ProcessSteps';
@@ -6,7 +7,6 @@ import { SocialProof } from '@/components/sections/SocialProof';
 import { FAQ } from '@/components/sections/FAQ';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 import { Button } from '@/components/ui/Button';
-import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
 import { getCityBySlug } from '@/domain/cities/cities';
 import { SimPreview } from './SimPreview';
 import styles from './preview.module.css';
@@ -31,8 +31,9 @@ export default function ComponentsPreviewPage() {
           fixed fictional fixtures; no calculation or renderer is connected.
         </p>
         <p>
-          Image permissions are not confirmed. Neutral placeholders preserve the
-          media spaces and overlays without distributing the source PNGs.
+          Carlos authorized use of the eight supplied OpenDesign images for WEB
+          03. This preview keeps the approved frontal study; the public page
+          uses finished-v04.
         </p>
         <nav className={styles.navigation} aria-label="Component previews">
           <a href="#hero-preview">Hero</a>
@@ -58,8 +59,12 @@ export default function ComponentsPreviewPage() {
           city={city}
           headingAs="h2"
           sceneSlot={
-            <MediaPlaceholder
-              label="Neutral scene placeholder · WEB 03"
+            <Image
+              src="/assets/approved-v2/house-front.png"
+              alt="Illustrative frontal study of a Phoenix home"
+              width={1600}
+              height={1000}
+              sizes="100vw"
               className={styles.heroPlaceholder}
             />
           }

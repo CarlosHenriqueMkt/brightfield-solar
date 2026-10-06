@@ -77,8 +77,10 @@
 }
 
 .crewImage {
+  display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .crewPortrait::after {
@@ -152,12 +154,10 @@
   font-size: 15px;
   line-height: 1.55;
 }
-
-.disclaimer {
-  margin-top: 16px;
+.illustrative {
+  margin-top: 14px;
   color: #466780;
-  font-size: 12px;
-  line-height: 1.45;
+  font-size: 11px;
 }
 
 @media (max-width: 1060px) {

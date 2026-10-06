@@ -1,17 +1,17 @@
 # Brightfield Solar — Caso 09
 
-Fundação técnica e componentes do [caso 09 da Alvorada](https://github.com/Alvorada-Dev/desafios-tecnicos/blob/main/casos/09-pagina-de-cidade.md): Next.js App Router, dados locais e página pública mínima de Phoenix preservada. Empresa, números, incentivos, equipes e depoimentos são fictícios; não são orientação tributária atual. WEB 02 acrescenta componentes reutilizáveis e uma prévia isolada, não a landing page final. Sem publicação ou deploy.
+WEB 03: landing adaptativa de Phoenix, cálculo financeiro real e cena `finished-v04`, preservando a fundação WEB 01 e os componentes WEB 02 do [caso 09 da Alvorada](https://github.com/Alvorada-Dev/desafios-tecnicos/blob/main/casos/09-pagina-de-cidade.md). Empresa, números, incentivos, equipes e depoimentos são fictícios; não são orientação tributária atual. Branch de implementação `feat/web03-finished-v04`. Sem deploy nesta etapa.
 
 ## Executar
 
-Requer Node **24.12.0 ou superior na linha 24** e npm **11.16.0 ou superior na linha 11**. Ambiente conferido: Node 24.12.0, npm 11.16.0 e Git 2.45.2.windows.1. Não precisa de ferramentas globais, variáveis secretas nem das referências em Downloads.
+Node **24.12.0+ na linha 24**, npm **11.16.0+ na linha 11**. Não exige ferramentas globais, segredos nem os arquivos de referência em Downloads.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Abra **http://127.0.0.1:3000/city/phoenix-az**. A galeria WEB 02 está em **http://127.0.0.1:3000/preview/components**, exclusivamente em desenvolvimento: `robots: noindex, nofollow` e `notFound()` fora de `NODE_ENV=development`. Não há link público para ela. `dev` e `start` vinculam somente loopback; encerre com Ctrl+C. Para produção local:
+Abra **http://127.0.0.1:3000/city/phoenix-az**. Os scripts vinculam somente loopback; encerre com Ctrl+C. Produção local:
 
 ```sh
 npm run check
@@ -19,150 +19,120 @@ npm run build
 npm run start
 ```
 
-| Script                | Finalidade                                                       |
-| --------------------- | ---------------------------------------------------------------- |
-| `dev` / `start`       | Next em desenvolvimento / produção local (requer build)          |
-| `build`               | `next build`, incluindo validação dos dados e pré-renderização   |
-| `lint`                | ESLint direto; avisos também reprovam                            |
-| `format`              | Formata arquivos com Prettier                                    |
-| `format:check`        | Confere formatação sem modificar arquivos                        |
-| `typecheck`           | `next typegen && tsc --noEmit`; gera tipos também em clone limpo |
-| `test` / `test:watch` | Vitest em execução única / modo watch, ambiente Node             |
-| `check`               | `format:check`, lint, typecheck e testes; build é separado       |
+`check` executa `format:check`, lint sem tolerância a avisos, `next typegen && tsc --noEmit` e Vitest. `build` é separado. `format` aplica Prettier; `test:watch` mantém Vitest em modo watch. Scripts e configurações de qualidade existentes foram preservados: TypeScript strict, `skipLibCheck: false`, sem ignorar erros de build. `.next/dev` permanece excluído para não duplicar tipos gerados por `next typegen`.
 
-## Versões fixadas
+Versões exatas no único `package-lock.json`: Next **16.3.8**, React/React DOM **19.3.0**, TypeScript **6.0.3**, ESLint **10.12.0**, Prettier **3.9.9**, Vitest **5.0.3**. WEB 03 acrescenta apenas **three 0.186.1** e **@types/three 0.186.0**. IBM Plex Sans 400/500/600 continua local via `next/font/local`, sem CDN.
 
-`package.json` fixa versões exatas; o único lockfile é `package-lock.json`.
+## Página, rotas e fronteiras
 
-- Runtime: Next **16.3.8**, React e React DOM **19.3.0**.
-- Qualidade: TypeScript **6.0.3**, ESLint **10.12.0**, Prettier **3.9.9**, Vitest **5.0.3**.
-- Lint: `@eslint/js` **10.0.1**, `@next/eslint-plugin-next` **16.3.8**, `typescript-eslint` **8.71.1**, `eslint-plugin-react-hooks` **7.1.1**, `eslint-config-prettier` **10.1.8**.
-- Tipos: `@types/node` **24.19.1**, `@types/react` e `@types/react-dom` **19.3.0**.
+- `/` retorna **307** para `/city/phoenix-az`; Phoenix é **SSG** com `generateStaticParams`. Só esse slug está cadastrado; outros retornam **404**.
+- A composição pública no servidor é **Hero/simulador → três etapas → depoimentos/equipes → FAQ → CTA final**. Título, descrição, um `h1`, dados e conteúdo útil chegam no HTML. FAQ usa `details/summary`; depoimentos têm navegação manual, sem autoplay.
+- `/preview/components` conserva exemplos isolados e fixtures WEB 02, explicitamente demonstrativas. `/preview/scene` oferece calibração e inspeção técnica. Ambas retornam **200 + robots `noindex, nofollow` em desenvolvimento** e **404 em produção**; não há link público para elas.
+- `src/app/city/[citySlug]/page.tsx` compõe componentes de `src/components/sections`; `domain/cities` mantém contrato, validação e registro independentes de React.
+- `features/simulator/finance.ts` contém matemática pura; `simulation-state.ts`, o reducer; `SimulatorHero.tsx`, interação/foco; `SimDrawer`, apresentação controlada. Um único controlador atende todos os CTAs públicos, sem duplicar simuladores.
+- `features/scene` contém viewer, cache/lifecycle, validadores de manifest/hierarquia, estados solares, presets e trajetória. O servidor entrega o poster; só a cena WebGL é carregada como ilha cliente. Não há renderer ou handle de debug no servidor; o handle técnico no DOM é exclusivo de desenvolvimento.
+- Sem backend, autenticação, stores globais, localStorage, geolocalização, analytics, endpoints ou infraestrutura preventiva. Canonical/domínio de produção não foram inventados.
 
-Escolha baseada na [instalação oficial Next](https://nextjs.org/docs/app/getting-started/installation), engines e peer dependencies do registry, não na stack da POC. TypeScript 7 ainda está fora da faixa suportada pelo typescript-eslint. [ESLint 9 está em EOL](https://eslint.org/version-support/); o preset agregado `eslint-config-next` depende de plugins sem suporte a ESLint 10. Por isso a configuração flat usa diretamente o plugin oficial Next/Core Web Vitals, regras recomendadas JS/TS e React Hooks, sem `--force`, `--legacy-peer-deps` ou supressão de erros.
+## Contrato financeiro
 
-## Estrutura e rota
+Conta **$40–$600**, passo **$10**; cobertura **50%–100%**, passo **5%**; início **$220 / 80%**. Perfis alteram somente a conta. Campos inválidos, inclusive vazios, conservam o último cálculo válido e a intenção da cena, mostram a política de validação e não produzem `NaN`. Valores financeiros atualizam imediatamente; somente o anúncio acessível é moderado em 600 ms.
 
-```text
-src/
-  app/
-    layout.tsx                 # servidor, en-US e next/font/local
-    globals.css                # reset, tipografia, foco e poucos tokens
-    page.tsx                   # redireciona / para Phoenix
-    not-found.tsx
-    not-found.module.css
-    fonts/                     # IBM Plex Sans 400/500/600 + LICENSE.txt
-    city/[citySlug]/
-      page.tsx                 # página e metadata no servidor
-      page.module.css
-    preview/components/        # galeria dev, fixtures e pequeno controlador cliente
-  components/
-    ui/                        # Button, Container, SectionHeading, MediaPlaceholder
-    sections/                  # Hero, ProcessSteps, SocialProof, FAQ, FinalCTA
-  features/simulator/
-    SimDrawer.tsx              # UI controlada; sem cálculo financeiro
-    sim-drawer-types.ts        # passos, valores, apresentação e callbacks
-  domain/cities/
-    city-config.ts             # contrato readonly e validação
-    phoenix.ts                 # objeto completo do brief oficial
-    cities.ts                  # registro e duas consultas
-    cities.test.ts             # lookup e rejeição de dados inválidos
-```
+Para Phoenix:
 
-- Alias `@/*` → `src/*`; TypeScript strict, sem ignorar erros de build ou declarações de dependências.
-- Checagens usam os tipos atuais de `.next/types`, regenerados por `next typegen`. O cache paralelo `.next/dev` é excluído da compilação para não declarar duas vezes os mesmos tipos globais após executar dev; nenhum arquivo-fonte ou erro real é ignorado. `skipLibCheck` permanece `false`.
-- `CityConfig` preserva parâmetros do cálculo, perfis, equipes, depoimentos e FAQ. `satisfies` verifica o dado TS; validação na carga do registro verifica campos obrigatórios, identidade, valores finitos, intervalos, inteiros, perfis e datas, com caminho legível no erro. O build carrega esse registro.
-- `getCityBySlug` faz lookup exato em registro estático, sem montar caminhos de arquivo. `getAllCitySlugs` fornece `generateStaticParams`. Para adicionar cidade, criar o dado conforme o contrato e cadastrá-lo no registro; não gerar as outras aproximadamente 120 cidades agora.
-- Só `/city/phoenix-az` está cadastrada. `dynamicParams = false` restringe a rota; lookup ausente usa `notFound()`. `params` é aguardado conforme Next 16. Cache Components explicitamente desativado; sem experimentos.
-- `/` usa `redirect()` para Phoenix enquanto ela for a única cidade. Não há segunda landing page. Slugs desconhecidos retornam 404.
-- Título, descrição e conteúdo públicos usam os mesmos dados. URL é a fonte de verdade da cidade. Página pública, layout, metadata e consulta permanecem no servidor; domínio não importa React. Apenas drawer, controlador da prévia e navegação de depoimentos são ilhas cliente; sem contexto global ou localStorage.
-- Vitest cobre contratos puros: dados, slugs arbitrários/propriedades de protótipo, invariantes inválidas e navegação de depoimentos. Componentes assíncronos e metadata são conferidos no servidor real, não em uma suíte DOM artificial.
+1. Consumo mensal = conta / **$0,15/kWh**.
+2. Geração por painel = **0,45 kW × 6,5 h/dia × 30 dias × 0,8 = 70,2 kWh/mês**.
+3. Painéis = máximo entre **8** e o teto do consumo-alvo dividido pela geração unitária. Cobertura não é alterada para acomodar o mínimo.
+4. Investimento bruto = painéis × **450 W × $2,75/W**; líquido = bruto × **70%**, após crédito federal de 30%.
+5. Economia = mínimo entre conta e valor da geração. Excedente vira crédito com Arizona Public Service, não receita em dinheiro. Payback = investimento líquido / (12 × economia mensal).
 
-## Verificação da fundação WEB 01
+Não há arredondamento intermediário; formatação monetária e anos de payback pertencem à UI. O incentivo estadual de **25%, limitado a $1.000**, é informado, mas **não entra no investimento líquido ou payback**. O tratamento de teto considera a precisão de ponto flutuante na fronteira de um inteiro, sem arredondar consumo/geração previamente.
 
-- `npm install` e `npm ci` concluídos com o lockfile final. Uma tentativa intermediária de migração do lint falhou com ERESOLVE pelo grafo antigo; foram removidos somente os artefatos gerados nesta sessão e a instalação foi refeita, sem forçar peers.
-- `npm run format`, `npm run lint`, `npm run typecheck`, `npm test` (**39 testes**) e `npm run build` passaram. O typecheck inicial foi executado antes do primeiro build, com geração dos tipos. Build marcou `/city/phoenix-az` como **SSG**.
-- A primeira execução de `check` após dev expôs declarações duplicadas entre os dois caches Next. A seleção explícita do conjunto gerado por `next typegen` corrigiu a causa sem apagar caches, relaxar tipos ou exigir limpeza manual. `npm run check` e `npm run build` passaram também após executar dev.
-- Produção em `http://127.0.0.1:3217`: Phoenix **200**, um `main`/`h1`, title e description presentes no HTML; slug desconhecido **404**; `/` **307** com Location `/city/phoenix-az`. Link da 404 retorna a Phoenix e possui foco visível.
-- Navegador real em 1280×800 e 390×844: conteúdo legível, sem overflow horizontal ou erros de execução em Phoenix; três pesos da fonte carregados localmente. Contraste texto/céu 8,88:1, título/céu 12,78:1. Isso não substitui a validação completa do Prompt 04 nem teste em aparelho físico.
-- `npm run dev -- --port 3218` também iniciou e serviu Phoenix com HTTP 200. Ambos os servidores temporários foram encerrados. Para repetir produção: `npm run build` e `npm run start -- --port 3217`; não há processo deixado aberto.
+| Conta / cobertura | Financeiro |                  Visual |
+| ----------------- | ---------: | ----------------------: |
+| $220 / 80%        |         17 |                      17 |
+| $90 / 100%        |          9 |                       9 |
+| $90 / 80%         |          8 |    8, cobertura mantida |
+| $600 / 100%       |         57 | 51, com aviso explícito |
 
-## Referências e assets
+O domínio não limita o cálculo a 51. Uma matriz independente cobre todas as **627 combinações** válidas; oito casos foram também exercitados na UI real, além de perfil preservando cobertura e campo vazio preservando os números anteriores.
 
-Referências somente de leitura, não dependências do aplicativo:
+## Hero, interação e cena
 
-- POC: `C:\Users\User\Downloads\bright-solar\BRIGHTFIELD_WEB_PREP_V01\web-prep\BRIGHTFIELD_WEB_POC_V01`. Foram inspecionados package/lock, README, controles DOM, contrato da cena e inventário de assets; nada foi alterado ou copiado. A POC separa viewer/WebGL e estados visuais; não substitui o contrato financeiro do desafio. Bake/debug continua separado.
-- OpenDesign aprovado: ZIP `C:\Users\User\Downloads\Brightfield-Solar-Phoenix-v2 (2).zip`; extraído em `C:\Users\User\Downloads\Brightfield-Solar-Phoenix-v2`. Os 19 arquivos foram comparados byte a byte e são idênticos. Lidos `index.html`, `app.js`, `styles.css`, `DESIGN-HANDOFF.md`, `DESIGN-MANIFEST.json` e fontes.
-- O export contém apresentações fixas 1440/390, templates `landing()`/`details()` e frames de estados. Não determina rotas nem comprova drawer/carrossel funcional. Extrair componentes e construir uma página adaptativa, sem molduras, notas ou duplicações; não copiar o handoff genérico como arquitetura.
-- Oito PNGs disponíveis em `assets/`: `house-front.png`, `step-assess.png`, `step-plan.png`, `step-install.png`, `crew-ray.png`, `crew-danielle.png`, `crew-okafor.png` e `closing-home.png`. Nenhum foi copiado ou usado nesta fundação.
-- Nove referências históricas citadas mas **ausentes na raiz do pacote**: `01_instalacao.jpg`, `02_depoimentos_equipes.jpg`, `03_faq.jpg`, `04_final_luz_escala.jpg`, `05_final_foco_acao.jpg`, `Brightfield_Composicao_B.png`, `Brightfield_Drawer_Estados.png`, `house-front.png` e `phoenix-referencias-residenciais.png`. O `assets/house-front.png` existe e é distinto desse caminho histórico. Não inventar os ausentes nem torná-los dependências.
-- Tokens conferidos em `styles.css`: navy `#102B4E`, texto `#244568`, ação `#315C9A`, céu `#EDF4F7`, papel `#FBFCFD`, verde `#557653`, amarelo `#E6BD4F`; ritmo 4/8 e raios 8/12/16. CSS Modules + CSS global pequeno, sem outra stack visual.
-- Fontes locais verificadas por tabelas TrueType: IBM Plex Sans normal 400/500/600, copiadas sem alteração e usadas via `next/font/local`, com fallback Arial/sans-serif e `display: swap`. O export não trazia licença textual; foi incluída a [licença OFL 1.1 oficial da IBM](https://github.com/IBM/plex/blob/master/LICENSE.txt) em `src/app/fonts/LICENSE.txt`. Nenhum download de fonte ou request remoto é necessário em build/runtime.
+Canvas, poster e Hero têm **o mesmo retângulo full-bleed**. Aspect usa medidas reais do host e `ResizeObserver`; DPR efetivo é limitado a **1,5**. A copy permanece no DOM/fluxo e é ocultada durante simulação e retorno: a altura não muda ao abrir/fechar. Posters desktop **1440×820** e mobile **390×780** são capturas genuínas de `CASA_BASE`, não fotos substituindo o resultado 3D.
 
-## Componentes WEB 02
+Desktop é não modal. Até 700 CSS px, o painel é um diálogo modal real: foco contido, Tab/Shift+Tab circular, fundo inerte, Escape e bloqueio/limpeza de scroll. Antes de ocultar o painel, o foco sai para um alvo não inerte; ao voltar à casa frontal, retorna ao CTA. **View house** remove o painel sem fechar a simulação, preserva valores/placas/câmera elevada; **Back to simulation** restaura o passo. Os controles móveis medidos têm altura mínima de 44 px.
 
-O export v2 foi renderizado em navegador real; os oito PNGs foram abertos antes de estilizar. CSS Modules conservam tokens, espaçamentos, tipografia, alternância das etapas, proporções de mídia e nomes das equipes sobre o retrato. Sem autorização comprovada para redistribuir imagens, `MediaPlaceholder` ocupa as mesmas proporções com indicação explícita; não substitui fotos por assets inventados. O CTA usa fundo neutro escuro para manter contraste do texto sobreposto; em até 1024px, o texto fica abaixo da mídia para não colidir.
+A cena inicia em `CASA_BASE`, inclusive no primeiro quadro de uma carga fria. O viewer recebe sempre a intenção mais recente: abrir/editar/fechar antes do GLB terminar não dispara uma viagem antiga. Falha de rede ou contexto mostra poster e **Retry 3D house**, sem bloquear o cálculo. Retry é manual; restauração usa a intenção financeira atual.
 
-- `Button`: botão nativo, variantes `primary`/`light`, seta decorativa opcional e props/ref nativos. `Container`: largura máxima 1440px e gutters responsivos. `SectionHeading`: eyebrow, título com id e descrição opcional.
-- `Hero`: dados `city`, `sceneSlot` e `controlsSlot`; DOM estático no servidor. O slot da cena preenche a área visual inteira, inclusive atrás da copy; não existe renderer, canvas isolado inferior ou GLB. `headingAs` permite usar h2 na galeria e h1 na futura composição pública.
-- `ProcessSteps`: três passos semânticos, mídia alternada no desktop e texto antes da mídia no mobile. `FAQ`: itens de `CityConfig`, disclosure nativo por `details/summary`, estados iniciais `first`/`all`/`none`, sem JS para expandir.
-- `SocialProof`: dados de cidade/depoimentos/equipes por props; variante `featured` com cards completos renderizados no servidor e ilha de navegação manual, ou `all` em grade. Nomes, datas, bairros, números, notas e descrições vêm do registro existente; nenhum dado fictício alternativo é criado. Sem autoplay.
-- `FinalCTA`: mídia proporcional e `action: ReactNode`; a prévia apresenta botão **visivelmente desativado**, sem simular agendamento.
-- `SimDrawer`: `open`, `step` (`bill`/`coverage`/`result`/`edit`), valores string controlados, perfil selecionado, resultado já formatado, avisos e callbacks explícitos. Não importa matemática. Inputs nativos rotulados usam limites oficiais; perfil altera só conta, preservando cobertura. O controlador da prévia conserva valores/passo/seleção ao fechar, devolve foco ao launcher e move foco ao título na abertura/transição. Escape fecha; não é modal, não prende foco ou bloqueia o restante da página.
+- **207 nós originais + 3 de ambiente = 210**, **51 painéis**, identificação por `asset_id`. Não há cama hexagonal recriada, montagem alternativa, materialKit ou assets históricos em runtime.
+- Materiais baked/unlit, saída **sRGB**, **NoToneMapping**, exposição **1**, sem luzes, sombras ou fog; céu JPG com yaw zero. Transformações e presets artísticos aprovados são preservados.
+- Viagem completa em ambos os sentidos: **4 segundos**, `easeInOutCubic`, trajetória orbital, partindo da pose efetivamente atual. Inversão/resize retargetam de forma proporcional, até quatro segundos; não há salto para o endpoint antigo nem repetição de uma chegada já concluída. Revisões rejeitam callbacks obsoletos.
+- Módulo e suporte são agrupados apenas em wrapper transitório. Tween de **150 ms** e stagger `min(40 ms, 1300 ms / max(1, N − 1))`: até **1.450 ms nominais** com 51 placas. Quadro final medido em **1.462,9 ms**; com resize real 1024→768→1024, **1.464 ms**. O relógio próprio dos painéis não reinicia com o retarget da câmera.
+- Reconciliação preserva progresso real e não encolhe uma placa parcialmente revelada. Ao estabilizar, todos os wrappers somem e pais, ordem dos filhos e TRS originais são restaurados; módulo e suporte não viram nós independentes na raiz.
+- Fora da tela ou com documento oculto, relógios/RAF pausam. Retomada não inclui o tempo oculto. Cena estável não mantém RAF. Movimento reduzido conclui uma vez, sem loop de animação.
 
-A galeria demonstra Hero fechado/aberto, quatro passos, avisos de mínimo/teto, perfis, FAQ inicial/expandida e variantes de prova social. Resultados são **fixtures fixas do export**, somente nesta rota: editar inputs não recalcula números. O texto de ajuda e “See how it is calculated” deixam isso explícito. Cada exemplo é isolado, não uma landing pública duplicada.
+A GUI técnica permite editar/aplicar pose, escolher presets, usar pose atual, restaurar aprovado, scrub/play/pause, duração/easing/trajetória, estados solares e copiar/exportar JSON. A edição de draft foi exercitada enquanto o playback realmente avançava; 102 registros de módulo/suporte foram inspecionados, com pais corretos e TRS local identidade.
 
-### Inventário de imagens e permissão
+## Assets, autorização e licenças
 
-Todos os arquivos abaixo foram fornecidos como referência no export local v2 (`assets/`). A autoria/origem primária — inclusive eventual geração por IA — é **desconhecida**; o pacote/guia não comprova licença de redistribuição. Links históricos de terceiros não autorizam estas imagens. Status de todos: **permissão pendente; não copiados para bundle/public nem usados no app**.
+Referências de leitura: OpenDesign v2 extraído em `C:\Users\User\Downloads\Brightfield-Solar-Phoenix-v2`; POC em `C:\Users\User\Downloads\bright-solar\BRIGHTFIELD_WEB_PREP_V01\web-prep\BRIGHTFIELD_WEB_POC_V01`; contrato `CONTRATO_WEB03_FINISHED_V04.txt` fornecido com o finished-v04. O aplicativo não depende desses caminhos.
 
-| Arquivo             | Dimensões | Uso no export             | Origem conhecida / classificação                     |
-| ------------------- | --------- | ------------------------- | ---------------------------------------------------- |
-| `house-front.png`   | 1600×1000 | casa frontal do Hero/cena | Fornecido pelo usuário; origem primária desconhecida |
-| `step-assess.png`   | 1448×1086 | avaliação da casa         | Fornecido pelo usuário; origem primária desconhecida |
-| `step-plan.png`     | 1448×1086 | planejamento              | Fornecido pelo usuário; origem primária desconhecida |
-| `step-install.png`  | 1448×1086 | instalação                | Fornecido pelo usuário; origem primária desconhecida |
-| `crew-ray.png`      | 1122×1402 | Ray O. and team           | Fornecido pelo usuário; origem primária desconhecida |
-| `crew-danielle.png` | 1122×1402 | Danielle W. and team      | Fornecido pelo usuário; origem primária desconhecida |
-| `crew-okafor.png`   | 1122×1402 | The Okafor brothers       | Fornecido pelo usuário; origem primária desconhecida |
-| `closing-home.png`  | 1672×941  | casa no CTA final         | Fornecido pelo usuário; origem primária desconhecida |
+Carlos Henrique autorizou nesta sessão o uso/cópia dos **oito PNGs fornecidos** em `public/assets/approved-v2`: `house-front`, `step-assess`, `step-plan`, `step-install`, `crew-ray`, `crew-danielle`, `crew-okafor`, `closing-home`. Todos foram comparados por SHA-256 com a origem e estão byte a byte idênticos. `house-front` continua na galeria de componentes; o Hero público usa a cena e seus posters. Etapas/equipes usam as fotos fornecidas, e o CTA final conserva a imagem blue-hour. Autoria/origem primária, inclusive eventual geração por IA, é desconhecida; não são declarados CC0 nem receberam créditos inventados.
 
-IBM Plex Sans é a exceção já resolvida: 400/500/600 locais, licença OFL 1.1 em `src/app/fonts/LICENSE.txt`; nenhum CDN.
+IBM Plex tem [OFL 1.1 oficial](https://github.com/IBM/plex/blob/master/LICENSE.txt), preservada em `src/app/fonts/LICENSE.txt`. A proveniência CC0 dos materiais/sky Poly Haven está em [`licenses/finished-v04/CC0-1.0-NOTICE.txt`](licenses/finished-v04/CC0-1.0-NOTICE.txt), com autores/URLs de White Stucco, Granular Concrete, Gravel Floor e Kloofendal 48d Partly Cloudy Pure Sky. [Política Poly Haven](https://polyhaven.com/license) e [CC0](https://creativecommons.org/publicdomain/zero/1.0/). Isso não atribui CC0 a toda a geometria do projeto, aos PNGs ou ao aplicativo. O resize técnico 2K do céu é registrado no manifest; não houve re-bake, Blender ou alteração artística.
 
-### QA visual WEB 02
+Somente estes três arquivos do finished-v04 são servidos como assets 3D:
 
-- `npm run check` passou: `format:check`, lint sem avisos, typecheck strict e **41 testes** (39 de dados preservados + 2 de navegação). `npm run build` passou e manteve Phoenix como **SSG**. Sem alteração de versões, scripts, lockfile ou configuração TypeScript.
-- Produção local em `127.0.0.1:3229`: Phoenix **200**, um `main`/`h1`, title/description originais no HTML; `/` **307** para `/city/phoenix-az`; slug desconhecido e `/preview/components` **404**. A prévia não entrega seus componentes em produção; 404 real e link de retorno por teclado conferidos no navegador. Prévia exercitada em dev `127.0.0.1:3228`; servidores e abas temporários próprios encerrados.
-- Chromium real em **1440, 390, 768 e 1024 CSS px**: sem overflow horizontal; proporções 4:3 e 1122:1402 mantidas, nomes sobre a mídia e CTA sem texto cortado. Não foi feito teste em aparelho físico.
-- Exercitados abertura/fechamento por teclado, Escape, retorno de foco, validação nativa de passo, perfil alterando só conta, cobertura/passo/seleção preservados ao reabrir, result/edit e avisos fixos. FAQ responde a Enter/Space; carrossel responde a setas/Home/End e scroll manual, alcança a última seleção nas quatro larguras e a conserva no resize. Sem autoplay ou animação de entrada.
-- Corrigidos no smoke: overflow vertical do drawer sobre a copy mobile; seleção incorreta na borda do rail em layouts de dois cards, inclusive arredondamento das medidas. Nenhum erro de execução nas interações finais.
-- IBM Plex Sans 400/500/600 carregados localmente, sem recurso remoto. Contrastes medidos: texto/céu **8,88:1**, helper/céu **4,75:1**, metadata do card lateral com opacidade **4,60:1**, branco/CTA escuro **15,10:1**. Isso não substitui auditoria completa de acessibilidade do WEB 04.
-- Capturas em [`evidence/web02/desktop-1440.png`](evidence/web02/desktop-1440.png) e [`mobile-390.png`](evidence/web02/mobile-390.png); detalhes: [`hero-open-desktop.png`](evidence/web02/hero-open-desktop.png), [`hero-open-mobile.png`](evidence/web02/hero-open-mobile.png), [`drawer-states-desktop.png`](evidence/web02/drawer-states-desktop.png) e [`final-mobile.png`](evidence/web02/final-mobile.png). O host usa DPR 1,25: as dimensões físicas dos PNGs diferem da largura CSS.
+| Arquivo               |     Bytes | SHA-256 de origem/destino/HTTP                                     |
+| --------------------- | --------: | ------------------------------------------------------------------ |
+| `house.glb`           | 1.865.736 | `20cdc8f8ede8396227c5c7f4f38ab1e5f95d9dfe0ea22d28072d9bd62600b7c3` |
+| `house.manifest.json` |   881.999 | `8ef5a7a184855aab05b1aeb5c2b51ff30aa4b1e00e28ddf51f5dc06f969e8d7d` |
+| `sky-softened-2k.jpg` |   118.806 | `afd97440b1fbcbf98c534a8a269a2ccba525e75396c49c84d051b4e9ee6e3f12` |
 
-## Fronteiras para os próximos prompts
+Total bruto 3D: **2.866.541 bytes**, abaixo de 3 MB decimais. `.prettierignore` exclui somente esse manifest imutável para preservar bytes/hash; não ignora código ou validação. As oito fotos somam **16.445.531 bytes brutos**; os dois posters, **800.089 bytes**. São orçamentos separados, não uma alegação de que a página inteira, RAM ou VRAM cabe em 3 MB.
 
-Adicionar arquivos somente quando usados:
+### Tráfego e memória observados
 
-- `app/`: rotas e composição; não concentrar negócio.
-- `components/ui/`: visuais OpenDesign e primitivas realmente reutilizadas.
-- `features/simulator/`: matemática pura TS, estado da interação e UI separados.
-- `features/scene/`: renderer, lifecycle WebGL, assets e adaptação do resultado.
-- `domain/cities/`: dados/contrato independentes de React.
-- `shared/`: apenas utilidades genuinamente compartilhadas, nunca depósito genérico.
+Produção, viewport 1440×900, cache desativado apenas nessa página, navegação fria e scroll real até carregar as sete fotos públicas:
 
-Estado começa com `useState`/`useReducer` na feature. Dados vêm do servidor por props; compartilhar estado pelo ancestral necessário. Sem stores, contextos duplicados, Provider vazio ou AppProviders preventivo; provider cliente apenas por dependência real, no menor trecho possível. Perfil alterando só conta, cobertura preservada e limites nativos dos inputs já estão na prévia WEB 02: conta $40–$600 em passos de $10, cobertura 50%–100% em passos de 5. **WEB 03** implementará e testará a matemática pura, sem React/DOM/WebGL/autenticação: arredondar painéis para cima, respeitar mínimo, limitar economia à conta e excluir incentivo estadual. Um mesmo resultado real será consumido por UI e renderer; fixtures não fazem parte desse cálculo.
+| Grupo                        | Corpo HTTP codificado | Corpo após descompressão HTTP |
+| ---------------------------- | --------------------: | ----------------------------: |
+| HTML                         |                 8.950 |                        56.238 |
+| JavaScript, 11 requests      |               317.389 |                     1.167.328 |
+| CSS, 3 requests              |                 5.536 |                        25.312 |
+| Fontes locais, 3 requests    |               326.595 |                       615.828 |
+| Fotos otimizadas, 7 requests |               465.266 |                       465.266 |
+| Poster selecionado           |                16.358 |                        16.358 |
+| Finished-v04, 3 requests     |             1.563.012 |                     2.866.541 |
+| **Total**                    |         **2.703.106** |                 **5.212.871** |
 
-Página pública não exige login: sem SDK, usuário fictício, SessionProvider, `/api/auth`, middleware/proxy de sessão, cookies, login ou AuthAdapter vazio. Futura área autenticada terá fronteira própria tipada e autorização no servidor, mantendo página pública e simulador independentes da biblioteca. Extensibilidade é desacoplamento, não infraestrutura antecipada.
+`ResourceTiming.transferSize` reportou **2.711.806 bytes** incluindo sua estimativa de overhead, sem requests de terceiros. Não é medição de pacotes/TLS nem garantia para todo viewport/formato. “Descompressão HTTP” não é decodificação de pixels.
 
-Página final: **hero com simulador integrado → processo em três passos → prova social (depoimentos/equipes) → FAQ → CTA final**: seis momentos de leitura, **cinco seções**. Componentes WEB 02 já existem; compor somente em WEB 03. Nunca usar a página como imagem ou substituir por template genérico. Hero com canvas ocupando sua área, texto/controles DOM sobre o céu; conteúdo acessível no servidor. A cena Three.js real do Prompt 05 será integrada após validação; imagem só como poster/fallback, não resultado principal. Resultado financeiro pode chegar a **57 painéis**, cena atual comporta **51**: aviso visual explícito, sem truncar cálculo financeiro.
+Buffers CPU únicos de índices/atributos da geometria: **469.568 bytes**, não RAM total. Imagens de materiais: 1024², 2048² e 512²; céu 2048×1024. Contagem da cena: **148 meshes / 48 geometrias / 3 materiais / 3 texturas**. GPU aquecida: **49 geometrias / 5 texturas**, incluindo recursos internos do renderer; estável nas restaurações repetidas. Contagens não são VRAM em bytes e não incluem todo o custo de framebuffer, mipmaps, multisampling ou decodificação.
 
-Entrada visual intencional de aproximadamente 600–800 ms fica para etapa visual, respeitando `prefers-reduced-motion` e sem aguardar todos os assets para mostrar conteúdo útil. UTM/eventos first-party ficam para rodada posterior separada, retomando a POC documentada; geolocalização adiada. Sem coletor ou endpoints agora.
+## Verificação e evidências
 
-## Limites e sequência
+`npm run check` e `npm run build` passaram: formatação, lint sem avisos, TypeScript strict, contratos puros e Phoenix SSG. O cenário real, e não uma suíte WebGL simulada, verificou:
 
-1. **WEB 01 preservado:** fundação, dados e rota mínima, stack/scripts/lockfile inalterados.
-2. **WEB 02 atual:** componentes v2 e estados visuais controlados; prévia dev isolada, sem composição final, cálculo, Three.js, autenticação, analytics ou geolocalização. Imagens aguardam confirmação de permissão; referências históricas ausentes não foram inventadas.
-3. **WEB 03, não iniciado:** compor a página adaptativa pública, implementar função financeira pura e integrar cena real validada no Prompt 05. Reutilizar contratos e componentes; remover dependência de fixtures da futura experiência pública.
-4. **Prompt 04:** responsividade, acessibilidade, desempenho, SEO e documentação final. Domínio de produção, canonical e imagem de compartilhamento estão pendentes; não foram inventados. Publicação só com autorização.
+- HTTP público/307/404, metadata e cinco títulos de seção no HTML; previews protegidas em produção e `noindex, nofollow` no HTML dev.
+- **1440×900, 1920×1080, 390×844, 470×815**, além de resize 768/1024: mesmo retângulo Hero/canvas/poster, altura preservada entre modos, um `h1`, sem overflow horizontal. Desktop não modal; mobile com foco, teclado, casa/voltar, Escape e cleanup.
+- Cálculo imediato, perfil preservando cobertura, mínimo/cap/excedente/57 financeiro versus 51 visual e campo vazio conservando números válidos.
+- Ida/volta, inversão durante percurso e resize a partir da pose atual; 210 matrizes/pais/filhos após roundtrip sem divergência; wrappers zero ao estabilizar; progressão parcial sem regressão de escala.
+- GLB atrasado com abrir/editar/fechar antes do ready; primeiro quadro base sem viagem antiga. GLB abortado, edição no fallback e Retry recuperando 33 placas, não o default. Perda/restauração real de contexto, atualização da conta enquanto perdido e três ciclos sem crescimento dos recursos aquecidos.
+- Dispose manual durante fetch pendente: renderer/canvas/observers liberados, refs zero e nenhum callback da geração antiga após completar. Esse caso não é apresentado como prova de unmount React.
+- Offscreen real congela RAF; documento oculto testado por evento/getter controlado; movimento reduzido e DPR cap/ownership entre dois viewers.
+- Calibração real durante playback, estados solares, hierarquia e JSON copiado válido.
 
-Implementação assistida por IA no OMP; aproveitados dados oficiais, tokens/fontes reais e APIs documentadas, não a POC inteira. Tempo gasto não foi medido. Esta entrega não inclui vídeo, deploy ou a solução visual completa do desafio.
+Evidência detalhada: [`acceptance.json`](evidence/web03/acceptance.json), [`calibration-qa.json`](evidence/web03/calibration-qa.json), [`failure-recovery-qa.json`](evidence/web03/failure-recovery-qa.json). Capturas completas: [1440](evidence/web03/final-page-desktop-1440.png), [1920](evidence/web03/final-page-desktop-1920.png), [390](evidence/web03/final-page-mobile-390.png), [470](evidence/web03/final-page-mobile-470.png); estados fechado/aberto/casa e referências nativas 1440/390 estão no mesmo diretório. A prévia OpenDesign contém boards fixos; 1920/470 verificam a adaptação, não um baseline original inexistente.
+
+### Limites da evidência
+
+Chromium em desktop, DPR real **1,25**, sem aparelho físico/Safari. DPR 3 foi simulado no getter para provar o cap de 1,5. O harness mantém `document.hidden=false` entre abas; o caminho de visibilidade foi exercitado com getter/evento controlado, não certificado como background físico. Download JSON por blob foi clicado, mas a lista de downloads do harness ficou vazia: conteúdo copiado/schema foram verificados; gravação física desse download não foi comprovada. Recorte móvel dos presets aprovados foi preservado, sem recalibração artística para fingir equivalência pixel a pixel com a foto do export. Estas observações não substituem a auditoria final de acessibilidade/performance/SEO em aparelhos reais do WEB 04.
+
+## Histórico da entrega
+
+- **WEB 01:** fundação, qualidade, fontes locais, registro Phoenix e rota mínima verificável.
+- **WEB 02:** componentes reutilizáveis, tokens/CSS Modules, galeria dev e estados controlados; evidências históricas permanecem em `evidence/web02`.
+- **WEB 03:** composição pública completa, cálculo puro, controlador único, modal móvel, finished-v04, posters genuínos, imagens autorizadas, GUI/lifecycle e provas reais. Placeholders e caminhos obsoletos de mídia foram removidos; fixtures continuam somente na galeria dev.
+
+Implementação assistida por IA no OMP. Tempo de trabalho não foi medido. Sem vídeo ou deploy nesta etapa.

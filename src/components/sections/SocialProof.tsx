@@ -1,6 +1,6 @@
+import Image from 'next/image';
 import type { ReactElement } from 'react';
 import { Container } from '@/components/ui/Container';
-import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import type { CityConfig } from '@/domain/cities/city-config';
 import { TestimonialCarousel } from './TestimonialCarousel';
@@ -48,13 +48,23 @@ function testimonialCard(
   );
 }
 
-function crewCard(crew: Crew): ReactElement {
+const crewImages = [
+  '/assets/approved-v2/crew-ray.png',
+  '/assets/approved-v2/crew-danielle.png',
+  '/assets/approved-v2/crew-okafor.png',
+] as const;
+
+function crewCard(crew: Crew, imageSrc: string): ReactElement {
   return (
     <article key={`${crew.name}-${crew.since}`} className={styles.crewCard}>
       <div className={styles.crewPortrait}>
-        <MediaPlaceholder
-          label={`Illustrative portrait of ${crew.name}`}
+        <Image
+          src={imageSrc}
+          alt={`Portrait of ${crew.name}`}
+          width={1122}
+          height={1402}
           className={styles.crewImage}
+          sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1440px) 30vw, 416px"
         />
         <p className={styles.crewName}>{crew.name}</p>
       </div>
@@ -74,8 +84,8 @@ function crewCard(crew: Crew): ReactElement {
           </div>
         </dl>
         <p className={styles.crewBlurb}>{crew.blurb}</p>
-        <p className={styles.disclaimer}>
-          Illustrative image pending permission · fictional crew.
+        <p className={styles.illustrative}>
+          Illustrative image · fictional crew
         </p>
       </div>
     </article>
@@ -137,7 +147,7 @@ export function SocialProof({
             title="Meet your local crews"
           />
           <div className={styles.crewGrid}>
-            {crews.map((crew) => crewCard(crew))}
+            {crews.map((crew, index) => crewCard(crew, crewImages[index]))}
           </div>
         </div>
       </Container>
