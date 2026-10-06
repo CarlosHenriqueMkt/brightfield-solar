@@ -1,0 +1,16 @@
+.main {
+  display: grid;
+  gap: calc(var(--space-2) * 2);
+  width: min(100%, 48rem);
+  margin-inline: auto;
+  padding: clamp(24px, 6vw, 64px);
+}
+
+.main h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.main a {
+  justify-self: start;
+  padding-block: var(--space-2);
+}

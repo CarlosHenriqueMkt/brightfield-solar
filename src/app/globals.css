@@ -1,0 +1,46 @@
+:root {
+  --navy: #102b4e;
+  --text: #244568;
+  --blue: #315c9a;
+  --sky: #edf4f7;
+  --paper: #fbfcfd;
+  --green: #557653;
+  --yellow: #e6bd4f;
+  --space-1: 4px;
+  --space-2: 8px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-plex), Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+h1,
+p {
+  margin: 0;
+}
+h1 {
+  color: var(--navy);
+  font-weight: 600;
+  line-height: 1.2;
+}
+a {
+  color: var(--blue);
+  text-underline-offset: var(--space-1);
+}
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: var(--space-1);
+}
