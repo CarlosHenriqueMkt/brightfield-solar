@@ -1,0 +1,62 @@
+.gitignore
+  h_1041c21ccc44e5 1-11
+.npmrc
+  h_1041c21ccc44e5 1-2
+.nvmrc
+  h_1041c21ccc44e5 1
+.prettierignore
+  h_1041c21ccc44e5 1-8
+.prettierrc.json
+  h_1041c21ccc44e5 1-6
+AGENTS.md
+  h_1041c21ccc44e5 1-9
+CLAUDE.md
+  h_1041c21ccc44e5 1
+eslint.config.mjs
+  h_1041c21ccc44e5 1-22
+next.config.ts
+  h_1041c21ccc44e5 1-7
+package-lock.json
+  h_1041c21ccc44e5 1-4230
+package.json
+  h_1041c21ccc44e5 1-42
+src/app/city/[citySlug]/page.module.css
+  h_1041c21ccc44e5 1-19
+src/app/city/[citySlug]/page.tsx
+  h_1041c21ccc44e5 1-46
+src/app/fonts/LICENSE.txt
+  h_1041c21ccc44e5 1-93
+src/app/globals.css
+  h_1041c21ccc44e5 1-46
+src/app/layout.tsx
+  h_1041c21ccc44e5 1-27
+src/app/not-found.module.css
+  h_1041c21ccc44e5 1-16
+src/app/not-found.tsx
+  h_1041c21ccc44e5 1-12
+src/app/page.tsx
+  h_1041c21ccc44e5 1-5
+src/domain/cities/cities.test.ts
+  h_1041c21ccc44e5 1-78
+src/domain/cities/cities.ts
+  h_1041c21ccc44e5 1-18
+src/domain/cities/city-config.ts
+  h_1041c21ccc44e5 1-184
+src/domain/cities/phoenix.ts
+  h_1041c21ccc44e5 1-124
+tsconfig.json
+  h_1041c21ccc44e5 1-33
+vitest.config.ts
+  h_1041c21ccc44e5 1-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f11566096e93dd41ddd33d24adaee073ab030ea4",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
