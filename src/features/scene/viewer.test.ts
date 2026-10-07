@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   ChoreographyTimeline,
   initialChoreographySnapshot,
@@ -32,6 +32,31 @@ const identityTransform = {
   scale: [1, 1, 1] as [number, number, number],
   parent: null,
 };
+const mixedPanelTransform = {
+  matrix_column_major: [0, 2, 0, 0, -3, 0, 0, 0, 0, 0, 4, 0, 1, 2, 3, 1],
+  translation: [1, 2, 3] as [number, number, number],
+  rotation_xyzw: [0, 0, Math.SQRT1_2, Math.SQRT1_2] as [
+    number,
+    number,
+    number,
+    number,
+  ],
+  scale: [2, 3, 4] as [number, number, number],
+  parent: null,
+};
+
+const refinedPanelTransform = {
+  matrix_column_major: [0, -3, 0, 0, 4, 0, 0, 0, 0, 0, 5, 0, -4, 1, 2, 1],
+  translation: [-4, 1, 2] as [number, number, number],
+  rotation_xyzw: [0, 0, -Math.SQRT1_2, Math.SQRT1_2] as [
+    number,
+    number,
+    number,
+    number,
+  ],
+  scale: [3, 4, 5] as [number, number, number],
+  parent: null,
+};
 
 interface FixtureWrapper {
   wrapper: THREE.Group;
@@ -41,6 +66,7 @@ interface FixtureWrapper {
 interface FixtureViewer {
   transitionPanels(target: SolarState): void;
   advancePanels(deltaSeconds: number): void;
+  setSolarState(state: SolarState): void;
   setInsets(insets: {
     top: number;
     right: number;
@@ -63,8 +89,16 @@ interface PaintFixtureViewer extends FixtureViewer {
   renderImmediately(): void;
   recover(): void;
 }
+interface PublicFixtureViewer extends FixtureViewer {
+  choreographySnapshot: ChoreographySnapshot;
+  renderFrame(timestamp: number): void;
+  dispose(): void;
+}
 
-function makePanelFixture(count: number): {
+function makePanelFixture(
+  count: number,
+  options: { distinctTransforms?: boolean } = {},
+): {
   asset: ResolvedAsset;
   ids: string[];
   viewer: FixtureViewer;
@@ -96,8 +130,16 @@ function makePanelFixture(count: number): {
         source_record_refined: null,
         source_record_mixed: {},
         states: {
-          MISTO_PREFIXO: { transform: identityTransform },
-          REFINADOS_08: { transform: identityTransform },
+          MISTO_PREFIXO: {
+            transform: options.distinctTransforms
+              ? mixedPanelTransform
+              : identityTransform,
+          },
+          REFINADOS_08: {
+            transform: options.distinctTransforms
+              ? refinedPanelTransform
+              : identityTransform,
+          },
         },
         child_transforms: {
           module: identityTransform,
@@ -137,18 +179,90 @@ function makePanelFixture(count: number): {
   applySolarState(asset, { mode: 'MISTO_PREFIXO', n: count });
   const viewer = Object.create(BrightfieldViewer.prototype) as FixtureViewer;
   Object.assign(viewer, {
-    resolvedAsset: asset,
-    panelWrappers: new Map(),
-    panelEntranceOrder: ids.slice(),
+    host: { clientWidth: 815, clientHeight: 390 },
+    loaded: true,
+    disposed: false,
+    dirty: false,
     visible: true,
     backgrounded: false,
     contextLost: false,
+    renderFailed: false,
+    renderer: {
+      getSize: (size: THREE.Vector2) => size.set(815, 390),
+      setSize: () => undefined,
+      setViewport: () => undefined,
+      setScissor: () => undefined,
+      setScissorTest: () => undefined,
+      clear: () => undefined,
+      render: () => undefined,
+      dispose: () => undefined,
+      forceContextLoss: () => undefined,
+    },
+    scene: null,
+    camera: null,
+    root,
+    renderSize: new THREE.Vector2(),
+    actualCameraTarget: new THREE.Vector3(),
+    dpr: 1,
+    insets: { top: 0, right: 0, bottom: 0, left: 0 },
+    measuredOverlayInsets: { top: 0, right: 0, bottom: 0, left: 0 },
+    intersectionRatio: null,
+    rafId: null,
+    firstFrameSnapshot: null,
+    lastFrameTime: null,
+    lastRafTime: null,
+    lastRafInterval: null,
+    pendingReadyCallback: false,
+    pendingReadyGeneration: null,
+    loadGeneration: 1,
+    recoveryGeneration: 1,
+    rendererRegistered: false,
+    counters: {
+      loads: 0,
+      successfulLoads: 0,
+      failedLoads: 0,
+      disposeCalls: 0,
+      rafScheduled: 0,
+      rafExecuted: 0,
+      rafCanceled: 0,
+      frames: 0,
+      firstFrames: 0,
+      contextLost: 0,
+      contextRestored: 0,
+      visibilityPauses: 0,
+      visibilityResumes: 0,
+      resizeEvents: 0,
+      intersectionEvents: 0,
+    },
+    assetSource: null,
+    shared: null,
+    sharedReleased: true,
+    skyTexture: null,
+    contextRecovery: null,
+    resizeObserver: null,
+    intersectionObserver: null,
+    loadPromise: null,
+    skyGeneration: 0,
+    calibration: null,
+    calibrationBaseline: null,
+    calibrationBaselineViewport: null,
+    calibrationListener: null,
+    calibrationNotifiedAt: 0,
+    resolvedAsset: asset,
+    panelTransition: null,
+    panelWrappers: new Map(),
+    panelEntranceOrder: ids.slice(),
+    journey: null,
+    arrival: null,
+    pendingReturn: null,
+    lastCompletedArrival: null,
     intent: {
       active: false,
       panelCount: count,
       reducedMotion: false,
       revision: 1,
     },
+    currentState: asset.state,
     choreography: new ChoreographyTimeline(),
     choreographySnapshot: initialChoreographySnapshot(1),
     callbacks: {
@@ -156,12 +270,199 @@ function makePanelFixture(count: number): {
       onError: () => undefined,
       onArrival: () => undefined,
     },
-    dirty: false,
     scheduleFrame: () => undefined,
     completeArrivalIfReady: () => undefined,
     emitChoreography: () => undefined,
   });
   return { asset, ids, viewer };
+}
+function makePublicPanelFixture(count: number): {
+  asset: ResolvedAsset;
+  ids: string[];
+  viewer: PublicFixtureViewer;
+} {
+  const { asset, ids } = makePanelFixture(count, {
+    distinctTransforms: true,
+  });
+  const canvas = {
+    style: {},
+    setAttribute: () => undefined,
+    addEventListener: () => undefined,
+    removeEventListener: () => undefined,
+    remove: () => undefined,
+  } as unknown as HTMLCanvasElement;
+  const host = {
+    clientWidth: 815,
+    clientHeight: 390,
+    appendChild: () => undefined,
+  } as unknown as HTMLDivElement;
+  const fakeDocument = {
+    hidden: false,
+    createElement: () => canvas,
+    addEventListener: () => undefined,
+    removeEventListener: () => undefined,
+  } as unknown as Document;
+  const fakeWindow = {
+    devicePixelRatio: 1,
+    addEventListener: () => undefined,
+    removeEventListener: () => undefined,
+  } as unknown as Window & typeof globalThis;
+  const fakeResizeObserver = class {
+    observe(): void {}
+    disconnect(): void {}
+  };
+  const fakeIntersectionObserver = class {
+    observe(): void {}
+    disconnect(): void {}
+  };
+  const globalObject = globalThis as typeof globalThis & {
+    document?: unknown;
+    window?: unknown;
+    ResizeObserver?: unknown;
+    IntersectionObserver?: unknown;
+  };
+  const previousGlobals = {
+    document: globalObject.document,
+    window: globalObject.window,
+    ResizeObserver: globalObject.ResizeObserver,
+    IntersectionObserver: globalObject.IntersectionObserver,
+  };
+  const installGlobals = (): void => {
+    Object.defineProperty(globalThis, 'document', {
+      configurable: true,
+      value: fakeDocument,
+    });
+    Object.defineProperty(globalThis, 'window', {
+      configurable: true,
+      value: fakeWindow,
+    });
+    Object.defineProperty(globalThis, 'ResizeObserver', {
+      configurable: true,
+      value: fakeResizeObserver,
+    });
+    Object.defineProperty(globalThis, 'IntersectionObserver', {
+      configurable: true,
+      value: fakeIntersectionObserver,
+    });
+  };
+  const restoreGlobals = (): void => {
+    (
+      [
+        ['document', previousGlobals.document],
+        ['window', previousGlobals.window],
+        ['ResizeObserver', previousGlobals.ResizeObserver],
+        ['IntersectionObserver', previousGlobals.IntersectionObserver],
+      ] as const
+    ).forEach(([key, value]) => {
+      if (value === undefined) Reflect.deleteProperty(globalThis, key);
+      else
+        Object.defineProperty(globalThis, key, {
+          configurable: true,
+          value,
+        });
+    });
+  };
+  const callbacks: BrightfieldViewerCallbacks = {
+    onReady: () => undefined,
+    onError: () => undefined,
+    onArrival: () => undefined,
+    onChoreography: () => undefined,
+  };
+  installGlobals();
+  const viewer = new BrightfieldViewer(
+    host,
+    callbacks,
+  ) as unknown as PublicFixtureViewer;
+  const renderer = {
+    getSize: (size: THREE.Vector2) => size.set(815, 390),
+    setSize: () => undefined,
+    setViewport: () => undefined,
+    setScissor: () => undefined,
+    setScissorTest: () => undefined,
+    clear: () => undefined,
+    render: () => undefined,
+    dispose: () => undefined,
+    forceContextLoss: () => undefined,
+  };
+  Object.assign(viewer, {
+    loaded: true,
+    disposed: false,
+    dirty: true,
+    renderer,
+    scene: new THREE.Scene(),
+    camera: new THREE.PerspectiveCamera(),
+    root: asset.root,
+    resolvedAsset: asset,
+    panelTransition: null,
+    panelWrappers: new Map(),
+    panelEntranceOrder: ids.slice(),
+    intent: {
+      active: false,
+      panelCount: count,
+      reducedMotion: false,
+      revision: 0,
+    },
+    currentState: asset.state,
+    choreography: new ChoreographyTimeline(),
+    choreographySnapshot: initialChoreographySnapshot(0),
+    pendingReadyCallback: false,
+    pendingReadyGeneration: null,
+    loadGeneration: 1,
+    recoveryGeneration: 1,
+    renderFailed: false,
+    contextLost: false,
+    visible: true,
+    backgrounded: false,
+    lastRafTime: null,
+    lastFrameTime: null,
+    lastRafInterval: null,
+    firstFrameSnapshot: null,
+    rendererRegistered: false,
+    scheduleFrame: () => undefined,
+  });
+  const clock = vi.spyOn(performance, 'now').mockReturnValue(0);
+  const renderFrame = viewer.renderFrame;
+  viewer.renderFrame = (timestamp) => {
+    clock.mockReturnValue(timestamp);
+    renderFrame(timestamp);
+  };
+  const disposeViewer = viewer.dispose.bind(viewer);
+  viewer.dispose = () => {
+    installGlobals();
+    try {
+      disposeViewer();
+    } finally {
+      restoreGlobals();
+      clock.mockRestore();
+    }
+  };
+  restoreGlobals();
+  return { asset, ids, viewer };
+}
+function expectMixedPanelTrs(node: THREE.Object3D): void {
+  const position = new THREE.Vector3();
+  const rotation = new THREE.Quaternion();
+  const scale = new THREE.Vector3();
+  node.matrix.decompose(position, rotation, scale);
+  expect(position.toArray()).toEqual([1, 2, 3]);
+  expect(rotation.x).toBeCloseTo(0);
+  expect(rotation.y).toBeCloseTo(0);
+  expect(rotation.z).toBeCloseTo(Math.SQRT1_2);
+  expect(rotation.w).toBeCloseTo(Math.SQRT1_2);
+  expect(scale.toArray()).toEqual([2, 3, 4]);
+}
+
+function expectRefinedPanelTrs(node: THREE.Object3D): void {
+  const position = new THREE.Vector3();
+  const rotation = new THREE.Quaternion();
+  const scale = new THREE.Vector3();
+  node.matrix.decompose(position, rotation, scale);
+  expect(position.toArray()).toEqual([-4, 1, 2]);
+  expect(rotation.x).toBeCloseTo(0);
+  expect(rotation.y).toBeCloseTo(0);
+  expect(rotation.z).toBeCloseTo(-Math.SQRT1_2);
+  expect(rotation.w).toBeCloseTo(Math.SQRT1_2);
+  expect(scale.toArray()).toEqual([3, 4, 5]);
 }
 
 describe('responsive choreography camera', () => {
@@ -397,6 +698,206 @@ describe('real Three panel choreography fixtures', () => {
     );
   });
 });
+describe('public panel-count state reconciliation', () => {
+  afterEach(() => vi.restoreAllMocks());
+
+  it('keeps MISTO_PREFIXO poses for a 9-to-8-to-9 consumer retarget', () => {
+    const { viewer, asset, ids } = makePublicPanelFixture(9);
+
+    viewer.setIntent({
+      active: true,
+      panelCount: 9,
+      reducedMotion: false,
+      revision: 1,
+    });
+    viewer.renderFrame(0);
+    viewer.renderFrame(4000);
+    viewer.setIntent({
+      active: true,
+      panelCount: 8,
+      reducedMotion: false,
+      revision: 2,
+    });
+    viewer.renderFrame(5000);
+
+    expect(viewer.currentState).toEqual({
+      mode: 'MISTO_PREFIXO',
+      n: 8,
+    });
+    expect(ids.filter((id) => asset.panels.get(id)!.parent.visible)).toEqual(
+      ids.slice(0, 8),
+    );
+    expect(asset.panels.get(ids[0]!)!.parent.matrix.toArray()).toEqual([
+      0, 2, 0, 0, -3, 0, 0, 0, 0, 0, 4, 0, 1, 2, 3, 1,
+    ]);
+    expectMixedPanelTrs(asset.panels.get(ids[0]!)!.parent);
+
+    viewer.setIntent({
+      active: true,
+      panelCount: 9,
+      reducedMotion: false,
+      revision: 3,
+    });
+    viewer.renderFrame(6000);
+
+    expect(viewer.currentState).toEqual({
+      mode: 'MISTO_PREFIXO',
+      n: 9,
+    });
+    expect(ids.filter((id) => asset.panels.get(id)!.parent.visible)).toEqual(
+      ids,
+    );
+    expect(asset.panels.get(ids[0]!)!.parent.matrix.toArray()).toEqual([
+      0, 2, 0, 0, -3, 0, 0, 0, 0, 0, 4, 0, 1, 2, 3, 1,
+    ]);
+    expectMixedPanelTrs(asset.panels.get(ids[0]!)!.parent);
+    viewer.dispose();
+  });
+
+  it('settles a 17-to-8 removal with the mixed-state survivor transforms', () => {
+    const { viewer, asset, ids } = makePublicPanelFixture(17);
+
+    viewer.setIntent({
+      active: true,
+      panelCount: 17,
+      reducedMotion: false,
+      revision: 1,
+    });
+    viewer.renderFrame(0);
+    viewer.renderFrame(4000);
+    viewer.setIntent({
+      active: true,
+      panelCount: 8,
+      reducedMotion: false,
+      revision: 2,
+    });
+    viewer.renderFrame(5000);
+
+    expect(viewer.currentState).toEqual({
+      mode: 'MISTO_PREFIXO',
+      n: 8,
+    });
+    expect(ids.filter((id) => asset.panels.get(id)!.parent.visible)).toEqual(
+      ids.slice(0, 8),
+    );
+    expect(asset.panels.get(ids[0]!)!.parent.matrix.toArray()).toEqual([
+      0, 2, 0, 0, -3, 0, 0, 0, 0, 0, 4, 0, 1, 2, 3, 1,
+    ]);
+    expectMixedPanelTrs(asset.panels.get(ids[0]!)!.parent);
+    viewer.dispose();
+  });
+
+  it('closes and reopens eight public panels in the mixed state', () => {
+    const { viewer, asset, ids } = makePublicPanelFixture(8);
+
+    viewer.setIntent({
+      active: true,
+      panelCount: 8,
+      reducedMotion: false,
+      revision: 1,
+    });
+    viewer.renderFrame(0);
+    viewer.renderFrame(4000);
+    viewer.setIntent({
+      active: false,
+      panelCount: 8,
+      reducedMotion: false,
+      revision: 2,
+    });
+    viewer.renderFrame(5000);
+
+    expect(viewer.currentState).toEqual({ mode: 'CASA_BASE' });
+    expect(ids.some((id) => asset.panels.get(id)!.parent.visible)).toBe(false);
+
+    viewer.setIntent({
+      active: true,
+      panelCount: 8,
+      reducedMotion: false,
+      revision: 3,
+    });
+    viewer.renderFrame(9000);
+
+    expect(viewer.currentState).toEqual({
+      mode: 'MISTO_PREFIXO',
+      n: 8,
+    });
+    expect(ids.every((id) => asset.panels.get(id)!.parent.visible)).toBe(true);
+    expect(asset.panels.get(ids[0]!)!.parent.matrix.toArray()).toEqual([
+      0, 2, 0, 0, -3, 0, 0, 0, 0, 0, 4, 0, 1, 2, 3, 1,
+    ]);
+    expectMixedPanelTrs(asset.panels.get(ids[0]!)!.parent);
+    viewer.dispose();
+  });
+
+  it('lets the latest target win across a rapid eight-panel crossing', () => {
+    const { viewer, asset, ids } = makePublicPanelFixture(9);
+
+    viewer.setIntent({
+      active: true,
+      panelCount: 9,
+      reducedMotion: false,
+      revision: 1,
+    });
+    viewer.renderFrame(0);
+    viewer.renderFrame(4000);
+    viewer.setIntent({
+      active: true,
+      panelCount: 8,
+      reducedMotion: false,
+      revision: 2,
+    });
+    viewer.renderFrame(4050);
+    expect(viewer.choreographySnapshot.revision).toBe(2);
+    expect(viewer.panelTransition).not.toBeNull();
+    viewer.setIntent({
+      active: true,
+      panelCount: 9,
+      reducedMotion: false,
+      revision: 3,
+    });
+    viewer.renderFrame(5050);
+    expect(viewer.choreographySnapshot.revision).toBe(3);
+
+    expect(viewer.panelTransition).toBeNull();
+    expect(viewer.currentState).toEqual({
+      mode: 'MISTO_PREFIXO',
+      n: 9,
+    });
+    expect(ids.filter((id) => asset.panels.get(id)!.parent.visible)).toEqual(
+      ids,
+    );
+    expectMixedPanelTrs(asset.panels.get(ids[0]!)!.parent);
+    viewer.setIntent({
+      active: true,
+      panelCount: 8,
+      reducedMotion: false,
+      revision: 2,
+    });
+    viewer.renderFrame(6000);
+    expect(viewer.choreographySnapshot.revision).toBe(3);
+    expect(viewer.currentState).toEqual({ mode: 'MISTO_PREFIXO', n: 9 });
+    expect(ids.filter((id) => asset.panels.get(id)!.parent.visible)).toEqual(
+      ids,
+    );
+    viewer.dispose();
+  });
+
+  it('keeps an explicit REFINADOS_08 transition on its authored pose', () => {
+    const { viewer, asset, ids } = makePanelFixture(8, {
+      distinctTransforms: true,
+    });
+
+    viewer.setSolarState({ mode: 'REFINADOS_08' });
+
+    expect(viewer.currentState).toEqual({ mode: 'REFINADOS_08' });
+    expect(ids.every((id) => asset.panels.get(id)!.parent.visible)).toBe(true);
+    expect(asset.panels.get(ids[0]!)!.parent.matrix.toArray()).toEqual([
+      0, -3, 0, 0, 4, 0, 0, 0, 0, 0, 5, 0, -4, 1, 2, 1,
+    ]);
+    expectRefinedPanelTrs(asset.panels.get(ids[0]!)!.parent);
+  });
+});
+
 describe('active-clock choreography contract', () => {
   it('holds frontal during lead-in and opens the barrier once', () => {
     const timeline = new ChoreographyTimeline();

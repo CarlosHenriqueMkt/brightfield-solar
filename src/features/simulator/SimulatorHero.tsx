@@ -106,9 +106,7 @@ export function SimulatorHero({
   const summary = `${formatted.panelCount} · ${formatted.investment} after federal credit · ${formatted.monthlySavings}/month · ${formatted.payback} payback`;
   const notices: string[] = [];
   if (estimate.minimumApplied)
-    notices.push(
-      `Every installation in ${city.city} has a minimum of ${city.minPanels} panels. Your selected usage needs fewer panels, so the minimum applies.`,
-    );
+    notices.push(`The minimum system size is ${city.minPanels} panels`);
   if (estimate.savingsCapped)
     notices.push(
       'Estimated savings stop at the size of your electricity bill.',

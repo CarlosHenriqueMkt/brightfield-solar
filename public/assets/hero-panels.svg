@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" fill="none">
+  <defs>
+    <linearGradient id="cell" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#dbe9f3"/>
+      <stop offset="1" stop-color="#eaf2f7"/>
+    </linearGradient>
+    <pattern id="grid" width="38" height="40" patternUnits="userSpaceOnUse">
+      <rect width="38" height="40" fill="url(#cell)"/>
+      <path d="M38 0H0V40" stroke="#fff" stroke-width="1.5"/>
+      <path d="M3 3H35V37H3Z" stroke="#f4f8fb" stroke-width=".55"/>
+    </pattern>
+    <g id="panel">
+      <rect x="14" y="-11" width="240" height="520" rx="3" fill="#c6d6e1" fill-opacity=".45"/>
+      <rect width="240" height="520" rx="3" fill="#fff"/>
+      <rect x="6" y="6" width="228" height="508" fill="url(#grid)" stroke="#edf3f7" stroke-width="1"/>
+      <path d="M0 520H240V0" stroke="#cedde7" stroke-width="1.5"/>
+    </g>
+  </defs>
+  <g transform="matrix(.8 .42 1 -.55 150 700)">
+    <use href="#panel"/>
+    <use href="#panel" x="266"/>
+    <use href="#panel" x="532"/>
+    <use href="#panel" y="552"/>
+    <use href="#panel" x="266" y="552"/>
+    <use href="#panel" x="532" y="552"/>
+  </g>
+</svg>

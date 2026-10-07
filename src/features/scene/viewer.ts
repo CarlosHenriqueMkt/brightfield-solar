@@ -140,7 +140,6 @@ function clamp(value: number, min: number, max: number): number {
 function stateForPanelCount(panelCount: number): SolarState {
   const count = clamp(Math.round(panelCount), 0, 51);
   if (count === 0) return { mode: 'CASA_BASE' };
-  if (count === 8) return { mode: 'REFINADOS_08' };
   return { mode: 'MISTO_PREFIXO', n: count };
 }
 
