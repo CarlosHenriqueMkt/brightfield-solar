@@ -64,6 +64,7 @@
   max-height: calc(100svh - var(--header-height, 80px) - 64px);
   overflow-y: auto;
   overscroll-behavior: auto;
+  scrollbar-gutter: stable;
 }
 .safeFocus {
   position: absolute;

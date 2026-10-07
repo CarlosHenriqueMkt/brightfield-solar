@@ -4,7 +4,6 @@ import type { SimDrawerStep, SimDrawerValues } from './sim-drawer-types';
 
 export interface EstimateDraft {
   readonly step: SimDrawerStep;
-  readonly hasResult: boolean;
   readonly values: SimDrawerValues;
   readonly accepted: { readonly bill: number; readonly coverage: number };
   readonly selectedProfile: number | null;
@@ -25,7 +24,6 @@ export function createEstimateDraft(city: CityConfig): EstimateDraft {
   );
   return {
     step: 'bill',
-    hasResult: false,
     values: { bill: '220', coverage: '80' },
     accepted: { bill: 220, coverage: 80 },
     selectedProfile: index < 0 ? null : index,
@@ -83,7 +81,6 @@ export function updateEstimateDraft(
         ? {
             ...state,
             step: action.step,
-            hasResult: state.hasResult || action.step === 'result',
           }
         : state;
     default: {

@@ -71,4 +71,24 @@ describe('simulator drawer accessibility contract', () => {
     expect(html).toContain('aria-label="Adjust monthly electricity bill"');
     expect(html).not.toContain('aria-pressed="true"');
   });
+
+  it('holds the entire result presentation while preparation runs, then reveals it together', () => {
+    const pending = render({ resultPreparing: true });
+    expect(pending).not.toContain('<dl');
+    expect(pending).toContain('role="status"');
+    expect(pending).not.toContain('href="#installation"');
+
+    const ready = render({ resultPreparing: false });
+    expect(ready).toContain('<dl');
+    expect(ready).toContain('href="#installation"');
+  });
+
+  it('does not replace live editing with a result preparation status', () => {
+    const editing = render({ step: 'edit', resultPreparing: true });
+    expect(editing).toMatch(/<input[^>]*id="estimate-bill"[^>]*value="90"/);
+    expect(editing).toMatch(
+      /<input[^>]*id="estimate-coverage"[^>]*value="100"/,
+    );
+    expect(editing).not.toContain('role="status"');
+  });
 });

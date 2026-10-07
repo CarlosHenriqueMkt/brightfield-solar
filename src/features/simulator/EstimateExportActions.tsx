@@ -1,14 +1,24 @@
 'use client';
 
-import { useCallback, useId, useLayoutEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import type { EstimateSnapshot } from './estimate-document';
 import {
   downloadPreparedEstimate,
   EstimatePdfSession,
   EstimateShareSession,
 } from './estimate-export';
-import { generateEstimatePdf } from './estimate-pdf';
 import styles from './EstimateExportActions.module.css';
+
+const loadEstimatePdf = () => import('./estimate-pdf');
+const generateEstimatePdf = (snapshot: EstimateSnapshot) =>
+  loadEstimatePdf().then((module) => module.generateEstimatePdf(snapshot));
 
 type ExportStatus =
   | 'preparing'
@@ -38,10 +48,12 @@ export default function EstimateExportActions({
   snapshot,
   invalidationKey,
   active,
+  children,
 }: {
   snapshot: EstimateSnapshot;
   invalidationKey: string;
   active: boolean;
+  children: (actions: ReactNode, preparing: boolean) => ReactNode;
 }) {
   const identity = JSON.stringify([snapshot.key, invalidationKey]);
   const current = useRef<ExportContext | null>(null);
@@ -49,6 +61,9 @@ export default function EstimateExportActions({
   const statusId = useId();
   const [view, setView] = useState<ExportView | null>(null);
   const [shareBusy, setShareBusy] = useState(false);
+  const [presentedIdentity, setPresentedIdentity] = useState<string | null>(
+    null,
+  );
 
   const prepare = useCallback((context: ExportContext) => {
     if (context.operation) return;
@@ -56,21 +71,26 @@ export default function EstimateExportActions({
     void context.session.prepare().then(
       (file) => {
         context.operation = null;
-        if (current.current !== context || !file) return;
+        if (current.current !== context || !context.active || !file) return;
+        setPresentedIdentity(context.identity);
         setView({
           identity: context.identity,
           status: 'ready',
-          message:
-            'PDF ready. Activate Download PDF or Share estimate to continue.',
+          message: 'PDF ready to download or share.',
         });
       },
-      () => {
+      (error: unknown) => {
         context.operation = null;
-        if (current.current !== context) return;
+        if (current.current !== context || !context.active) return;
+        setPresentedIdentity(context.identity);
         setView({
           identity: context.identity,
           status: 'error',
-          message: 'PDF preparation failed. Activate either action to retry.',
+          message:
+            error instanceof Error &&
+            error.message === 'PDF preparation timed out.'
+              ? 'PDF preparation took too long. Your estimate is available. Activate either action to retry.'
+              : 'PDF preparation failed. Your estimate is available. Activate either action to retry.',
         });
       },
     );
@@ -81,6 +101,15 @@ export default function EstimateExportActions({
     const session =
       previous?.session ?? new EstimatePdfSession(generateEstimatePdf);
     session.update(snapshot, invalidationKey);
+    if (active && session.presentationReadyFor(invalidationKey)) {
+      setPresentedIdentity(identity);
+      if (session.fileFor(invalidationKey))
+        setView({
+          identity,
+          status: 'ready',
+          message: 'PDF ready to download or share.',
+        });
+    }
     if (previous?.identity === identity) {
       previous.active = active;
       if (active && !session.fileFor(invalidationKey)) prepare(previous);
@@ -239,7 +268,7 @@ export default function EstimateExportActions({
   const unavailable =
     !active || shareBusy || status === 'sharing' || status === 'downloading';
 
-  return (
+  const actions = (
     <div className={styles.root} data-status={status}>
       <div
         className={styles.actions}
@@ -300,4 +329,6 @@ export default function EstimateExportActions({
       </p>
     </div>
   );
+  const preparing = active && presentedIdentity !== identity;
+  return children(actions, preparing);
 }

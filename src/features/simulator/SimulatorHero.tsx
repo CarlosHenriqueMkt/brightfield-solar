@@ -27,14 +27,11 @@ import {
   type EstimateDraftAction,
 } from './estimate-draft';
 import { SimDrawer } from './SimDrawer';
+import EstimateExportActions from './EstimateExportActions';
 import { initialSimulationState, simulationReducer } from './simulation-state';
 import styles from './SimulatorHero.module.css';
 
 const SceneCanvas = dynamic(() => import('@/features/scene/SceneCanvas'), {
-  ssr: false,
-});
-
-const EstimateExportActions = dynamic(() => import('./EstimateExportActions'), {
   ssr: false,
 });
 
@@ -54,10 +51,8 @@ export function SimulatorHero({
       updateEstimateDraft(state, action, city),
     [city],
   );
-  const [
-    { step, hasResult, values, accepted, selectedProfile },
-    dispatchDraft,
-  ] = useReducer(draftReducer, city, createEstimateDraft);
+  const [{ step, values, accepted, selectedProfile }, dispatchDraft] =
+    useReducer(draftReducer, city, createEstimateDraft);
   const [mobile, setMobile] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [ready, setReady] = useState(false);
@@ -543,56 +538,59 @@ export function SimulatorHero({
         className={styles.panel}
         data-drawer-usable={simulation.drawerUsable}
       >
-        <SimDrawer
-          id="simulation-panel"
-          open={simulation.drawerUsable}
-          keepMounted
-          step={step}
-          values={values}
-          profiles={city.householdProfiles}
-          selectedProfile={selectedProfile}
-          result={formatted}
-          notices={notices}
-          stateIncentiveNote={city.stateIncentiveNote}
-          explanation={estimateSnapshot.explanation}
-          installationHref="#installation"
-          modal={mobile}
-          exportActions={
-            hasResult ? (
-              <EstimateExportActions
-                snapshot={estimateSnapshot}
-                invalidationKey={exportKey}
-                active={
-                  simulation.drawerUsable && step === 'result' && !draftError
-                }
-              />
-            ) : undefined
-          }
-          onInstallation={() => {
-            moveFocusOutsidePanel();
-            dispatch({ type: 'view-house' });
-          }}
-          liveSummary={draftError ? `${draftError} ${summary}` : summary}
-          onViewHouse={
-            mobile
-              ? () => {
-                  moveFocusOutsidePanel();
-                  dispatch({ type: 'view-house' });
-                }
-              : undefined
-          }
-          onBillChange={(value) =>
-            dispatchDraft({ type: 'field', field: 'bill', value })
-          }
-          onCoverageChange={(value) =>
-            dispatchDraft({ type: 'field', field: 'coverage', value })
-          }
-          onProfileSelect={(index) => dispatchDraft({ type: 'preset', index })}
-          onStepChange={(next) => dispatchDraft({ type: 'step', step: next })}
-          onOpenChange={(open) => {
-            if (!open) closeSimulation();
-          }}
-        />
+        <EstimateExportActions
+          snapshot={estimateSnapshot}
+          invalidationKey={exportKey}
+          active={simulation.drawerUsable && step === 'result' && !draftError}
+        >
+          {(exportActions, resultPreparing) => (
+            <SimDrawer
+              id="simulation-panel"
+              open={simulation.drawerUsable}
+              keepMounted
+              step={step}
+              values={values}
+              profiles={city.householdProfiles}
+              selectedProfile={selectedProfile}
+              result={formatted}
+              notices={notices}
+              stateIncentiveNote={city.stateIncentiveNote}
+              explanation={estimateSnapshot.explanation}
+              installationHref="#installation"
+              modal={mobile}
+              exportActions={exportActions}
+              resultPreparing={resultPreparing}
+              onInstallation={() => {
+                moveFocusOutsidePanel();
+                dispatch({ type: 'view-house' });
+              }}
+              liveSummary={draftError ? `${draftError} ${summary}` : summary}
+              onViewHouse={
+                mobile
+                  ? () => {
+                      moveFocusOutsidePanel();
+                      dispatch({ type: 'view-house' });
+                    }
+                  : undefined
+              }
+              onBillChange={(value) =>
+                dispatchDraft({ type: 'field', field: 'bill', value })
+              }
+              onCoverageChange={(value) =>
+                dispatchDraft({ type: 'field', field: 'coverage', value })
+              }
+              onProfileSelect={(index) =>
+                dispatchDraft({ type: 'preset', index })
+              }
+              onStepChange={(next) =>
+                dispatchDraft({ type: 'step', step: next })
+              }
+              onOpenChange={(open) => {
+                if (!open) closeSimulation();
+              }}
+            />
+          )}
+        </EstimateExportActions>
       </div>
       <p
         className={styles.announcement}

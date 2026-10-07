@@ -21,6 +21,7 @@ export function SimDrawer({
   keepMounted = false,
   liveSummary,
   exportActions,
+  resultPreparing = false,
   onInstallation,
   onViewHouse,
   onBillChange,
@@ -32,6 +33,7 @@ export function SimDrawer({
   const heading = useRef<HTMLHeadingElement>(null);
   const previousOpen = useRef(open);
   const previousStep = useRef(step);
+  const previousPreparing = useRef(resultPreparing);
   useLayoutEffect(() => {
     if (open && (!previousOpen.current || previousStep.current !== step)) {
       if (previousStep.current !== step) {
@@ -41,9 +43,34 @@ export function SimDrawer({
       }
       heading.current?.focus({ preventScroll: true });
     }
+    if (
+      open &&
+      step === 'result' &&
+      previousPreparing.current &&
+      !resultPreparing
+    ) {
+      const drawer = heading.current?.closest('section');
+      const focused = document.activeElement;
+      if (
+        drawer &&
+        focused instanceof HTMLElement &&
+        drawer.contains(focused)
+      ) {
+        const bounds = drawer.getBoundingClientRect();
+        const target = focused.getBoundingClientRect();
+        const delta =
+          target.top < bounds.top + 8
+            ? target.top - bounds.top - 8
+            : target.bottom > bounds.bottom - 8
+              ? target.bottom - bounds.bottom + 8
+              : 0;
+        if (delta) drawer.scrollBy({ top: delta, behavior: 'instant' });
+      }
+    }
     previousOpen.current = open;
     previousStep.current = step;
-  }, [open, step]);
+    previousPreparing.current = resultPreparing;
+  }, [open, step, resultPreparing]);
 
   const billField = (
     <div className={styles.field}>
@@ -190,41 +217,59 @@ export function SimDrawer({
       title = 'Your solar estimate';
       content = (
         <>
-          <dl className={styles.results}>
-            <div>
-              <dt>Number of panels</dt>
-              <dd>{result.panelCount}</dd>
+          {resultPreparing ? (
+            <div className={styles.preparation}>
+              <p
+                className={styles.preparationStatus}
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <span className={styles.spinner} aria-hidden="true" />
+                Preparing your estimate…
+              </p>
             </div>
-            <div>
-              <dt>Investment after federal credit</dt>
-              <dd>{result.investment}</dd>
-            </div>
-            <div>
-              <dt>Estimated monthly savings</dt>
-              <dd>{result.monthlySavings}</dd>
-            </div>
-            <div>
-              <dt>Estimated payback</dt>
-              <dd>{result.payback}</dd>
-            </div>
-          </dl>
-          <p className={styles.notice}>{stateIncentiveNote}</p>
-          {notices.map((notice) => (
-            <p className={styles.notice} key={notice}>
-              {notice}
-            </p>
-          ))}
+          ) : (
+            <>
+              <dl className={styles.results}>
+                <div>
+                  <dt>Number of panels</dt>
+                  <dd>{result.panelCount}</dd>
+                </div>
+                <div>
+                  <dt>Investment after federal credit</dt>
+                  <dd>{result.investment}</dd>
+                </div>
+                <div>
+                  <dt>Estimated monthly savings</dt>
+                  <dd>{result.monthlySavings}</dd>
+                </div>
+                <div>
+                  <dt>Estimated payback</dt>
+                  <dd>{result.payback}</dd>
+                </div>
+              </dl>
+              <div className={styles.notice}>
+                <p>{stateIncentiveNote}</p>
+                {notices.map((notice) => (
+                  <p key={notice}>{notice}</p>
+                ))}
+              </div>
+            </>
+          )}
           <button
             className={styles.link}
             type="button"
             onClick={() => onStepChange('edit')}
           >
-            Edit estimate
+            {resultPreparing ? 'Back to edit estimate' : 'Edit estimate'}
           </button>
-          <details className={styles.explanation}>
-            <summary>See how it is calculated</summary>
-            <p>{explanation}</p>
-          </details>
+          {!resultPreparing && (
+            <details className={styles.explanation}>
+              <summary>See how it is calculated</summary>
+              <p>{explanation}</p>
+            </details>
+          )}
         </>
       );
       break;
@@ -288,33 +333,33 @@ export function SimDrawer({
       >
         {content}
         <div className={styles.resultActions} hidden={step !== 'result'}>
-          <a
-            className={styles.resultAction}
-            href={installationHref}
-            onClick={onInstallation}
-          >
-            See the installation steps
-          </a>
+          {!resultPreparing && (
+            <a
+              className={styles.resultAction}
+              href={installationHref}
+              onClick={onInstallation}
+            >
+              See the installation steps
+            </a>
+          )}
           <button
-            className={styles.resultAction}
+            className={resultPreparing ? styles.link : styles.resultAction}
             type="button"
             onClick={() => onStepChange('bill')}
           >
             Return to presets
           </button>
-          {exportActions}
+          {!resultPreparing && exportActions}
         </div>
       </form>
       {liveSummary && step !== 'result' && (
-        <p className={styles.notice}>{liveSummary}</p>
+        <div className={styles.notice}>
+          <p>{liveSummary}</p>
+          {notices.map((notice) => (
+            <p key={notice}>{notice}</p>
+          ))}
+        </div>
       )}
-      {liveSummary &&
-        step !== 'result' &&
-        notices.map((notice) => (
-          <p className={styles.notice} key={notice}>
-            {notice}
-          </p>
-        ))}
       {onViewHouse && (
         <button type="button" className={styles.link} onClick={onViewHouse}>
           View house

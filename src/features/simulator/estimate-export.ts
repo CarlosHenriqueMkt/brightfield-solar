@@ -7,6 +7,8 @@ export class EstimatePdfSession {
   private pending: Promise<File | null> | null = null;
   private revision = 0;
   private disposed = false;
+  private failed = false;
+  private cancelPending: (() => void) | null = null;
 
   constructor(
     private readonly generate: (snapshot: EstimateSnapshot) => Promise<File>,
@@ -16,10 +18,13 @@ export class EstimatePdfSession {
     if (this.disposed) return;
     if (this.snapshot?.key === snapshot.key && this.key === key) return;
     this.revision += 1;
+    this.cancelPending?.();
+    this.cancelPending = null;
     this.snapshot = snapshot;
     this.key = key;
     this.file = null;
     this.pending = null;
+    this.failed = false;
   }
 
   prepare(): Promise<File | null> {
@@ -29,21 +34,38 @@ export class EstimatePdfSession {
 
     const snapshot = this.snapshot;
     const revision = this.revision;
-    const pending = Promise.resolve()
-      .then(() => this.generate(snapshot))
+    let timeout: NodeJS.Timeout;
+    const deadline = new Promise<File | null>((resolve, reject) => {
+      timeout = setTimeout(
+        () => reject(new Error('PDF preparation timed out.')),
+        20_000,
+      );
+      this.cancelPending = () => {
+        clearTimeout(timeout);
+        resolve(null);
+      };
+    });
+    const generation = Promise.resolve().then(() => this.generate(snapshot));
+    const pending = Promise.race([generation, deadline])
       .then(
         (file) => {
-          if (this.disposed || revision !== this.revision) return null;
+          if (this.disposed || revision !== this.revision || !file) return null;
           this.file = file;
+          this.failed = false;
           return file;
         },
         (error: unknown) => {
           if (this.disposed || revision !== this.revision) return null;
+          this.failed = true;
           throw error;
         },
       )
       .finally(() => {
-        if (this.pending === pending) this.pending = null;
+        clearTimeout(timeout);
+        if (this.pending === pending) {
+          this.pending = null;
+          this.cancelPending = null;
+        }
       });
     this.pending = pending;
     return pending;
@@ -53,9 +75,17 @@ export class EstimatePdfSession {
     return !this.disposed && this.key === key ? this.file : null;
   }
 
+  presentationReadyFor(key: string): boolean {
+    return (
+      !this.disposed && this.key === key && (this.file !== null || this.failed)
+    );
+  }
+
   dispose(): void {
     this.disposed = true;
     this.revision += 1;
+    this.cancelPending?.();
+    this.cancelPending = null;
     this.snapshot = null;
     this.key = null;
     this.file = null;

@@ -25,6 +25,82 @@ const pdf = (name: string) =>
   new File(['%PDF-1.7'], name, { type: 'application/pdf' });
 
 describe('prepared estimate ownership', () => {
+  afterEach(() => vi.useRealTimers());
+
+  it('holds result readiness through both module loading and File generation', async () => {
+    const moduleLoad = deferred<() => Promise<File>>();
+    const generation = deferred<File>();
+    const session = new EstimatePdfSession(() =>
+      moduleLoad.promise.then((generate) => generate()),
+    );
+    session.update(oldSnapshot(), '90/100');
+    const pending = session.prepare();
+    expect(session.presentationReadyFor('90/100')).toBe(false);
+    moduleLoad.resolve(() => generation.promise);
+    await moduleLoad.promise;
+    expect(session.fileFor('90/100')).toBeNull();
+    expect(session.presentationReadyFor('90/100')).toBe(false);
+    const file = pdf('ready.pdf');
+    generation.resolve(file);
+    expect(await pending).toBe(file);
+    expect(session.presentationReadyFor('90/100')).toBe(true);
+  });
+
+  it('reveals a usable failed result and keeps it visible during an import retry', async () => {
+    const firstImport = deferred<() => Promise<File>>();
+    const retryImport = deferred<() => Promise<File>>();
+    let first = true;
+    const session = new EstimatePdfSession(() => {
+      const moduleLoad = first ? firstImport : retryImport;
+      first = false;
+      return moduleLoad.promise.then((generate) => generate());
+    });
+    session.update(oldSnapshot(), '90/100');
+    const pending = session.prepare();
+    firstImport.reject(new Error('module unavailable'));
+    await expect(pending).rejects.toThrow('module unavailable');
+    expect(session.presentationReadyFor('90/100')).toBe(true);
+    expect(session.fileFor('90/100')).toBeNull();
+    const retry = session.prepare();
+    expect(session.presentationReadyFor('90/100')).toBe(true);
+    const file = pdf('retry.pdf');
+    retryImport.resolve(async () => file);
+    expect(await retry).toBe(file);
+    expect(session.fileFor('90/100')).toBe(file);
+    session.update(newSnapshot(), '600/100');
+    expect(session.presentationReadyFor('600/100')).toBe(false);
+  });
+
+  it('releases stalled preparation for retry without accepting its late file', async () => {
+    vi.useFakeTimers();
+    const stalled = deferred<File>();
+    const fresh = pdf('fresh.pdf');
+    let attempts = 0;
+    const session = new EstimatePdfSession(() =>
+      ++attempts === 1 ? stalled.promise : Promise.resolve(fresh),
+    );
+    session.update(oldSnapshot(), '90/100');
+    let outcome = 'pending';
+    const first = session.prepare().then(
+      () => {
+        outcome = 'resolved';
+      },
+      () => {
+        outcome = 'failed';
+      },
+    );
+    await vi.advanceTimersByTimeAsync(19_999);
+    expect(outcome).toBe('pending');
+    await vi.advanceTimersByTimeAsync(1);
+    expect(outcome).toBe('failed');
+    await first;
+    expect(session.presentationReadyFor('90/100')).toBe(true);
+    expect(await session.prepare()).toBe(fresh);
+    stalled.resolve(pdf('obsolete.pdf'));
+    await Promise.resolve();
+    expect(session.fileFor('90/100')).toBe(fresh);
+  });
+
   it('deduplicates preparation and returns the identical file for both actions', async () => {
     const work = deferred<File>();
     const generate = vi.fn(() => work.promise);
@@ -54,6 +130,7 @@ describe('prepared estimate ownership', () => {
     const first = session.prepare();
     session.update(newSnapshot(), '600/100');
     const second = session.prepare();
+    expect(session.presentationReadyFor('600/100')).toBe(false);
     const current = pdf('600.pdf');
     newWork.resolve(current);
     expect(await second).toBe(current);
@@ -61,6 +138,8 @@ describe('prepared estimate ownership', () => {
     expect(await first).toBeNull();
     expect(session.fileFor('600/100')).toBe(current);
     expect(session.fileFor('90/100')).toBeNull();
+    expect(session.presentationReadyFor('90/100')).toBe(false);
+    expect(session.presentationReadyFor('600/100')).toBe(true);
   });
 
   it('invalidates on raw-input changes even when the accepted numeric snapshot is unchanged', async () => {
@@ -69,6 +148,7 @@ describe('prepared estimate ownership', () => {
     await session.prepare();
     session.update(oldSnapshot(), 'invalid/100');
     expect(session.fileFor('90/100')).toBeNull();
+    expect(session.presentationReadyFor('invalid/100')).toBe(false);
     expect(session.fileFor('invalid/100')).toBeNull();
   });
 
@@ -100,7 +180,9 @@ describe('prepared estimate ownership', () => {
     session.update(newSnapshot(), '600/100');
     oldWork.reject(new Error('obsolete'));
     expect(await old).toBeNull();
+    expect(session.presentationReadyFor('600/100')).toBe(false);
     await expect(session.prepare()).rejects.toThrow('failed');
+    expect(session.presentationReadyFor('600/100')).toBe(true);
     expect(await session.prepare()).toBe(current);
   });
 
@@ -111,6 +193,7 @@ describe('prepared estimate ownership', () => {
     await session.prepare();
     session.update(oldSnapshot(), '90/100');
     expect(session.fileFor('90/100')).toBe(current);
+    expect(session.presentationReadyFor('90/100')).toBe(true);
   });
 
   it('invalidates changed numeric inputs even when the raw key is reused', async () => {

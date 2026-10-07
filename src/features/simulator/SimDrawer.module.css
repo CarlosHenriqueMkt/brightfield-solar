@@ -4,7 +4,7 @@
   width: var(--drawer-inner-width, 340px);
   min-width: var(--drawer-inner-width, 340px);
   max-width: none;
-  padding: 24px;
+  padding: 20px;
   border-radius: var(--radius-md);
   background: #fff;
   color: var(--text);
@@ -45,13 +45,13 @@
   cursor: pointer;
 }
 .progress {
-  margin: 24px 0 16px;
+  margin: 12px 0;
   color: var(--blue);
   font-size: 11px;
   font-weight: 600;
 }
 .field {
-  margin-top: 16px;
+  margin-top: 12px;
 }
 .field label {
   display: block;
@@ -129,14 +129,14 @@
 }
 .primaryAction {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 .link {
   display: block;
   width: fit-content;
   min-width: 44px;
   min-height: 44px;
-  margin-top: 8px;
+  margin-top: 4px;
   padding: 10px 0;
   border: 0;
   background: transparent;
@@ -152,7 +152,7 @@
 .resultActions {
   display: grid;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 12px;
   text-align: center;
 }
 .resultActions[hidden] {
@@ -182,33 +182,69 @@
 }
 .results {
   display: grid;
-  gap: 12px;
-  margin: 24px 0 0;
+  gap: 6px;
+  margin: 12px 0 0;
 }
 .results div {
-  padding-bottom: 12px;
+  padding-bottom: 6px;
   border-bottom: 1px solid #cbd9e0;
 }
 .results dt {
   color: #466780;
   font-size: 0.75rem;
+  line-height: 1.4;
 }
 .results dd {
   margin: 0;
   color: var(--navy);
   font-size: 1.25rem;
   font-weight: 600;
+  line-height: 1.35;
 }
 .notice {
   margin-top: 12px;
-  padding: 12px;
+  padding: 10px;
   border-radius: var(--radius-sm);
   background: var(--sky);
   font-size: 0.8125rem;
   line-height: 1.5;
 }
+.notice p {
+  margin: 0;
+}
+.notice p + p {
+  margin-top: 6px;
+}
+.preparation {
+  margin-top: 16px;
+}
+.preparationStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+}
+.spinner {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--sky);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: prepare-spin 900ms linear infinite;
+}
+@keyframes prepare-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
 .explanation {
-  margin-top: 8px;
+  margin-top: 4px;
   font-size: 0.8125rem;
 }
 .explanation summary {

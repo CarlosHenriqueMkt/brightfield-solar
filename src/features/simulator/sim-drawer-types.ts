@@ -31,6 +31,7 @@ export interface SimDrawerProps {
   readonly keepMounted?: boolean;
   readonly liveSummary?: string;
   readonly exportActions?: ReactNode;
+  readonly resultPreparing?: boolean;
   readonly onInstallation?: () => void;
   readonly onViewHouse?: () => void;
   readonly onBillChange: (value: string) => void;
