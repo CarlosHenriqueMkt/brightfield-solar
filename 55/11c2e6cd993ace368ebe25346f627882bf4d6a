@@ -1,0 +1,22 @@
+README.md
+  h_1041c21ccc44e5 98-99
+package-lock.json
+  h_1041c21ccc44e5 27,38-99,364-503,636-653,2294-2303,2353-2362,2495-2534,2542-2565,2584-2590,2615-2627,3098-3138,3192-3198,3213-3252,3638-3644,3857-3869,4053-4062,4133-4145,4287-4293,4368-4387,4401-4426,4764-4810,4850-4888
+package.json
+  h_1041c21ccc44e5 40
+src/features/simulator/EstimateExportActions.test.ts
+  h_1041c21ccc44e5 1-127
+src/features/simulator/EstimateExportActions.tsx
+  h_1041c21ccc44e5 104-107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5511c2e6cd993ace368ebe25346f627882bf4d6a",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
