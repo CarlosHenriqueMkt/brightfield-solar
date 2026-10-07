@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import { Button } from '@/components/ui/Button';
 import type { SimDrawerProps } from './sim-drawer-types';
 import styles from './SimDrawer.module.css';
@@ -20,7 +20,8 @@ export function SimDrawer({
   modal = false,
   keepMounted = false,
   liveSummary,
-  closeLabel = 'Close estimate',
+  exportActions,
+  resultPreparing = false,
   onInstallation,
   onViewHouse,
   onBillChange,
@@ -32,13 +33,44 @@ export function SimDrawer({
   const heading = useRef<HTMLHeadingElement>(null);
   const previousOpen = useRef(open);
   const previousStep = useRef(step);
-  useEffect(() => {
+  const previousPreparing = useRef(resultPreparing);
+  useLayoutEffect(() => {
     if (open && (!previousOpen.current || previousStep.current !== step)) {
+      if (previousStep.current !== step) {
+        heading.current
+          ?.closest('section')
+          ?.scrollTo({ top: 0, behavior: 'instant' });
+      }
       heading.current?.focus({ preventScroll: true });
+    }
+    if (
+      open &&
+      step === 'result' &&
+      previousPreparing.current &&
+      !resultPreparing
+    ) {
+      const drawer = heading.current?.closest('section');
+      const focused = document.activeElement;
+      if (
+        drawer &&
+        focused instanceof HTMLElement &&
+        drawer.contains(focused)
+      ) {
+        const bounds = drawer.getBoundingClientRect();
+        const target = focused.getBoundingClientRect();
+        const delta =
+          target.top < bounds.top + 8
+            ? target.top - bounds.top - 8
+            : target.bottom > bounds.bottom - 8
+              ? target.bottom - bounds.bottom + 8
+              : 0;
+        if (delta) drawer.scrollBy({ top: delta, behavior: 'instant' });
+      }
     }
     previousOpen.current = open;
     previousStep.current = step;
-  }, [open, step]);
+    previousPreparing.current = resultPreparing;
+  }, [open, step, resultPreparing]);
 
   const billField = (
     <div className={styles.field}>
@@ -185,47 +217,59 @@ export function SimDrawer({
       title = 'Your solar estimate';
       content = (
         <>
-          <dl className={styles.results}>
-            <div>
-              <dt>Number of panels</dt>
-              <dd>{result.panelCount}</dd>
+          {resultPreparing ? (
+            <div className={styles.preparation}>
+              <p
+                className={styles.preparationStatus}
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                <span className={styles.spinner} aria-hidden="true" />
+                Preparing your estimate…
+              </p>
             </div>
-            <div>
-              <dt>Investment after federal credit</dt>
-              <dd>{result.investment}</dd>
-            </div>
-            <div>
-              <dt>Estimated monthly savings</dt>
-              <dd>{result.monthlySavings}</dd>
-            </div>
-            <div>
-              <dt>Estimated payback</dt>
-              <dd>{result.payback}</dd>
-            </div>
-          </dl>
-          <p className={styles.notice}>{stateIncentiveNote}</p>
-          {notices.map((notice) => (
-            <p className={styles.notice} key={notice}>
-              {notice}
-            </p>
-          ))}
-          <Button
-            className={styles.primaryAction}
+          ) : (
+            <>
+              <dl className={styles.results}>
+                <div>
+                  <dt>Number of panels</dt>
+                  <dd>{result.panelCount}</dd>
+                </div>
+                <div>
+                  <dt>Investment after federal credit</dt>
+                  <dd>{result.investment}</dd>
+                </div>
+                <div>
+                  <dt>Estimated monthly savings</dt>
+                  <dd>{result.monthlySavings}</dd>
+                </div>
+                <div>
+                  <dt>Estimated payback</dt>
+                  <dd>{result.payback}</dd>
+                </div>
+              </dl>
+              <div className={styles.notice}>
+                <p>{stateIncentiveNote}</p>
+                {notices.map((notice) => (
+                  <p key={notice}>{notice}</p>
+                ))}
+              </div>
+            </>
+          )}
+          <button
+            className={styles.link}
+            type="button"
             onClick={() => onStepChange('edit')}
           >
-            Edit estimate
-          </Button>
-          <details className={styles.explanation}>
-            <summary>See how it is calculated</summary>
-            <p>{explanation}</p>
-          </details>
-          <a
-            className={styles.link}
-            href={installationHref}
-            onClick={onInstallation}
-          >
-            See the installation steps
-          </a>
+            {resultPreparing ? 'Back to edit estimate' : 'Edit estimate'}
+          </button>
+          {!resultPreparing && (
+            <details className={styles.explanation}>
+              <summary>See how it is calculated</summary>
+              <p>{explanation}</p>
+            </details>
+          )}
         </>
       );
       break;
@@ -261,10 +305,24 @@ export function SimDrawer({
         <button
           type="button"
           className={styles.close}
-          aria-label={closeLabel}
+          aria-label="Close simulation"
           onClick={() => onOpenChange(false)}
         >
-          Close <span aria-hidden="true">×</span>
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m6 6 12 12M18 6 6 18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
         </button>
       </header>
       <form
@@ -274,17 +332,34 @@ export function SimDrawer({
         }}
       >
         {content}
+        <div className={styles.resultActions} hidden={step !== 'result'}>
+          {!resultPreparing && (
+            <a
+              className={styles.resultAction}
+              href={installationHref}
+              onClick={onInstallation}
+            >
+              See the installation steps
+            </a>
+          )}
+          <button
+            className={resultPreparing ? styles.link : styles.resultAction}
+            type="button"
+            onClick={() => onStepChange('bill')}
+          >
+            Return to presets
+          </button>
+          {!resultPreparing && exportActions}
+        </div>
       </form>
       {liveSummary && step !== 'result' && (
-        <p className={styles.notice}>{liveSummary}</p>
+        <div className={styles.notice}>
+          <p>{liveSummary}</p>
+          {notices.map((notice) => (
+            <p key={notice}>{notice}</p>
+          ))}
+        </div>
       )}
-      {liveSummary &&
-        step !== 'result' &&
-        notices.map((notice) => (
-          <p className={styles.notice} key={notice}>
-            {notice}
-          </p>
-        ))}
       {onViewHouse && (
         <button type="button" className={styles.link} onClick={onViewHouse}>
           View house

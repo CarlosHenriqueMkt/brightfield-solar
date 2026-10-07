@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { CityConfig } from '@/domain/cities/city-config';
 
 export type SimDrawerStep = 'bill' | 'coverage' | 'result' | 'edit';
@@ -29,7 +30,8 @@ export interface SimDrawerProps {
   readonly modal?: boolean;
   readonly keepMounted?: boolean;
   readonly liveSummary?: string;
-  readonly closeLabel?: string;
+  readonly exportActions?: ReactNode;
+  readonly resultPreparing?: boolean;
   readonly onInstallation?: () => void;
   readonly onViewHouse?: () => void;
   readonly onBillChange: (value: string) => void;

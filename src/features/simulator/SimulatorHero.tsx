@@ -18,25 +18,22 @@ import {
   curtainLiftAt,
   type ChoreographySnapshot,
 } from '@/features/scene/choreography';
-import { calculateSolarEstimate, validateSimulationInput } from './finance';
+import { validateSimulationInput } from './finance';
+import { createEstimateSnapshot } from './estimate-document';
+import {
+  createEstimateDraft,
+  updateEstimateDraft,
+  type EstimateDraft,
+  type EstimateDraftAction,
+} from './estimate-draft';
 import { SimDrawer } from './SimDrawer';
-import type { SimDrawerStep, SimDrawerValues } from './sim-drawer-types';
+import EstimateExportActions from './EstimateExportActions';
 import { initialSimulationState, simulationReducer } from './simulation-state';
 import styles from './SimulatorHero.module.css';
 
 const SceneCanvas = dynamic(() => import('@/features/scene/SceneCanvas'), {
   ssr: false,
 });
-
-const dollars = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-});
-const years = new Intl.NumberFormat('en-US', {
-  minimumFractionDigits: 1,
-  maximumFractionDigits: 1,
-});
-const numbers = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 });
 
 export function SimulatorHero({
   city,
@@ -49,18 +46,13 @@ export function SimulatorHero({
     simulationReducer,
     initialSimulationState,
   );
-  const [step, setStep] = useState<SimDrawerStep>('bill');
-  const [values, setValues] = useState<SimDrawerValues>({
-    bill: '220',
-    coverage: '80',
-  });
-  const [accepted, setAccepted] = useState({ bill: 220, coverage: 80 });
-  const [selectedProfile, setSelectedProfile] = useState<number | null>(() => {
-    const index = city.householdProfiles.findIndex(
-      (profile) => profile.typicalBill === 220,
-    );
-    return index < 0 ? null : index;
-  });
+  const draftReducer = useCallback(
+    (state: EstimateDraft, action: EstimateDraftAction) =>
+      updateEstimateDraft(state, action, city),
+    [city],
+  );
+  const [{ step, values, accepted, selectedProfile }, dispatchDraft] =
+    useReducer(draftReducer, city, createEstimateDraft);
   const [mobile, setMobile] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [ready, setReady] = useState(false);
@@ -83,16 +75,13 @@ export function SimulatorHero({
     revisionRef.current = simulation.revision;
     simulationRef.current = simulation;
   }, [simulation]);
-  const estimate = useMemo(
-    () => calculateSolarEstimate(city, accepted.bill, accepted.coverage),
+  const estimateSnapshot = useMemo(
+    () => createEstimateSnapshot(city, accepted.bill, accepted.coverage),
     [city, accepted.bill, accepted.coverage],
   );
-  const formatted = {
-    panelCount: `${estimate.installedPanels} panels`,
-    investment: dollars.format(estimate.netCost),
-    monthlySavings: dollars.format(estimate.monthlySavings),
-    payback: `${years.format(estimate.paybackYears)} years`,
-  };
+  const estimate = estimateSnapshot.estimate;
+  const formatted = estimateSnapshot.result;
+  const exportKey = `${estimateSnapshot.key}|${values.bill}|${values.coverage}`;
   let draftError: string | null = null;
   try {
     validateSimulationInput(
@@ -104,21 +93,7 @@ export function SimulatorHero({
       'Enter a bill from $40 to $600 in steps of $10 and coverage from 50% to 100% in steps of 5. The last valid estimate remains visible until both fields are valid.';
   }
   const summary = `${formatted.panelCount} · ${formatted.investment} after federal credit · ${formatted.monthlySavings}/month · ${formatted.payback} payback`;
-  const notices: string[] = [];
-  if (estimate.minimumApplied)
-    notices.push(`The minimum system size is ${city.minPanels} panels`);
-  if (estimate.savingsCapped)
-    notices.push(
-      'Estimated savings stop at the size of your electricity bill.',
-    );
-  if (estimate.excessCredit)
-    notices.push(
-      `Energy generated beyond your usage becomes credit with ${city.utilityName}, not cash back.`,
-    );
-  if (estimate.installedPanels > 51)
-    notices.push(
-      `Your estimate includes ${estimate.installedPanels} panels. This illustrative roof displays up to 51; the financial calculation includes every panel.`,
-    );
+  const notices = [...estimateSnapshot.notices];
   if (sceneError)
     notices.push(
       'The 3D house could not be displayed. Your estimate and choices are still available. Use View house or close the panel to retry the illustration.',
@@ -471,23 +446,6 @@ export function SimulatorHero({
     [],
   );
 
-  function updateField(field: 'bill' | 'coverage', value: string) {
-    const nextDraft = { ...values, [field]: value };
-    setValues(nextDraft);
-    if (field === 'bill') setSelectedProfile(null);
-    if (!nextDraft.bill.trim() || !nextDraft.coverage.trim()) return;
-    const next = {
-      bill: Number(nextDraft.bill),
-      coverage: Number(nextDraft.coverage),
-    };
-    try {
-      validateSimulationInput(next.bill, next.coverage);
-    } catch {
-      return;
-    }
-    setAccepted(next);
-  }
-
   return (
     <div
       id="solar-estimate"
@@ -551,8 +509,27 @@ export function SimulatorHero({
           >
             Back to simulation
           </Button>
-          <button className={styles.closeHouse} onClick={closeSimulation}>
-            Close simulation
+          <button
+            type="button"
+            className={styles.closeHouse}
+            aria-label="Close simulation"
+            onClick={closeSimulation}
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m6 6 12 12M18 6 6 18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
           </button>
         </div>
       )}
@@ -561,49 +538,59 @@ export function SimulatorHero({
         className={styles.panel}
         data-drawer-usable={simulation.drawerUsable}
       >
-        <SimDrawer
-          id="simulation-panel"
-          open={simulation.drawerUsable}
-          keepMounted
-          step={step}
-          values={values}
-          profiles={city.householdProfiles}
-          selectedProfile={selectedProfile}
-          result={formatted}
-          notices={notices}
-          stateIncentiveNote={city.stateIncentiveNote}
-          explanation={`Monthly consumption is your bill divided by ${city.utilityName}'s $${city.utilityRatePerKwh}/kWh rate. Each ${city.panelWatts} W panel generates an estimated ${numbers.format(estimate.generationPerPanelKwh)} kWh/month from ${city.peakSunHoursPerDay} peak sun hours/day and a performance factor of ${city.performanceRatio * 100}%. Panel counts round up, with a minimum of ${city.minPanels} panels. Installation costs $${city.costPerWattInstalled}/W; the ${city.federalCreditRate * 100}% federal credit reduces the investment. Savings are capped at your bill; payback divides net investment by twelve months of capped savings. These are fictional estimates, not tax advice.`}
-          installationHref="#installation"
-          modal={mobile}
-          closeLabel="Close simulation"
-          onInstallation={() => {
-            moveFocusOutsidePanel();
-            dispatch({ type: 'view-house' });
-          }}
-          liveSummary={draftError ? `${draftError} ${summary}` : summary}
-          onViewHouse={
-            mobile
-              ? () => {
-                  moveFocusOutsidePanel();
-                  dispatch({ type: 'view-house' });
-                }
-              : undefined
-          }
-          onBillChange={(value) => updateField('bill', value)}
-          onCoverageChange={(value) => updateField('coverage', value)}
-          onProfileSelect={(index) => {
-            const profile = city.householdProfiles[index];
-            if (!profile) throw new RangeError('Unknown household profile');
-            updateField('bill', String(profile.typicalBill));
-            setSelectedProfile(index);
-          }}
-          onStepChange={(next) => {
-            if (!draftError) setStep(next);
-          }}
-          onOpenChange={(open) => {
-            if (!open) closeSimulation();
-          }}
-        />
+        <EstimateExportActions
+          snapshot={estimateSnapshot}
+          invalidationKey={exportKey}
+          active={simulation.drawerUsable && step === 'result' && !draftError}
+        >
+          {(exportActions, resultPreparing) => (
+            <SimDrawer
+              id="simulation-panel"
+              open={simulation.drawerUsable}
+              keepMounted
+              step={step}
+              values={values}
+              profiles={city.householdProfiles}
+              selectedProfile={selectedProfile}
+              result={formatted}
+              notices={notices}
+              stateIncentiveNote={city.stateIncentiveNote}
+              explanation={estimateSnapshot.explanation}
+              installationHref="#installation"
+              modal={mobile}
+              exportActions={exportActions}
+              resultPreparing={resultPreparing}
+              onInstallation={() => {
+                moveFocusOutsidePanel();
+                dispatch({ type: 'view-house' });
+              }}
+              liveSummary={draftError ? `${draftError} ${summary}` : summary}
+              onViewHouse={
+                mobile
+                  ? () => {
+                      moveFocusOutsidePanel();
+                      dispatch({ type: 'view-house' });
+                    }
+                  : undefined
+              }
+              onBillChange={(value) =>
+                dispatchDraft({ type: 'field', field: 'bill', value })
+              }
+              onCoverageChange={(value) =>
+                dispatchDraft({ type: 'field', field: 'coverage', value })
+              }
+              onProfileSelect={(index) =>
+                dispatchDraft({ type: 'preset', index })
+              }
+              onStepChange={(next) =>
+                dispatchDraft({ type: 'step', step: next })
+              }
+              onOpenChange={(open) => {
+                if (!open) closeSimulation();
+              }}
+            />
+          )}
+        </EstimateExportActions>
       </div>
       <p
         className={styles.announcement}
