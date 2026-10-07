@@ -1,0 +1,72 @@
+README.md
+  h_1041c21ccc44e5 3,54,61,88-131,144,152,175
+src/app/city/[citySlug]/page.module.css
+  h_1041c21ccc44e5 5
+src/app/city/[citySlug]/page.test.ts
+  h_1041c21ccc44e5 1-45
+src/app/city/[citySlug]/page.tsx
+  h_1041c21ccc44e5 3-9,21-25,38-42,63,65,70,87-88,91,107,110-112,114
+src/app/preview/components/page.tsx
+  h_1041c21ccc44e5 64,137,149,159,188
+src/components/CitySelector.module.css
+  h_1041c21ccc44e5 1-19
+src/components/CitySelector.test.ts
+  h_1041c21ccc44e5 1-61
+src/components/CitySelector.tsx
+  h_1041c21ccc44e5 1-34
+src/components/sections/FinalCTA.tsx
+  h_1041c21ccc44e5 3,7,12,18-19,27-28
+src/components/sections/Hero.module.css
+  h_1041c21ccc44e5 54-60
+src/components/sections/Hero.tsx
+  h_1041c21ccc44e5 15,53,55-59
+src/components/sections/ProcessSteps.tsx
+  h_1041c21ccc44e5 2,7-13,19-21,24,27,31-32,40-42
+src/components/sections/SocialProof.tsx
+  h_1041c21ccc44e5 13,48,53-54,93-94,120-121,124-127,131,140-141,144
+src/components/sections/TestimonialCarousel.tsx
+  h_1041c21ccc44e5 24,27-30,128
+src/components/sections/section-rendering.test.ts
+  h_1041c21ccc44e5 1-114
+src/domain/cities/cities.test.ts
+  h_1041c21ccc44e5 2-9,13-15,18-26,32-33,37-45,99-146,153-180
+src/domain/cities/cities.ts
+  h_1041c21ccc44e5 1-7,10,12-13,16,25-30
+src/domain/cities/city-a.ts
+  h_1041c21ccc44e5 1-192
+src/domain/cities/city-b.ts
+  h_1041c21ccc44e5 1-220
+src/domain/cities/city-config.ts
+  h_1041c21ccc44e5 1-30,50-81,93,107-115,170-272,277-278,291-294,308-341,361,389-414
+src/domain/cities/phoenix.ts
+  h_1041c21ccc44e5 23-85,119-123,132-136,145-149
+src/features/scene/ScenePoster.tsx
+  h_1041c21ccc44e5 2,4-10,12,20,26
+src/features/simulator/EstimateExportActions.test.ts
+  h_1041c21ccc44e5 7,22-27,135-333
+src/features/simulator/EstimateExportActions.tsx
+  h_1041c21ccc44e5 9,24-38,78-82,196,217,220,222-228,231-232,234-256,259-271
+src/features/simulator/estimate-document.ts
+  h_1041c21ccc44e5 1-4,12,65-67,74-76,90-91
+src/features/simulator/estimate-export.test.ts
+  h_1041c21ccc44e5 3,13-18,278-336
+src/features/simulator/estimate-pdf.test.ts
+  h_1041c21ccc44e5 6,11-27,42-75,106-192,219,293
+src/features/simulator/estimate-pdf.ts
+  h_1041c21ccc44e5 339
+src/features/simulator/finance.test.ts
+  h_1041c21ccc44e5 3-4,8-13,142-239
+src/features/simulator/intro-copy-fade.test.ts
+  h_1041c21ccc44e5 16,84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8a105d1396686e96fd194d33f464902a760e79ff",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
