@@ -45,19 +45,21 @@ export function Hero({
         <div className={styles.coverContent}>
           <div className={styles.intro} data-hero-intro>
             <div className={styles.copy}>
-              <p className={styles.eyebrow}>
+              <p className={styles.eyebrow} data-hero-supplementary>
                 Residential solar in {city.city}, {city.stateFull}
               </p>
               <Motto id={`${id}-title`} className={styles.title} as={Heading} />
-              <p className={styles.lead}>
+              <p className={styles.lead} data-hero-supplementary>
                 Explore the cost and estimated savings of solar for your{' '}
                 {city.city} home. See the numbers, understand the next steps and
                 decide what makes sense for you.
               </p>
             </div>
-            <div className={styles.controls}>{controlsSlot}</div>
+            <div className={styles.controls} data-hero-supplementary>
+              {controlsSlot}
+            </div>
           </div>
-          <p className={styles.caption} data-hero-intro>
+          <p className={styles.caption} data-hero-intro data-hero-supplementary>
             Illustrative home. Roof fit needs an assessment.
           </p>
         </div>

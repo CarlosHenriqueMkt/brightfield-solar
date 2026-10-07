@@ -37,6 +37,8 @@ npm run start
 
 TypeScript remains strict with `skipLibCheck: false` and no ignored build errors. `.next/dev` is excluded from compilation to avoid duplicate generated route types after development runs. `format` writes files; use `format:check` when only verification is intended.
 
+The native intro-fade regression uses installed Chrome/Chromium to resolve the real Hero's CSS and sample its Web Animations at a shared timestamp, without sleeps or an application server. Standard Windows/Linux executable locations are detected; set `CHROME_BIN` when Chromium is installed elsewhere. No browser-automation package is added.
+
 Exact versions in the single `package-lock.json`: Next **16.3.8**, React/React DOM **19.3.0**, TypeScript **6.0.3**, ESLint **10.12.0**, Prettier **3.9.9**, and Vitest **5.0.3**. WEB 03 added only **three 0.186.1** and **@types/three 0.186.0**. IBM Plex Sans 400/500/600 is served locally through `next/font/local`, without a font CDN.
 
 ### Environment and Git workflow
@@ -89,6 +91,8 @@ Canvas, poster, and Hero share **the same full-bleed rectangle**. Aspect uses ac
 The centered motto retains local **IBM Plex Sans 600**, the approved two lines, and responsive display sizing; narrow and short layouts are tuned separately. Decorative background A is the locally owned, transparent **1200×700** `public/assets/hero-panels.svg`: **1,179 bytes raw**, **513 bytes with local gzip compression**. Shared elongated panel geometry and a fine cell pattern avoid raster payloads and filters. The motif is cropped inside the opaque curtain, ignores pointer input, and is hidden from assistive technology; it moves only with that curtain and adds no layout height.
 
 The motto has one intact accessible heading name; visual grapheme spans are hidden from the accessibility tree and wrap only between words. Native CSS transitions follow the existing `data-copy-hidden` milestone in both directions: **460 ms** per transition plus at most **48 ms** of normalized stagger, independent of character count. Interruption reverses from the current computed state. Reduced motion applies endpoints immediately. There are no new timers, listeners, animation dependencies, or camera/curtain/focus gates.
+
+On opening, the eyebrow, description, CTA/helper group, and caption share a scoped **250 ms opacity fade** driven by the existing `data-copy-hidden` state. Neither the heading nor its ancestors, the brand header, or the panel motif is faded. Existing intro inert handling remains in force; hidden supplementary content also ignores pointer input. Supplementary opacity restores immediately at the unchanged full-white visibility gate, without adding a return fade. Reduced motion applies the hidden/restored states immediately.
 
 Desktop interaction is non-modal. At up to 700 CSS px, the panel is a modal dialog with contained focus, circular Tab/Shift+Tab navigation, an inert background, Escape, and scroll-lock cleanup. Focus moves to a non-inert target before the panel is hidden or loses usability during recovery, and returns to the CTA at the full-white milestone. **View house** hides the panel without ending simulation or changing its revision; **Back to simulation** restores the step, inputs, profile, coverage, and estimate. The drawer reveals its outer width from a fixed right edge without scaling its contents: **340 px** internally on desktop, available viewport width minus safe-area insets and **28 px** on mobile. The historical mobile measurement recorded control heights of at least 44 px.
 

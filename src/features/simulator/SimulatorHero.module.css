@@ -21,6 +21,19 @@
 .root[data-intro-visible='false'] [data-hero-intro] {
   visibility: hidden;
 }
+.root [data-hero-supplementary] {
+  opacity: 1;
+}
+.root[data-copy-hidden='true'] [data-hero-supplementary] {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .root[data-copy-hidden='true'] [data-hero-supplementary] {
+    transition: none;
+  }
+}
 .root[data-scene-ready='true'] [data-hero-poster] {
   visibility: hidden;
 }
