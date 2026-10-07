@@ -101,6 +101,10 @@ export default function EstimateExportActions({
     const session =
       previous?.session ?? new EstimatePdfSession(generateEstimatePdf);
     session.update(snapshot, invalidationKey);
+    if (previous?.identity !== identity) {
+      setPresentedIdentity(null);
+      setView(null);
+    }
     if (active && session.presentationReadyFor(invalidationKey)) {
       setPresentedIdentity(identity);
       if (session.fileFor(invalidationKey))
