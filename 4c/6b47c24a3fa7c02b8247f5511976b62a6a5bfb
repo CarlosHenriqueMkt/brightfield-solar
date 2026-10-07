@@ -1,0 +1,42 @@
+README.md
+  h_1041c21ccc44e5 185-236
+src/app/city/[citySlug]/page.module.css
+  h_1041c21ccc44e5 8,37-39,41,71
+src/app/globals.css
+  h_1041c21ccc44e5 5,31-37
+src/app/preview/components/preview.module.css
+  h_1041c21ccc44e5 137
+src/app/preview/scene/calibration.module.css
+  h_1041c21ccc44e5 41,70
+src/components/CitySelector.module.css
+  h_1041c21ccc44e5 7
+src/components/sections/FAQ.module.css
+  h_1041c21ccc44e5 3
+src/components/sections/Hero.module.css
+  h_1041c21ccc44e5 82
+src/components/sections/ProcessSteps.module.css
+  h_1041c21ccc44e5 3
+src/components/sections/SocialProof.module.css
+  h_1041c21ccc44e5 15,69
+src/components/sections/TestimonialCarousel.module.css
+  h_1041c21ccc44e5 52
+src/components/ui/Button.module.css
+  h_1041c21ccc44e5 19-21,24
+src/features/simulator/EstimateExportActions.module.css
+  h_1041c21ccc44e5 34
+src/features/simulator/SimDrawer.module.css
+  h_1041c21ccc44e5 9,117,170
+src/features/simulator/SimulatorHero.module.css
+  h_1041c21ccc44e5 121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4c6b47c24a3fa7c02b8247f5511976b62a6a5bfb",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
