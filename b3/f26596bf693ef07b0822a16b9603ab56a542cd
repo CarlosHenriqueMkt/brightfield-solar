@@ -1,0 +1,50 @@
+README.md
+  h_1041c21ccc44e5 88-109,112
+licenses/pdf-lib/LICENSE.md
+  h_1041c21ccc44e5 1-21
+package-lock.json
+  h_1041c21ccc44e5 12,1328-1345,3431-3436,3457-3474
+package.json
+  h_1041c21ccc44e5 25
+src/features/simulator/EstimateExportActions.module.css
+  h_1041c21ccc44e5 1-60
+src/features/simulator/EstimateExportActions.tsx
+  h_1041c21ccc44e5 1-303
+src/features/simulator/SimDrawer.module.css
+  h_1041c21ccc44e5 26-28,35,37-39,42-44,59,81,97,110,120,137,145,152-182,194,199,207-208,212
+src/features/simulator/SimDrawer.test.ts
+  h_1041c21ccc44e5 1-74
+src/features/simulator/SimDrawer.tsx
+  h_1041c21ccc44e5 3,23,35,37-41,217-219,223,263,266-280,290-306
+src/features/simulator/SimulatorHero.module.css
+  h_1041c21ccc44e5 51,66,92-102,143
+src/features/simulator/SimulatorHero.tsx
+  h_1041c21ccc44e5 21-28,37-38,52-60,83-84,87-89,101,517-537,557,560-570,584-591
+src/features/simulator/estimate-document.ts
+  h_1041c21ccc44e5 1-91
+src/features/simulator/estimate-draft.test.ts
+  h_1041c21ccc44e5 1-91
+src/features/simulator/estimate-draft.ts
+  h_1041c21ccc44e5 1-94
+src/features/simulator/estimate-export.test.ts
+  h_1041c21ccc44e5 1-464
+src/features/simulator/estimate-export.ts
+  h_1041c21ccc44e5 1-146
+src/features/simulator/estimate-pdf.test.ts
+  h_1041c21ccc44e5 1-191
+src/features/simulator/estimate-pdf.ts
+  h_1041c21ccc44e5 1-354
+src/features/simulator/sim-drawer-types.ts
+  h_1041c21ccc44e5 1,33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b3f26596bf693ef07b0822a16b9603ab56a542cd",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
