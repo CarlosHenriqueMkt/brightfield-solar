@@ -2,6 +2,7 @@
   --navy: #102b4e;
   --text: #244568;
   --blue: #315c9a;
+  --blue-hover: #23497f;
   --sky: #edf4f7;
   --paper: #fbfcfd;
   --green: #557653;
@@ -25,6 +26,13 @@ body {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
 h1,

@@ -79,7 +79,7 @@
   inset: 0;
   z-index: 1;
   display: block;
-  background: #fff;
+  background: var(--paper);
   overflow: clip;
   pointer-events: auto;
   transform: translateY(calc(-1 * var(--curtain-lift, 0%)));

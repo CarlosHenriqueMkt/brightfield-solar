@@ -138,7 +138,6 @@ export function TestimonialCarousel({
                 slideRefs.current[index] = element;
               }}
               className={styles.slide}
-              data-active={currentIndex === index}
               aria-label={`${slide.label}, slide ${index + 1} of ${slides.length}`}
               aria-current={currentIndex === index ? 'true' : undefined}
             >
