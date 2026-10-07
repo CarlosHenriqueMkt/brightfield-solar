@@ -1,0 +1,22 @@
+README.md
+  h_1041c21ccc44e5 40,57,107
+src/app/preview/components/preview.module.css
+  h_1041c21ccc44e5 160
+src/features/scene/viewer.test.ts
+  h_1041c21ccc44e5 77,81-85,691-824
+src/features/scene/viewer.ts
+  h_1041c21ccc44e5 86-90,1276-1285,1312,1420-1445
+src/features/simulator/intro-copy-fade.test.ts
+  h_1041c21ccc44e5 28,30,33,35,37,41-43,111,118-122,124,126-157,169-173,184,204,206-213,229-245
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "496b4f1bc178d21436b1d1b219f62eeb48928bb4",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
