@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import { Button } from '@/components/ui/Button';
 import type { SimDrawerProps } from './sim-drawer-types';
 import styles from './SimDrawer.module.css';
@@ -20,7 +20,7 @@ export function SimDrawer({
   modal = false,
   keepMounted = false,
   liveSummary,
-  closeLabel = 'Close estimate',
+  exportActions,
   onInstallation,
   onViewHouse,
   onBillChange,
@@ -32,8 +32,13 @@ export function SimDrawer({
   const heading = useRef<HTMLHeadingElement>(null);
   const previousOpen = useRef(open);
   const previousStep = useRef(step);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (open && (!previousOpen.current || previousStep.current !== step)) {
+      if (previousStep.current !== step) {
+        heading.current
+          ?.closest('section')
+          ?.scrollTo({ top: 0, behavior: 'instant' });
+      }
       heading.current?.focus({ preventScroll: true });
     }
     previousOpen.current = open;
@@ -209,23 +214,17 @@ export function SimDrawer({
               {notice}
             </p>
           ))}
-          <Button
-            className={styles.primaryAction}
+          <button
+            className={styles.link}
+            type="button"
             onClick={() => onStepChange('edit')}
           >
             Edit estimate
-          </Button>
+          </button>
           <details className={styles.explanation}>
             <summary>See how it is calculated</summary>
             <p>{explanation}</p>
           </details>
-          <a
-            className={styles.link}
-            href={installationHref}
-            onClick={onInstallation}
-          >
-            See the installation steps
-          </a>
         </>
       );
       break;
@@ -261,10 +260,24 @@ export function SimDrawer({
         <button
           type="button"
           className={styles.close}
-          aria-label={closeLabel}
+          aria-label="Close simulation"
           onClick={() => onOpenChange(false)}
         >
-          Close <span aria-hidden="true">×</span>
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m6 6 12 12M18 6 6 18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
         </button>
       </header>
       <form
@@ -274,6 +287,23 @@ export function SimDrawer({
         }}
       >
         {content}
+        <div className={styles.resultActions} hidden={step !== 'result'}>
+          <a
+            className={styles.resultAction}
+            href={installationHref}
+            onClick={onInstallation}
+          >
+            See the installation steps
+          </a>
+          <button
+            className={styles.resultAction}
+            type="button"
+            onClick={() => onStepChange('bill')}
+          >
+            Return to presets
+          </button>
+          {exportActions}
+        </div>
       </form>
       {liveSummary && step !== 'result' && (
         <p className={styles.notice}>{liveSummary}</p>
