@@ -1,0 +1,28 @@
+README.md
+  h_1041c21ccc44e5 89-92,98
+public/assets/hero-panels.svg
+  h_1041c21ccc44e5 1-27
+src/components/sections/Hero.module.css
+  h_1041c21ccc44e5 28,41,43,45,49,51,76,81-90,130-141,160-174
+src/components/sections/Hero.tsx
+  h_1041c21ccc44e5 1,4,32-44,51
+src/components/sections/Motto.module.css
+  h_1041c21ccc44e5 1-35
+src/components/sections/Motto.tsx
+  h_1041c21ccc44e5 1-123
+src/features/scene/viewer.test.ts
+  h_1041c21ccc44e5 2,35-59,69,92-96,98-101,133-142,182-185,189-258,265,279-466,701-900
+src/features/simulator/SimulatorHero.tsx
+  h_1041c21ccc44e5 109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d41a92d473faabc071b2f42839c01b0c9698be16",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
