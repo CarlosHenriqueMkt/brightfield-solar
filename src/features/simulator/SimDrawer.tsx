@@ -18,6 +18,7 @@ export function SimDrawer({
   explanation,
   installationHref,
   modal = false,
+  keepMounted = false,
   liveSummary,
   closeLabel = 'Close estimate',
   onInstallation,
@@ -234,16 +235,18 @@ export function SimDrawer({
     }
   }
 
-  if (!open) return null;
+  if (!open && !keepMounted) return null;
 
   return (
     <section
-      className={styles.drawer}
+      className={`${styles.drawer} ${!open ? styles.closed : ''}`}
       id={id}
       aria-labelledby={`${id}-title`}
-      role={modal ? 'dialog' : undefined}
-      aria-modal={modal ? true : undefined}
-      data-sim-drawer-open="true"
+      aria-hidden={!open}
+      inert={!open ? true : undefined}
+      role={modal && open ? 'dialog' : undefined}
+      aria-modal={modal && open ? true : undefined}
+      data-sim-drawer-open={open ? 'true' : 'false'}
       onKeyDown={(event) => {
         if (event.key === 'Escape') {
           event.stopPropagation();

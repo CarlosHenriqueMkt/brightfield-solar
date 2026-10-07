@@ -30,6 +30,11 @@ import {
   type ResolvedAsset,
   type SolarState,
 } from './solar';
+import {
+  ChoreographyTimeline,
+  normalizeLeadIn,
+  type ChoreographySnapshot,
+} from './choreography';
 
 export interface BrightfieldInsets {
   top: number;
@@ -43,6 +48,7 @@ export interface BrightfieldViewerCallbacks {
   onError: (message: string) => void;
   onArrival: (destination: 'frontal' | 'elevated', revision: number) => void;
   onStatus?: (message: string) => void;
+  onChoreography?: (snapshot: ChoreographySnapshot) => void;
 }
 
 export interface SceneIntent {
@@ -50,6 +56,7 @@ export interface SceneIntent {
   panelCount: number;
   reducedMotion: boolean;
   revision: number;
+  leadInSeconds?: number;
 }
 
 interface SharedAsset {
@@ -61,19 +68,27 @@ interface SharedAsset {
 interface Journey {
   elapsed: number;
   duration: number;
+  leadIn: number;
   from: CalibrationPose;
   to: CalibrationPose;
   destination: 'frontal' | 'elevated';
   revision: number;
 }
-
-interface PanelTransition {
+interface PanelTransitionBase {
   target: SolarState;
   pendingIds: string[];
   elapsed: number;
-  lastAdvancedAt: number | null;
   starts: Map<string, number>;
 }
+type PanelTransition = PanelTransitionBase &
+  (
+    | { direction: 'in' }
+    | {
+        direction: 'out';
+        fromProgress: Map<string, number>;
+        continuationStarts: Map<string, number>;
+      }
+  );
 
 interface PanelWrapperRecord {
   wrapper: THREE.Group;
@@ -129,7 +144,6 @@ function clamp(value: number, min: number, max: number): number {
 function stateForPanelCount(panelCount: number): SolarState {
   const count = clamp(Math.round(panelCount), 0, 51);
   if (count === 0) return { mode: 'CASA_BASE' };
-  if (count === 8) return { mode: 'REFINADOS_08' };
   return { mode: 'MISTO_PREFIXO', n: count };
 }
 
@@ -307,7 +321,21 @@ export class BrightfieldViewer {
   private journey: Journey | null = null;
   private panelTransition: PanelTransition | null = null;
   private readonly panelWrappers = new Map<string, PanelWrapperRecord>();
+  private panelEntranceOrder: string[] = [];
+  private readonly choreography = new ChoreographyTimeline();
+  private choreographySnapshot: ChoreographySnapshot = {
+    revision: 0,
+    phase: 'covered',
+    cameraProgress: 0,
+    curtainProgress: 0,
+    drawerProgress: 0,
+    cameraComplete: true,
+    curtainComplete: true,
+    panelsComplete: true,
+    drawerComplete: true,
+  };
   private arrival: Arrival | null = null;
+  private pendingReturn: { revision: number } | null = null;
   private lastCompletedArrival: Arrival | null = null;
   private calibration: CalibrationState | null = null;
   private calibrationBaseline: CalibrationState['presets'] | null = null;
@@ -340,10 +368,13 @@ export class BrightfieldViewer {
   private disposed = false;
   private dirty = false;
   private pendingReadyCallback = false;
+  private pendingReadyGeneration: number | null = null;
+  private recoveryGeneration = 0;
+  private renderFailed = false;
   private firstFrameSnapshot: Record<string, unknown> | null = null;
+  private lastFrameTime: number | null = null;
   private lastRafTime: number | null = null;
   private lastRafInterval: number | null = null;
-  private lastFrameTime: number | null = null;
   private rendererRegistered = false;
   private calibrationNotifiedAt = 0;
 
@@ -375,9 +406,10 @@ export class BrightfieldViewer {
       this.counters.resizeEvents += 1;
       this.dirty = true;
       if (this.journey) this.resizeJourney();
-      else if (this.loaded && !this.calibration)
-        this.configureCamera(this.intent.active ? 'elevated' : 'frontal');
-      else this.updateViewport();
+      else if (this.loaded && !this.calibration) {
+        this.applyChoreographyPose();
+        this.updateViewport();
+      } else this.updateViewport();
       this.scheduleFrame();
     });
     this.resizeObserver.observe(this.host);
@@ -430,7 +462,13 @@ export class BrightfieldViewer {
         this.createRenderer();
         if (!this.renderer) throw new Error('WebGL is unavailable.');
         this.scene = new THREE.Scene();
-        this.scene.background = await this.loadSkyTexture(source);
+        const skyTexture = await this.loadSkyTexture(source);
+        if (this.disposed || generation !== this.loadGeneration) {
+          if (this.skyTexture === skyTexture) this.skyTexture = null;
+          skyTexture.dispose();
+          throw new Error('Scene load superseded.');
+        }
+        this.scene.background = skyTexture;
         this.scene.backgroundRotation.y = source.backgroundYawRadians;
         this.scene.fog = null;
         this.scene.add(this.root);
@@ -439,7 +477,9 @@ export class BrightfieldViewer {
         this.assetSource = source;
         this.dirty = true;
         this.pendingReadyCallback = true;
+        this.pendingReadyGeneration = ++this.recoveryGeneration;
         this.renderImmediately();
+        if (this.disposed || generation !== this.loadGeneration) return;
         this.counters.successfulLoads += 1;
         this.callbacks.onStatus?.(
           `Finished-v04 house loaded in ${Math.round(now())}ms`,
@@ -532,47 +572,61 @@ export class BrightfieldViewer {
 
   setIntent(intent: SceneIntent): void {
     if (this.disposed || intent.revision < this.intent.revision) return;
-    const nextIntent = {
+    const nextIntent: SceneIntent = {
       active: intent.active,
       panelCount: clamp(Math.round(intent.panelCount), 0, 51),
       reducedMotion: intent.reducedMotion,
       revision: intent.revision,
+      leadInSeconds: intent.leadInSeconds,
     };
+    const immediate =
+      nextIntent.reducedMotion ||
+      (!nextIntent.active &&
+        (this.contextLost || this.renderFailed || !this.renderer));
+    const choreographyWasAnimating = this.isChoreographyAnimating();
     this.intent = nextIntent;
-    if (!this.loaded) {
-      void this.load();
-      return;
-    }
+    if (nextIntent.active || immediate) this.pendingReturn = null;
+    if (!this.loaded) return;
+    if (!choreographyWasAnimating) this.lastRafTime = now();
+    this.choreographySnapshot = this.choreography.setIntent(
+      immediate && !nextIntent.reducedMotion
+        ? { ...nextIntent, reducedMotion: true }
+        : nextIntent,
+    );
+    this.emitChoreography();
     const destination = nextIntent.active ? 'elevated' : 'frontal';
     const targetState = nextIntent.active
       ? stateForPanelCount(nextIntent.panelCount)
       : { mode: 'CASA_BASE' as const };
-    const wasAnimating = this.journey !== null || this.panelTransition !== null;
-    if (nextIntent.active)
-      this.transitionPanels(targetState, nextIntent.reducedMotion);
-    else this.panelTransition = null;
-    if (nextIntent.reducedMotion && wasAnimating) this.cancelFrame();
-    if (nextIntent.reducedMotion && this.journey) {
-      const presets = approvedCameraPresets(this.host.clientWidth);
+    if (immediate) this.transitionPanels(targetState, true);
+    else if (nextIntent.active && this.panelTransition)
+      this.transitionPanels(targetState, false);
+    else if (!nextIntent.active) this.transitionPanels(targetState, false);
+    if (immediate) this.cancelFrame();
+    if (!nextIntent.active && !immediate) {
+      this.pendingReturn = { revision: nextIntent.revision };
       this.journey = null;
-      this.lastRafTime = null;
-      this.applyCalibrationPose(presets[destination]);
-      this.finishJourney(destination, nextIntent.revision);
-      this.renderImmediately();
-      return;
-    }
-    if (this.journey?.destination === destination) {
-      this.journey.revision = nextIntent.revision;
-      this.completeArrivalIfReady();
+      this.arrival = null;
       this.dirty = true;
       this.scheduleFrame();
       return;
     }
-    this.startJourney(
-      nextIntent.reducedMotion,
-      destination,
-      nextIntent.revision,
-    );
+    if (immediate) {
+      const presets = approvedCameraPresets(this.host.clientWidth);
+      this.journey = null;
+      this.lastRafTime = null;
+      this.applyCalibrationPose(presets[destination]);
+      this.arrival = { destination, revision: nextIntent.revision };
+      this.completeArrivalIfReady();
+      this.renderImmediately();
+      return;
+    }
+    if (nextIntent.active) {
+      this.arrival = { destination: 'elevated', revision: nextIntent.revision };
+      this.dirty = true;
+      this.scheduleFrame();
+      return;
+    }
   }
 
   setSolarState(state: SolarState): void {
@@ -611,10 +665,13 @@ export class BrightfieldViewer {
       this.renderImmediately();
       return;
     }
-    this.arrival = { destination, revision };
     this.journey = {
       elapsed: 0,
       duration,
+      leadIn:
+        destination === 'elevated' && this.intent.active
+          ? normalizeLeadIn(this.intent.leadInSeconds)
+          : 0,
       from: current,
       to,
       destination,
@@ -631,9 +688,13 @@ export class BrightfieldViewer {
       reducedMotion: this.intent.reducedMotion,
       revision: this.intent.revision + 1,
     };
+    this.pendingReturn = null;
+    this.choreographySnapshot = this.choreography.setIntent(this.intent);
+    this.emitChoreography();
     this.journey = null;
     this.arrival = null;
     this.clearPanelWrappers();
+    this.panelEntranceOrder = [];
     this.panelTransition = null;
     this.currentState = { mode: 'CASA_BASE' };
     if (this.resolvedAsset)
@@ -661,9 +722,10 @@ export class BrightfieldViewer {
     if (this.loaded && this.journey) this.resizeJourney();
     else {
       this.insets = nextInsets;
-      if (this.loaded && !this.calibration)
-        this.configureCamera(this.intent.active ? 'elevated' : 'frontal');
-      else if (this.loaded) this.updateViewport();
+      if (this.loaded && !this.calibration) {
+        this.applyChoreographyPose();
+        this.updateViewport();
+      } else if (this.loaded) this.updateViewport();
     }
     this.dirty = true;
     this.scheduleFrame();
@@ -680,19 +742,26 @@ export class BrightfieldViewer {
     const from = this.readCurrentPose();
     const to = structuredClone(presets[journey.destination]);
     const remaining = poseDistance(from, to);
+    const endpoints = poseDistance(presets.frontal, presets.elevated);
     if (remaining < 1e-5) {
       this.journey = null;
       this.applyCalibrationPose(to);
       this.finishJourney(journey.destination, journey.revision);
       return;
     }
-    const endpoints = poseDistance(presets.frontal, presets.elevated);
+    const journeyProgress =
+      (journey.elapsed - journey.leadIn) /
+      Math.max(journey.duration, Number.EPSILON);
+    const normalizedProgress = clamp(journeyProgress, 0, 1);
+    const previousElapsed = journey.elapsed;
     journey.from = from;
     journey.to = to;
-    journey.elapsed = 0;
     journey.duration =
       JOURNEY_DURATION * Math.min(1, remaining / Math.max(endpoints, 1e-5));
-    this.lastRafTime = null;
+    journey.elapsed =
+      previousElapsed < journey.leadIn
+        ? previousElapsed
+        : journey.leadIn + normalizedProgress * journey.duration;
     this.dirty = true;
     this.scheduleFrame();
   }
@@ -709,14 +778,17 @@ export class BrightfieldViewer {
       return;
     }
     if (this.contextLost) {
-      const wasJourney = this.journey !== null;
       if (this.contextRecovery) this.contextRecovery.restoreContext();
-      this.contextLost = false;
-      this.lastRafTime = null;
-      this.counters.contextRestored += 1;
-      this.pendingReadyCallback = true;
-      if (wasJourney || this.intent.active) this.setIntent(this.intent);
+      else this.renderer?.forceContextRestore();
+      return;
     }
+    if (!this.renderFailed) return;
+    this.renderFailed = false;
+    this.dirty = true;
+    this.lastRafTime = null;
+    this.pendingReadyCallback = true;
+    this.pendingReadyGeneration = ++this.recoveryGeneration;
+    this.setIntent(this.intent);
     this.scheduleFrame();
   }
 
@@ -728,11 +800,13 @@ export class BrightfieldViewer {
       disposed: this.disposed,
       asset: this.assetSource ? { ...this.assetSource } : null,
       intent: { ...this.intent },
+      choreography: { ...this.choreographySnapshot },
       state: this.currentState,
       journey: this.journey
         ? {
             elapsed: this.journey.elapsed,
             duration: this.journey.duration,
+            leadIn: this.journey.leadIn,
             destination: this.journey.destination,
             revision: this.journey.revision,
           }
@@ -767,6 +841,22 @@ export class BrightfieldViewer {
         scene: resourceSnapshot(this.root),
         renderer: this.renderer?.info.memory ?? null,
         sharedRefs: this.shared?.refs ?? 0,
+      },
+      panelAnimation: {
+        visiblePanelIds: [...this.actualVisiblePanelIds()],
+        transitioning: this.panelTransition
+          ? {
+              direction: this.panelTransition.direction,
+              elapsed: this.panelTransition.elapsed,
+              pendingIds: [...this.panelTransition.pendingIds],
+            }
+          : null,
+        scales: Object.fromEntries(
+          [...this.panelWrappers.entries()].map(([id, record]) => [
+            id,
+            record.wrapper.scale.x,
+          ]),
+        ),
       },
       lifecycle: {
         ...this.counters,
@@ -1051,6 +1141,18 @@ export class BrightfieldViewer {
     this.updateViewport();
   }
 
+  private applyChoreographyPose(): void {
+    const presets = approvedCameraPresets(this.host.clientWidth);
+    this.applyCalibrationPose(
+      interpolateCalibration(
+        presets.frontal,
+        presets.elevated,
+        this.choreographySnapshot.cameraProgress,
+        APPROVED_CAMERA_MOTION,
+      ),
+    );
+  }
+
   private readCurrentPose(): CalibrationPose {
     const camera = this.camera;
     if (!camera) {
@@ -1149,11 +1251,71 @@ export class BrightfieldViewer {
     return ids;
   }
 
+  private panelIdsForState(state: SolarState): string[] {
+    if (!this.resolvedAsset) return [];
+    if (state.mode === 'CASA_BASE') return [];
+    if (state.mode === 'REFINADOS_08')
+      return this.resolvedAsset.manifest.states.REFINADOS_08.active_panel_ids;
+    return this.resolvedAsset.manifest.occupancy_order.slice(0, state.n);
+  }
+
   private transitionPanels(target: SolarState, reducedMotion = false): void {
     if (!this.resolvedAsset) return;
-    const startedAt =
-      this.visible && !this.backgrounded && !this.contextLost ? now() : null;
     const actual = this.actualVisiblePanelIds();
+    const currentIds =
+      this.panelEntranceOrder.filter((id) => actual.has(id)).length > 0
+        ? this.panelEntranceOrder.filter((id) => actual.has(id))
+        : [...actual];
+    const targetIds = new Set(this.panelIdsForState(target));
+    const removing = currentIds.filter((id) => !targetIds.has(id)).reverse();
+
+    if (removing.length > 0 && !reducedMotion) {
+      const interval = panelAnimationInterval(removing.length);
+      const starts = new Map<string, number>();
+      const fromProgress = new Map<string, number>();
+      const continuationStarts = new Map<string, number>();
+      currentIds.forEach((id) => {
+        if (!targetIds.has(id)) return;
+        const record = this.panelWrappers.get(id);
+        const scale = record?.wrapper.scale.x ?? 1;
+        if (!record || scale <= 1e-4 || scale >= 1 - 1e-4) return;
+        const progress =
+          scale < 0.5 ? Math.cbrt(scale / 4) : 1 - Math.cbrt((1 - scale) / 4);
+        continuationStarts.set(id, -progress * PANEL_TWEEN_DURATION);
+      });
+      removing.forEach((id, index) => {
+        const record = this.createPanelWrapper(id);
+        const scale = record?.wrapper.scale.x ?? 1;
+        fromProgress.set(
+          id,
+          scale < 0.5 ? Math.cbrt(scale / 4) : 1 - Math.cbrt((1 - scale) / 4),
+        );
+        if (record) {
+          record.wrapper.scale.setScalar(scale);
+          record.wrapper.updateMatrix();
+        }
+        starts.set(id, index * interval);
+        const panel = this.resolvedAsset?.panels.get(id);
+        if (panel) {
+          panel.parent.visible = true;
+          panel.module.visible = true;
+          panel.support.visible = true;
+        }
+      });
+      this.panelTransition = {
+        target,
+        pendingIds: removing,
+        elapsed: 0,
+        starts,
+        direction: 'out',
+        fromProgress,
+        continuationStarts,
+      };
+      this.currentState = this.resolvedAsset.state;
+      this.dirty = true;
+      this.scheduleFrame();
+      return;
+    }
     applySolarState(this.resolvedAsset, target);
     const after = inspectSolarState(this.resolvedAsset);
     const activeIds = new Set(after.activePanelIds);
@@ -1168,10 +1330,18 @@ export class BrightfieldViewer {
         (record !== undefined && record.wrapper.scale.x < 1 - 1e-4)
       );
     });
+    this.panelEntranceOrder = [
+      ...this.panelEntranceOrder.filter((id) => activeIds.has(id)),
+      ...additions.filter((id) => !this.panelEntranceOrder.includes(id)),
+    ];
     if (reducedMotion || additions.length === 0) {
       this.clearPanelWrappers();
       this.panelTransition = null;
       this.currentState = this.resolvedAsset.state;
+      this.choreographySnapshot = this.choreography.markPanelsSettled(
+        this.intent.revision,
+      );
+      this.emitChoreography();
       this.completeArrivalIfReady();
       this.dirty = true;
       return;
@@ -1204,22 +1374,18 @@ export class BrightfieldViewer {
       target,
       pendingIds: additions,
       elapsed: 0,
-      lastAdvancedAt: startedAt,
       starts,
+      direction: 'in',
     };
     this.currentState = this.resolvedAsset.state;
     this.dirty = true;
     this.scheduleFrame();
   }
 
-  private advancePanels(timestamp: number): void {
+  private advancePanels(deltaSeconds: number): void {
     const transition = this.panelTransition;
     if (!transition || !this.resolvedAsset) return;
-    const previous = transition.lastAdvancedAt;
-    const elapsed = previous === null ? 0 : Math.max(0, timestamp - previous);
-    transition.elapsed += elapsed;
-    transition.lastAdvancedAt =
-      previous === null ? timestamp : previous + elapsed;
+    transition.elapsed += Math.max(0, deltaSeconds) * 1000;
     let settled = true;
     transition.pendingIds.forEach((id) => {
       const panel = this.resolvedAsset?.panels.get(id);
@@ -1230,30 +1396,88 @@ export class BrightfieldViewer {
         0,
         1,
       );
-      const eased =
-        progress < 0.5
-          ? 4 * progress * progress * progress
-          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      const sampledProgress =
+        transition.direction === 'out'
+          ? Math.max(0, (transition.fromProgress.get(id) ?? 1) - progress)
+          : progress;
+      const scale =
+        sampledProgress < 0.5
+          ? 4 * sampledProgress * sampledProgress * sampledProgress
+          : 1 - Math.pow(-2 * sampledProgress + 2, 3) / 2;
       if (panel) {
-        panel.parent.visible = progress > 1e-4;
-        panel.module.visible = panel.parent.visible;
-        panel.support.visible = panel.parent.visible;
+        const visible = scale > 1e-4;
+        panel.parent.visible = visible;
+        panel.module.visible = visible;
+        panel.support.visible = visible;
       }
       if (record) {
-        record.wrapper.scale.setScalar(eased);
+        record.wrapper.scale.setScalar(scale);
         record.wrapper.updateMatrix();
       }
-      if (progress < 1) settled = false;
+      if (transition.direction === 'out' ? sampledProgress > 0 : progress < 1)
+        settled = false;
     });
+    if (transition.direction === 'out') {
+      for (const [id, start] of transition.continuationStarts) {
+        const panel = this.resolvedAsset.panels.get(id);
+        const record = this.panelWrappers.get(id);
+        const progress = clamp(
+          (transition.elapsed - start) / PANEL_TWEEN_DURATION,
+          0,
+          1,
+        );
+        const scale =
+          progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        if (panel) {
+          const visible = scale > 1e-4;
+          panel.parent.visible = visible;
+          panel.module.visible = visible;
+          panel.support.visible = visible;
+        }
+        if (record) {
+          record.wrapper.scale.setScalar(scale);
+          record.wrapper.updateMatrix();
+        }
+        if (progress < 1) settled = false;
+      }
+    }
     if (!settled) return;
     this.clearPanelWrappers();
+    if (transition.direction === 'out') {
+      this.panelTransition = null;
+      this.transitionPanels(transition.target, this.intent.reducedMotion);
+      return;
+    }
     this.currentState = transition.target;
     this.panelTransition = null;
+    this.choreographySnapshot = this.choreography.markPanelsSettled(
+      this.intent.revision,
+    );
+    this.emitChoreography();
+    const pendingReturn = this.pendingReturn;
+    if (pendingReturn && !this.intent.active) return;
+    this.pendingReturn = null;
     this.completeArrivalIfReady();
+  }
+
+  private emitChoreography(): void {
+    this.callbacks.onChoreography?.({
+      ...this.choreographySnapshot,
+    });
   }
 
   private completeArrivalIfReady(): void {
     if (!this.arrival || this.journey || this.panelTransition) return;
+    if (
+      this.intent.active &&
+      ((this.arrival.destination === 'elevated' &&
+        this.choreographySnapshot.phase !== 'active') ||
+        (this.arrival.destination === 'frontal' &&
+          this.choreographySnapshot.phase !== 'covered'))
+    )
+      return;
     const arrival = this.arrival;
     this.arrival = null;
     if (
@@ -1306,8 +1530,41 @@ export class BrightfieldViewer {
     renderer.setScissor(0, 0, width, height);
   }
 
+  private handleRenderFailure(error: unknown): void {
+    if (this.disposed) return;
+    this.renderFailed = true;
+    this.pendingReadyCallback = false;
+    this.pendingReadyGeneration = null;
+    this.recoveryGeneration += 1;
+    this.dirty = false;
+    this.lastRafTime = null;
+    this.cancelFrame();
+    if (!this.intent.active) {
+      this.setIntent(this.intent);
+      this.dirty = false;
+    }
+    this.callbacks.onError(
+      error instanceof Error ? error.message : 'WebGL render failed.',
+    );
+  }
+
+  private paintFrame(): boolean {
+    try {
+      this.renderer!.setScissorTest(true);
+      this.renderer!.clear(true, true, true);
+      this.renderer!.render(this.scene!, this.camera!);
+      this.renderFailed = false;
+      return true;
+    } catch (error: unknown) {
+      this.handleRenderFailure(error);
+      return false;
+    }
+  }
+
   private renderImmediately(): void {
     if (
+      this.disposed ||
+      this.renderFailed ||
       !this.loaded ||
       !this.renderer ||
       !this.scene ||
@@ -1318,12 +1575,17 @@ export class BrightfieldViewer {
     )
       return;
     this.updateViewport();
-    this.renderer.setScissorTest(true);
     const started = now();
-    this.renderer.clear(true, true, true);
-    this.renderer.render(this.scene, this.camera);
+    if (!this.paintFrame()) return;
     this.recordFrame(now() - started);
     this.dirty = false;
+  }
+
+  private isChoreographyAnimating(): boolean {
+    return (
+      this.choreographySnapshot.phase !== 'covered' &&
+      this.choreographySnapshot.phase !== 'active'
+    );
   }
 
   private scheduleFrame(): void {
@@ -1333,6 +1595,7 @@ export class BrightfieldViewer {
       !this.visible ||
       this.backgrounded ||
       this.contextLost ||
+      this.renderFailed ||
       this.rafId !== null
     )
       return;
@@ -1340,7 +1603,8 @@ export class BrightfieldViewer {
       !this.dirty &&
       !this.journey &&
       !this.panelTransition &&
-      !this.calibration?.playing
+      !this.calibration?.playing &&
+      !this.isChoreographyAnimating()
     )
       return;
     this.counters.rafScheduled += 1;
@@ -1349,7 +1613,6 @@ export class BrightfieldViewer {
   }
 
   private cancelFrame(): void {
-    if (this.panelTransition) this.panelTransition.lastAdvancedAt = null;
     if (this.rafId === null) return;
     cancelAnimationFrame(this.rafId);
     this.rafId = null;
@@ -1368,15 +1631,63 @@ export class BrightfieldViewer {
       !this.camera ||
       !this.visible ||
       this.backgrounded ||
-      this.contextLost
+      this.contextLost ||
+      this.renderFailed
     )
       return;
     this.counters.rafExecuted += 1;
     const previous = this.lastRafTime;
     const interval = previous === null ? 0 : Math.max(0, timestamp - previous);
-    const delta = Math.min(0.1, interval / 1000);
-    this.lastRafTime = timestamp;
-    this.advancePanels(timestamp);
+    const delta = Math.max(0, interval / 1000);
+    this.lastRafTime = Math.max(timestamp, previous ?? timestamp);
+    const choreographyWasAnimating = this.isChoreographyAnimating();
+    const before = this.choreographySnapshot;
+    this.choreographySnapshot = this.choreography.advance(delta);
+    this.emitChoreography();
+    if (
+      this.choreographySnapshot.phase === 'revealing' &&
+      this.intent.active &&
+      !this.panelTransition
+    )
+      this.transitionPanels(
+        stateForPanelCount(this.intent.panelCount),
+        this.intent.reducedMotion,
+      );
+    let panelDelta = delta;
+    if (
+      this.intent.active &&
+      this.choreographySnapshot.phase === 'revealing' &&
+      (before.phase === 'lead-in' || before.phase === 'camera')
+    ) {
+      const entryDuration = this.choreography.entryDuration;
+      panelDelta = Math.max(
+        0,
+        delta - (1 - before.curtainProgress) * entryDuration,
+      );
+    }
+    this.advancePanels(panelDelta);
+    if (
+      this.pendingReturn &&
+      !this.intent.active &&
+      (this.choreographySnapshot.phase === 'returning' ||
+        this.choreographySnapshot.phase === 'covered') &&
+      !this.journey
+    ) {
+      const pendingReturn = this.pendingReturn;
+      this.pendingReturn = null;
+      this.arrival = {
+        destination: 'frontal',
+        revision: pendingReturn.revision,
+      };
+    }
+    if (
+      this.arrival &&
+      ((this.arrival.destination === 'elevated' &&
+        this.choreographySnapshot.phase === 'active') ||
+        (this.arrival.destination === 'frontal' &&
+          this.choreographySnapshot.phase === 'covered'))
+    )
+      this.completeArrivalIfReady();
     if (this.calibration?.playing) {
       const state = this.calibration;
       state.progress = Math.min(
@@ -1397,31 +1708,54 @@ export class BrightfieldViewer {
         this.notifyCalibration();
       }
     }
+    if (
+      !this.journey &&
+      !this.calibration &&
+      (this.choreographySnapshot.phase !== 'covered' ||
+        choreographyWasAnimating) &&
+      this.choreographySnapshot.phase !== 'waiting' &&
+      this.camera
+    ) {
+      this.applyChoreographyPose();
+    }
+
     if (this.journey) {
       const journey = this.journey;
-      journey.elapsed = Math.min(journey.duration, journey.elapsed + delta);
-      this.applyCalibrationPose(
-        interpolateCalibration(
-          journey.from,
-          journey.to,
-          journey.elapsed / journey.duration,
-          APPROVED_CAMERA_MOTION,
-        ),
+      journey.elapsed = Math.min(
+        journey.leadIn + journey.duration,
+        journey.elapsed + delta,
       );
-      if (journey.elapsed >= journey.duration)
+      if (journey.elapsed < journey.leadIn) {
+        this.applyCalibrationPose(journey.from);
+      } else {
+        this.applyCalibrationPose(
+          interpolateCalibration(
+            journey.from,
+            journey.to,
+            (journey.elapsed - journey.leadIn) / journey.duration,
+            APPROVED_CAMERA_MOTION,
+          ),
+        );
+      }
+      if (journey.elapsed >= journey.leadIn + journey.duration)
         this.finishJourney(journey.destination, journey.revision);
     }
     this.updateViewport();
     const started = now();
-    this.renderer.setScissorTest(true);
-    this.renderer.clear(true, true, true);
-    this.renderer.render(this.scene, this.camera);
+    if (!this.paintFrame()) return;
     this.recordFrame(now() - started, interval);
-    if (this.journey || this.panelTransition || this.calibration?.playing)
+    if (
+      this.journey ||
+      this.panelTransition ||
+      this.calibration?.playing ||
+      (this.intent.active && this.choreographySnapshot.phase !== 'active') ||
+      (!this.intent.active && this.choreographySnapshot.phase !== 'covered')
+    )
       this.scheduleFrame();
   };
 
   private recordFrame(renderMs: number, rafInterval = 0): void {
+    if (this.disposed) return;
     this.lastFrameTime = renderMs;
     this.lastRafInterval = rafInterval > 0 ? rafInterval : null;
     this.counters.frames += 1;
@@ -1444,8 +1778,27 @@ export class BrightfieldViewer {
       };
     }
     if (this.pendingReadyCallback) {
+      const readyGeneration = this.pendingReadyGeneration;
+      const readyLoadGeneration = this.loadGeneration;
       this.pendingReadyCallback = false;
+      this.pendingReadyGeneration = null;
+      if (
+        this.contextLost ||
+        this.renderFailed ||
+        readyGeneration === null ||
+        readyGeneration !== this.recoveryGeneration
+      )
+        return;
       this.callbacks.onReady();
+      if (
+        this.disposed ||
+        this.contextLost ||
+        readyGeneration === null ||
+        readyGeneration !== this.recoveryGeneration ||
+        readyLoadGeneration !== this.loadGeneration
+      )
+        return;
+      this.emitChoreography();
     }
   }
 
@@ -1456,11 +1809,13 @@ export class BrightfieldViewer {
   }
 
   private handleContextLost = (event: Event): void => {
+    if (this.disposed) return;
     event.preventDefault();
     this.contextLost = true;
     this.counters.contextLost += 1;
     this.lastRafTime = null;
     this.cancelFrame();
+    if (!this.intent.active) this.setIntent(this.intent);
     this.callbacks.onError('WebGL context lost; use retry to recover.');
   };
 
@@ -1468,9 +1823,11 @@ export class BrightfieldViewer {
     if (this.disposed) return;
     const wasJourney = this.journey !== null;
     this.contextLost = false;
+    this.renderFailed = false;
     this.counters.contextRestored += 1;
     this.lastRafTime = null;
     this.pendingReadyCallback = true;
+    this.pendingReadyGeneration = ++this.recoveryGeneration;
     if (wasJourney || this.intent.active) this.setIntent(this.intent);
     this.dirty = true;
     this.scheduleFrame();

@@ -157,6 +157,7 @@
   }
   .heroStage > [data-sim-drawer-open] {
     margin: 32px 14px 14px;
+    min-width: 0;
     max-width: calc(100% - 28px);
   }
 }

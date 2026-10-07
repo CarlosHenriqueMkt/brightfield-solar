@@ -27,6 +27,7 @@ export interface SimDrawerProps {
   readonly explanation: string;
   readonly installationHref: string;
   readonly modal?: boolean;
+  readonly keepMounted?: boolean;
   readonly liveSummary?: string;
   readonly closeLabel?: string;
   readonly onInstallation?: () => void;
