@@ -38,7 +38,7 @@
   padding: 8px 12px;
   border: 1px solid #afc2ce;
   border-radius: var(--radius-sm);
-  background: #fff;
+  background: var(--paper);
   color: var(--navy);
   font: inherit;
 }
@@ -67,7 +67,7 @@
   max-height: 420px;
   overflow: auto;
   padding: 12px;
-  background: #fff;
+  background: var(--paper);
   font-size: 12px;
 }
 .error {

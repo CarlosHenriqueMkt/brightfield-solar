@@ -1,5 +1,6 @@
 .section {
   padding: clamp(72px, 7.78vw, 112px) 0;
+  background: var(--paper);
 }
 
 .wrap {

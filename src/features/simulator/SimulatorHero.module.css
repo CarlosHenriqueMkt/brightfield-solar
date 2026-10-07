@@ -118,7 +118,7 @@
   max-width: 360px;
   padding: 8px 12px;
   border-radius: var(--radius-sm);
-  background: #fff;
+  background: var(--paper);
   color: var(--navy);
   font-size: 12px;
 }

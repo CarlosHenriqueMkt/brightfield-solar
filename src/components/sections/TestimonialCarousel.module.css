@@ -32,12 +32,6 @@
   flex: 1 1 0;
   scroll-snap-align: start;
   --testimonial-quote-size: 19px;
-  opacity: 0.88;
-}
-
-.slide[data-active='true'] {
-  --testimonial-quote-size: 21px;
-  opacity: 1;
 }
 
 .controls {
@@ -55,7 +49,7 @@
   place-items: center;
   border: 1px solid #cbd9e0;
   border-radius: 50%;
-  background: #fff;
+  background: var(--paper);
   color: var(--navy);
   font: inherit;
   cursor: pointer;
@@ -111,9 +105,6 @@
 
   .slide {
     flex: 0 0 min(326px, calc(100vw - 64px));
-  }
-  .slide,
-  .slide[data-active='true'] {
     --testimonial-quote-size: 18px;
   }
 

@@ -31,7 +31,7 @@
   color: #fff;
 }
 .share {
-  background: #fff;
+  background: var(--paper);
   color: var(--navy);
 }
 .actions button[aria-disabled='true'] {

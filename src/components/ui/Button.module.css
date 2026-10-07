@@ -16,9 +16,12 @@
   color: #fff;
   background: var(--blue);
 }
+.primary:hover:not(:disabled) {
+  background: var(--blue-hover);
+}
 .light {
   color: var(--navy);
-  background: #fff;
+  background: var(--paper);
 }
 .button:hover:not(:disabled) {
   border-color: currentColor;
