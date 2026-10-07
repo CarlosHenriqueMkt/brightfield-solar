@@ -25,15 +25,22 @@ function stylesheet(path: URL, classes: Record<string, string>): string {
     );
 }
 
-function observeIntro(): {
+function observeIntro(forceReducedMotion = false): {
   openingOpacity: number[];
+  intermediateOpacity: number[];
   headingMounted: boolean;
   headingOpacity: number;
+  headingOpacityAtIntermediate: number;
   headingVisibility: string;
+  headingVisibilityAtIntermediate: string;
   lettersExiting: boolean;
+  lettersInFlight: boolean;
   returnVisibility: string[];
   restoredOpacity: number[];
   returnFades: number;
+  prefersReducedMotion: boolean;
+  reducedImmediateOpacity: number[];
+  reducedAnimationCount: number;
 } {
   const executable =
     process.env.CHROME_BIN ??
@@ -101,26 +108,56 @@ function observeIntro(): {
         const root = document.querySelector('[data-copy-hidden]');
         const heading = root.querySelector('h1');
         const copy = [...root.querySelectorAll('p[data-hero-intro], [data-hero-intro] p, [data-hero-intro] a')];
+        const letters = [...heading.querySelectorAll('[data-motto-letter]')];
         function opacity(element) {
           let value = 1;
           for (let node = element; node; node = node.parentElement)
             value *= Number(getComputedStyle(node).opacity);
           return value;
         }
-        copy.forEach(opacity);
-        [...heading.querySelectorAll('[data-motto-letter]')].forEach(opacity);
-        root.dataset.copyHidden = 'true';
-        copy.forEach(opacity);
-        const animations = root.getAnimations({ subtree: true });
-        for (const animation of animations) {
-          animation.pause();
-          animation.currentTime = 300;
+        function flush(elements) {
+          elements.forEach(opacity);
+          void root.offsetWidth;
         }
-        const openingOpacity = copy.map(opacity);
+        flush([...copy, ...letters]);
+        root.dataset.copyHidden = 'true';
+        flush([...copy, ...letters]);
+        const animations = root.getAnimations({ subtree: true });
+        const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let intermediateOpacity = [];
+        let openingOpacity;
+        let headingOpacityAtIntermediate = opacity(heading);
+        let headingVisibilityAtIntermediate = getComputedStyle(heading).visibility;
+        let lettersInFlight = false;
+        let lettersExiting = false;
+        let reducedImmediateOpacity = [];
+        let reducedAnimationCount = 0;
+        if (prefersReducedMotion) {
+          reducedImmediateOpacity = copy.map(opacity);
+          reducedAnimationCount = animations.length;
+          openingOpacity = reducedImmediateOpacity;
+        } else {
+          for (const animation of animations) {
+            animation.pause();
+            animation.currentTime = 0;
+          }
+          for (const animation of animations) animation.currentTime = 125;
+          intermediateOpacity = copy.map(opacity);
+          headingOpacityAtIntermediate = opacity(heading);
+          headingVisibilityAtIntermediate = getComputedStyle(heading).visibility;
+          lettersInFlight = letters.every(letter => {
+            const value = opacity(letter);
+            return value > 0 && value < 1;
+          });
+          for (const animation of animations) animation.currentTime = 300;
+          openingOpacity = copy.map(opacity);
+          lettersExiting = letters.every(letter => {
+            const value = opacity(letter);
+            return value > 0 && value < 1;
+          });
+        }
         const headingOpacity = opacity(heading);
         const headingVisibility = getComputedStyle(heading).visibility;
-        const lettersExiting = [...heading.querySelectorAll('[data-motto-letter]')]
-          .every(letter => opacity(letter) > 0 && opacity(letter) < 1);
         root.dataset.introVisible = 'false';
         root.dataset.copyHidden = 'false';
         const returnVisibility = copy.map(element => getComputedStyle(element).visibility);
@@ -129,9 +166,11 @@ function observeIntro(): {
         const returnFades = root.getAnimations({ subtree: true })
           .filter(animation => !heading.contains(animation.effect.target)).length;
         document.querySelector('#regression-result').textContent = JSON.stringify({
-          openingOpacity, headingMounted: root.querySelector('h1') === heading,
-          headingOpacity, headingVisibility, lettersExiting, returnVisibility,
-          restoredOpacity, returnFades,
+          openingOpacity, intermediateOpacity, headingMounted: root.querySelector('h1') === heading,
+          headingOpacity, headingOpacityAtIntermediate, headingVisibility,
+          headingVisibilityAtIntermediate, lettersExiting, lettersInFlight,
+          returnVisibility, restoredOpacity, returnFades, prefersReducedMotion,
+          reducedImmediateOpacity, reducedAnimationCount,
         });
       </script>`,
     );
@@ -142,6 +181,7 @@ function observeIntro(): {
         '--no-sandbox',
         '--disable-gpu',
         '--no-first-run',
+        ...(forceReducedMotion ? ['--force-prefers-reduced-motion'] : []),
         `--user-data-dir=${join(directory, 'profile')}`,
         '--dump-dom',
         pathToFileURL(file).href,
@@ -161,8 +201,16 @@ function observeIntro(): {
 }
 
 describe('intro supplementary opening fade', () => {
-  it('finishes supplementary exit while heading letters remain visible and restores without a return fade', () => {
+  it('proves a native intermediate fade, completes while heading letters remain visible, and restores without a return fade', () => {
     const observed = observeIntro();
+    expect(observed.intermediateOpacity).toHaveLength(5);
+    observed.intermediateOpacity.forEach((value) => {
+      expect(value).toBeGreaterThan(0);
+      expect(value).toBeLessThan(1);
+    });
+    expect(observed.headingOpacityAtIntermediate).toBe(1);
+    expect(observed.headingVisibilityAtIntermediate).toBe('visible');
+    expect(observed.lettersInFlight).toBe(true);
     expect(observed.headingMounted).toBe(true);
     expect(observed.headingOpacity).toBe(1);
     expect(observed.headingVisibility).toBe('visible');
@@ -176,6 +224,23 @@ describe('intro supplementary opening fade', () => {
       'hidden',
     ]);
     expect(observed.restoredOpacity).toEqual([1, 1, 1, 1, 1]);
+    expect(observed.returnFades).toBe(0);
+  }, 20000);
+
+  it('honors native reduced motion with immediate opacity changes and no tween', () => {
+    const observed = observeIntro(true);
+    expect(observed.prefersReducedMotion).toBe(true);
+    expect(observed.reducedImmediateOpacity).toEqual([0, 0, 0, 0, 0]);
+    expect(observed.reducedAnimationCount).toBe(0);
+    expect(observed.openingOpacity).toEqual([0, 0, 0, 0, 0]);
+    expect(observed.restoredOpacity).toEqual([1, 1, 1, 1, 1]);
+    expect(observed.returnVisibility).toEqual([
+      'hidden',
+      'hidden',
+      'hidden',
+      'hidden',
+      'hidden',
+    ]);
     expect(observed.returnFades).toBe(0);
   }, 20000);
 });

@@ -74,9 +74,14 @@ interface FixtureViewer {
     left: number;
   }): void;
   setIntent(intent: SceneIntent): void;
-  panelTransition: { pendingIds: string[] } | null;
+  panelTransition: { pendingIds: string[]; target: SolarState } | null;
   panelWrappers: Map<string, FixtureWrapper>;
   [key: string]: unknown;
+}
+interface WorldTrs {
+  position: number[];
+  rotation: number[];
+  scale: number[];
 }
 
 interface PaintFixtureViewer extends FixtureViewer {
@@ -682,6 +687,140 @@ describe('real Three panel choreography fixtures', () => {
       ids,
     );
     expect(viewer.panelWrappers.size).toBe(0);
+  });
+  it('continues the ninth panel while excess panels remove', () => {
+    const { viewer, asset, ids } = makePanelFixture(51, {
+      distinctTransforms: true,
+    });
+    applySolarState(asset, { mode: 'CASA_BASE' });
+    viewer.transitionPanels({ mode: 'MISTO_PREFIXO', n: 8 });
+    viewer.advancePanels(2);
+
+    expect(viewer.panelTransition).toBeNull();
+    expect(viewer.panelWrappers.size).toBe(0);
+    expect(ids.filter((id) => asset.panels.get(id)!.parent.visible)).toEqual(
+      ids.slice(0, 8),
+    );
+    ids.slice(0, 8).forEach((id) => {
+      const panel = asset.panels.get(id)!;
+      expect(panel.module.parent).toBe(panel.parent);
+      expect(panel.support.parent).toBe(panel.parent);
+    });
+
+    const ninthId = ids[8]!;
+    const ninth = asset.panels.get(ninthId)!;
+    const readWorldTrs = (node: THREE.Object3D) => {
+      const position = new THREE.Vector3();
+      const rotation = new THREE.Quaternion();
+      const scale = new THREE.Vector3();
+      node.matrixWorld.decompose(position, rotation, scale);
+      return {
+        position: position.toArray(),
+        rotation: rotation.toArray(),
+        scale: scale.toArray(),
+      };
+    };
+    const expectClose = (actual: WorldTrs, expected: WorldTrs): void => {
+      actual.position.forEach((value, index) =>
+        expect(value).toBeCloseTo(expected.position[index]!, 9),
+      );
+      actual.rotation.forEach((value, index) =>
+        expect(value).toBeCloseTo(expected.rotation[index]!, 9),
+      );
+      actual.scale.forEach((value, index) =>
+        expect(value).toBeCloseTo(expected.scale[index]!, 9),
+      );
+    };
+    const expectArrayClose = (actual: number[], expected: number[]): void => {
+      actual.forEach((value, index) =>
+        expect(value).toBeCloseTo(expected[index]!, 9),
+      );
+    };
+    const expectedPanelScale = (progress: number): number =>
+      progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+    const expectedParent: WorldTrs = {
+      position: [1, 2, 3],
+      rotation: [0, 0, Math.SQRT1_2, Math.SQRT1_2],
+      scale: [2, 3, 4],
+    };
+
+    viewer.transitionPanels({ mode: 'MISTO_PREFIXO', n: 51 });
+    expect(viewer.panelTransition?.pendingIds[0]).toBe(ninthId);
+    viewer.advancePanels(0.08);
+    asset.root.updateMatrixWorld(true);
+
+    const sampledScale = expectedPanelScale(80 / PANEL_TWEEN_DURATION);
+    const beforeRetarget = {
+      parent: readWorldTrs(ninth.parent),
+      module: readWorldTrs(ninth.module),
+      wrapper: viewer.panelWrappers.get(ninthId)!.wrapper.scale.x,
+    };
+    expect(beforeRetarget.wrapper).toBeCloseTo(sampledScale, 9);
+    expectClose(beforeRetarget.parent, expectedParent);
+    expectArrayClose(beforeRetarget.module.position, expectedParent.position);
+    expectArrayClose(beforeRetarget.module.rotation, expectedParent.rotation);
+    beforeRetarget.module.scale.forEach((value, index) => {
+      expect(value).toBeCloseTo(expectedParent.scale[index]! * sampledScale, 9);
+    });
+
+    viewer.transitionPanels({ mode: 'MISTO_PREFIXO', n: 9 });
+    asset.root.updateMatrixWorld(true);
+    const atRetarget = {
+      parent: readWorldTrs(ninth.parent),
+      module: readWorldTrs(ninth.module),
+      wrapper: viewer.panelWrappers.get(ninthId)!.wrapper.scale.x,
+    };
+    expect(viewer.panelTransition?.pendingIds).toEqual([ids[10], ids[9]]);
+    expect(viewer.panelTransition?.target).toEqual({
+      mode: 'MISTO_PREFIXO',
+      n: 9,
+    });
+    expect(atRetarget.wrapper).toBeCloseTo(beforeRetarget.wrapper, 9);
+    expectClose(atRetarget.parent, beforeRetarget.parent);
+    expectClose(atRetarget.module, beforeRetarget.module);
+    expect(ninth.parent.visible).toBe(true);
+    expect(ninth.module.visible).toBe(true);
+    expect(ninth.support.visible).toBe(true);
+
+    viewer.advancePanels(0.04);
+    asset.root.updateMatrixWorld(true);
+    const duringRemovalScale = expectedPanelScale(120 / PANEL_TWEEN_DURATION);
+    const duringRemoval = {
+      parent: readWorldTrs(ninth.parent),
+      module: readWorldTrs(ninth.module),
+      wrapper: viewer.panelWrappers.get(ninthId)!.wrapper.scale.x,
+    };
+    expect(duringRemoval.wrapper).toBeCloseTo(duringRemovalScale, 9);
+    expect(duringRemoval.wrapper).toBeGreaterThan(atRetarget.wrapper);
+    expectClose(duringRemoval.parent, expectedParent);
+    expectArrayClose(duringRemoval.module.position, expectedParent.position);
+    expectArrayClose(duringRemoval.module.rotation, expectedParent.rotation);
+    duringRemoval.module.scale.forEach((value, index) => {
+      expect(value).toBeCloseTo(
+        expectedParent.scale[index]! * duringRemovalScale,
+        9,
+      );
+    });
+
+    viewer.advancePanels(2);
+    expect(viewer.panelTransition).toBeNull();
+    expect(viewer.currentState).toEqual({
+      mode: 'MISTO_PREFIXO',
+      n: 9,
+    });
+    expect(viewer.panelWrappers.size).toBe(0);
+    expect(ids.filter((id) => asset.panels.get(id)!.parent.visible)).toEqual(
+      ids.slice(0, 9),
+    );
+    expect(ninth.parent.visible).toBe(true);
+    expect(ninth.module.visible).toBe(true);
+    expect(ninth.support.visible).toBe(true);
+    expect(ninth.module.parent).toBe(ninth.parent);
+    expect(ninth.support.parent).toBe(ninth.parent);
+    asset.root.updateMatrixWorld(true);
+    expectMixedPanelTrs(ninth.parent);
   });
 
   it('reveals new target pairs after removing disjoint old occupancy', () => {

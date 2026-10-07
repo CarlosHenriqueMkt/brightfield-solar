@@ -83,7 +83,11 @@ interface PanelTransitionBase {
 type PanelTransition = PanelTransitionBase &
   (
     | { direction: 'in' }
-    | { direction: 'out'; fromProgress: Map<string, number> }
+    | {
+        direction: 'out';
+        fromProgress: Map<string, number>;
+        continuationStarts: Map<string, number>;
+      }
   );
 
 interface PanelWrapperRecord {
@@ -1269,6 +1273,16 @@ export class BrightfieldViewer {
       const interval = panelAnimationInterval(removing.length);
       const starts = new Map<string, number>();
       const fromProgress = new Map<string, number>();
+      const continuationStarts = new Map<string, number>();
+      currentIds.forEach((id) => {
+        if (!targetIds.has(id)) return;
+        const record = this.panelWrappers.get(id);
+        const scale = record?.wrapper.scale.x ?? 1;
+        if (!record || scale <= 1e-4 || scale >= 1 - 1e-4) return;
+        const progress =
+          scale < 0.5 ? Math.cbrt(scale / 4) : 1 - Math.cbrt((1 - scale) / 4);
+        continuationStarts.set(id, -progress * PANEL_TWEEN_DURATION);
+      });
       removing.forEach((id, index) => {
         const record = this.createPanelWrapper(id);
         const scale = record?.wrapper.scale.x ?? 1;
@@ -1295,6 +1309,7 @@ export class BrightfieldViewer {
         starts,
         direction: 'out',
         fromProgress,
+        continuationStarts,
       };
       this.currentState = this.resolvedAsset.state;
       this.dirty = true;
@@ -1402,6 +1417,32 @@ export class BrightfieldViewer {
       if (transition.direction === 'out' ? sampledProgress > 0 : progress < 1)
         settled = false;
     });
+    if (transition.direction === 'out') {
+      for (const [id, start] of transition.continuationStarts) {
+        const panel = this.resolvedAsset.panels.get(id);
+        const record = this.panelWrappers.get(id);
+        const progress = clamp(
+          (transition.elapsed - start) / PANEL_TWEEN_DURATION,
+          0,
+          1,
+        );
+        const scale =
+          progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        if (panel) {
+          const visible = scale > 1e-4;
+          panel.parent.visible = visible;
+          panel.module.visible = visible;
+          panel.support.visible = visible;
+        }
+        if (record) {
+          record.wrapper.scale.setScalar(scale);
+          record.wrapper.updateMatrix();
+        }
+        if (progress < 1) settled = false;
+      }
+    }
     if (!settled) return;
     this.clearPanelWrappers();
     if (transition.direction === 'out') {
