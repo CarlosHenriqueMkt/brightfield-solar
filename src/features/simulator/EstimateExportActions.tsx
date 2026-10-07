@@ -6,6 +6,7 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  useSyncExternalStore,
   type ReactNode,
 } from 'react';
 import type { EstimateSnapshot } from './estimate-document';
@@ -19,6 +20,21 @@ import styles from './EstimateExportActions.module.css';
 const loadEstimatePdf = () => import('./estimate-pdf');
 const generateEstimatePdf = (snapshot: EstimateSnapshot) =>
   loadEstimatePdf().then((module) => module.generateEstimatePdf(snapshot));
+
+// Native dialogs outlive a city subtree; only their ownership is tab-scoped.
+const nativeShare = new EstimateShareSession();
+const shareListeners = new Set<() => void>();
+const subscribeToShare = (listener: () => void) => {
+  shareListeners.add(listener);
+  return () => {
+    shareListeners.delete(listener);
+  };
+};
+const shareIsBusy = () => nativeShare.busy;
+const serverShareIsBusy = () => false;
+function notifyShareListeners() {
+  for (const listener of shareListeners) listener();
+}
 
 type ExportStatus =
   | 'preparing'
@@ -57,10 +73,13 @@ export default function EstimateExportActions({
 }) {
   const identity = JSON.stringify([snapshot.key, invalidationKey]);
   const current = useRef<ExportContext | null>(null);
-  const nativeShare = useRef<EstimateShareSession | null>(null);
   const statusId = useId();
   const [view, setView] = useState<ExportView | null>(null);
-  const [shareBusy, setShareBusy] = useState(false);
+  const shareBusy = useSyncExternalStore(
+    subscribeToShare,
+    shareIsBusy,
+    serverShareIsBusy,
+  );
   const [presentedIdentity, setPresentedIdentity] = useState<string | null>(
     null,
   );
@@ -174,7 +193,7 @@ export default function EstimateExportActions({
   function activate(action: 'download' | 'share') {
     const context = current.current;
     if (!active || !context?.active || context.identity !== identity) return;
-    if (nativeShare.current?.busy) return;
+    if (nativeShare.busy) return;
     if (context.operation === 'sharing' || context.operation === 'downloading')
       return;
     const file = context.session.fileFor(invalidationKey);
@@ -194,63 +213,62 @@ export default function EstimateExportActions({
       return;
     }
 
-    const shareSession = (nativeShare.current ??= new EstimateShareSession());
     // No preparation await: share() invokes native sharing in this activation.
-    const sharing = shareSession.share(file, navigator, window.isSecureContext);
+    const sharing = nativeShare.share(file, navigator, window.isSecureContext);
     if (!sharing) return;
     context.operation = 'sharing';
-    setShareBusy(true);
+    notifyShareListeners();
     setView({ identity, status: 'sharing', message: 'Opening share options…' });
-    void sharing.then(
-      (result) => {
-        context.operation = null;
-        if (current.current) setShareBusy(false);
-        if (current.current !== context) return;
-        switch (result) {
-          case 'shared':
-            setView({
-              identity,
-              status: 'shared',
-              message: 'Estimate shared.',
-            });
-            return;
-          case 'cancelled':
-            setView({
-              identity,
-              status: 'cancelled',
-              message: 'Sharing cancelled. Your PDF is still ready.',
-            });
-            return;
-          case 'unsupported':
-            if (context.active) {
-              download(context, file, true);
-            } else {
+    void sharing
+      .then(
+        (result) => {
+          context.operation = null;
+          if (current.current !== context) return;
+          switch (result) {
+            case 'shared':
               setView({
                 identity,
-                status: 'ready',
-                message:
-                  'File sharing is unavailable. Choose Download PDF when the estimate is open.',
+                status: 'shared',
+                message: 'Estimate shared.',
               });
+              return;
+            case 'cancelled':
+              setView({
+                identity,
+                status: 'cancelled',
+                message: 'Sharing cancelled. Your PDF is still ready.',
+              });
+              return;
+            case 'unsupported':
+              if (context.active) {
+                download(context, file, true);
+              } else {
+                setView({
+                  identity,
+                  status: 'ready',
+                  message:
+                    'File sharing is unavailable. Choose Download PDF when the estimate is open.',
+                });
+              }
+              return;
+            default: {
+              const unexpected: never = result;
+              throw new Error(`Unhandled share result: ${unexpected}`);
             }
-            return;
-          default: {
-            const unexpected: never = result;
-            throw new Error(`Unhandled share result: ${unexpected}`);
           }
-        }
-      },
-      () => {
-        context.operation = null;
-        if (current.current) setShareBusy(false);
-        if (current.current !== context) return;
-        setView({
-          identity,
-          status: 'error',
-          message:
-            'Sharing failed. Try Share estimate again or choose Download PDF.',
-        });
-      },
-    );
+        },
+        () => {
+          context.operation = null;
+          if (current.current !== context) return;
+          setView({
+            identity,
+            status: 'error',
+            message:
+              'Sharing failed. Try Share estimate again or choose Download PDF.',
+          });
+        },
+      )
+      .finally(notifyShareListeners);
   }
 
   const status = !active

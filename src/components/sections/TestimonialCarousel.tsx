@@ -21,9 +21,13 @@ export type TestimonialCarouselSlide = {
 
 type TestimonialCarouselProps = {
   slides: readonly TestimonialCarouselSlide[];
+  ariaLabel: string;
 };
 
-export function TestimonialCarousel({ slides }: TestimonialCarouselProps) {
+export function TestimonialCarousel({
+  slides,
+  ariaLabel,
+}: TestimonialCarouselProps) {
   const railRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<Array<HTMLElement | null>>([]);
   const measuredWidth = useRef<number | null>(null);
@@ -121,7 +125,7 @@ export function TestimonialCarousel({ slides }: TestimonialCarouselProps) {
           ref={railRef}
           className={styles.rail}
           role="region"
-          aria-label="Homeowner testimonials"
+          aria-label={ariaLabel}
           tabIndex={0}
           onKeyDown={onKeyDown}
           onScroll={updateSelectedFromScroll}

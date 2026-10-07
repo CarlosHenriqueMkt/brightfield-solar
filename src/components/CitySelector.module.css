@@ -1,0 +1,19 @@
+.select {
+  width: clamp(136px, 20vw, 220px);
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #b2c6d4;
+  border-radius: var(--radius-sm);
+  background: var(--sky);
+  color: var(--navy);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .select {
+    font-size: 12px;
+  }
+}

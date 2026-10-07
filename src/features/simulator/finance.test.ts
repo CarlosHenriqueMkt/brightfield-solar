@@ -1,7 +1,15 @@
 import { describe, expect, it } from 'vitest';
 
+import { getCityBySlug } from '@/domain/cities/cities';
+import type { CityConfig } from '@/domain/cities/city-config';
 import { phoenix } from '@/domain/cities/phoenix';
 import { calculateSolarEstimate, validateSimulationInput } from './finance';
+
+function registryCity(slug: string): CityConfig {
+  const city = getCityBySlug(slug);
+  if (!city) throw new Error(`Missing registered test city: ${slug}`);
+  return city;
+}
 
 interface PhoenixOracle {
   readonly consumptionKwh: number;
@@ -128,6 +136,104 @@ describe('calculateSolarEstimate', () => {
       expect(estimate.netCost).toBeCloseTo(netCost, 9);
       expect(estimate.monthlySavings).toBeCloseTo(savings, 12);
       expect(estimate.paybackYears).toBeCloseTo(payback, 1);
+    },
+  );
+
+  it.each([
+    [
+      'city-a',
+      220,
+      80,
+      {
+        consumptionKwh: 1100,
+        generationPerPanelKwh: 45,
+        requiredPanels: 20,
+        installedPanels: 20,
+        grossCost: 24000,
+        netCost: 18000,
+        monthlySavings: 180,
+        paybackYears: 25 / 3,
+        minimumApplied: false,
+        savingsCapped: false,
+        excessCredit: false,
+      },
+    ],
+    [
+      'city-b',
+      220,
+      80,
+      {
+        consumptionKwh: 2200,
+        generationPerPanelKwh: 48,
+        requiredPanels: 37,
+        installedPanels: 37,
+        grossCost: 44400,
+        netCost: 35520,
+        monthlySavings: 177.6,
+        paybackYears: 50 / 3,
+        minimumApplied: false,
+        savingsCapped: false,
+        excessCredit: false,
+      },
+    ],
+    [
+      'city-a',
+      90,
+      100,
+      {
+        consumptionKwh: 450,
+        generationPerPanelKwh: 45,
+        requiredPanels: 10,
+        installedPanels: 10,
+        grossCost: 12000,
+        netCost: 9000,
+        monthlySavings: 90,
+        paybackYears: 25 / 3,
+        minimumApplied: false,
+        savingsCapped: true,
+        excessCredit: false,
+      },
+    ],
+    [
+      'city-b',
+      90,
+      100,
+      {
+        consumptionKwh: 900,
+        generationPerPanelKwh: 48,
+        requiredPanels: 19,
+        installedPanels: 19,
+        grossCost: 22800,
+        netCost: 18240,
+        monthlySavings: 90,
+        paybackYears: 152 / 9,
+        minimumApplied: false,
+        savingsCapped: true,
+        excessCredit: true,
+      },
+    ],
+  ])(
+    'matches independent literal demo result for %s at bill %d and coverage %d',
+    (slug, bill, coverage, expected) => {
+      const estimate = calculateSolarEstimate(
+        registryCity(slug),
+        bill,
+        coverage,
+      );
+      expect(estimate.consumptionKwh).toBeCloseTo(expected.consumptionKwh, 12);
+      expect(estimate.generationPerPanelKwh).toBeCloseTo(
+        expected.generationPerPanelKwh,
+        12,
+      );
+      expect(estimate.requiredPanels).toBe(expected.requiredPanels);
+      expect(estimate.installedPanels).toBe(expected.installedPanels);
+      expect(estimate.grossCost).toBeCloseTo(expected.grossCost, 12);
+      expect(estimate.netCost).toBeCloseTo(expected.netCost, 12);
+      expect(estimate.monthlySavings).toBeCloseTo(expected.monthlySavings, 12);
+      expect(estimate.paybackYears).toBeCloseTo(expected.paybackYears, 12);
+      expect(estimate.minimumApplied).toBe(expected.minimumApplied);
+      expect(estimate.savingsCapped).toBe(expected.savingsCapped);
+      expect(estimate.excessCredit).toBe(expected.excessCredit);
     },
   );
 

@@ -3,9 +3,27 @@ import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { describe, expect, it } from 'vitest';
 
 import type { CityConfig } from '@/domain/cities/city-config';
+import { getRegisteredCities } from '@/domain/cities/cities';
 import { phoenix } from '@/domain/cities/phoenix';
 import { createEstimateSnapshot } from './estimate-document';
 import { generateEstimatePdf } from './estimate-pdf';
+
+type DemoCity = CityConfig & {
+  readonly designation: Extract<CityConfig['designation'], { kind: 'demo' }>;
+};
+type DemoPdfCase = readonly [
+  DemoCity,
+  number,
+  number,
+  string,
+  string,
+  string,
+  string,
+];
+
+const demoCities = getRegisteredCities().filter(
+  (city): city is DemoCity => city.designation.kind === 'demo',
+);
 
 async function extractText(file: File): Promise<string> {
   const pdf = Buffer.from(await file.arrayBuffer()).toString('latin1');
@@ -19,6 +37,40 @@ async function extractText(file: File): Promise<string> {
     }
   }
   return text.join(' ').replace(/\s+/g, ' ');
+}
+
+async function assertTextFitsPage(file: File): Promise<number> {
+  const document = await PDFDocument.load(await file.arrayBuffer());
+  const regular = await document.embedFont(StandardFonts.Helvetica);
+  const bold = await document.embedFont(StandardFonts.HelveticaBold);
+  const pdf = Buffer.from(await file.arrayBuffer()).toString('latin1');
+  let measuredRuns = 0;
+  for (const match of pdf.matchAll(/stream\r?\n([\s\S]*?)\r?\nendstream/g)) {
+    const stream = inflateSync(Buffer.from(match[1], 'latin1')).toString(
+      'latin1',
+    );
+    for (const run of stream.matchAll(
+      /\/(\S+)\s+([\d.]+)\s+Tf[\s\S]*?1 0 0 1 ([\d.]+) ([\d.]+) Tm\s*<([0-9a-f]+)>\s*Tj/gi,
+    )) {
+      measuredRuns += 1;
+      const font = run[1].startsWith('Helvetica-Bold') ? bold : regular;
+      const size = Number(run[2]);
+      const x = Number(run[3]);
+      const y = Number(run[4]);
+      const content = Buffer.from(run[5], 'hex').toString('latin1');
+      expect(x).toBeGreaterThanOrEqual(40);
+      expect(x + font.widthOfTextAtSize(content, size)).toBeLessThanOrEqual(
+        572.01,
+      );
+      expect(y).toBeGreaterThanOrEqual(28);
+      expect(y + size).toBeLessThanOrEqual(764);
+    }
+  }
+  const text = await extractText(file);
+  for (let page = 1; page <= document.getPageCount(); page += 1) {
+    expect(text).toContain(`Page ${page} of ${document.getPageCount()}`);
+  }
+  return measuredRuns;
 }
 
 describe('estimate PDF consumer content', () => {
@@ -51,6 +103,93 @@ describe('estimate PDF consumer content', () => {
     },
   );
 
+  const demoPdfCases: readonly DemoPdfCase[] = demoCities.flatMap(
+    (city): DemoPdfCase[] => {
+      const cityA = city.slug === 'city-a';
+      return [
+        [
+          city,
+          220,
+          80,
+          cityA ? '$18,000.00' : '$35,520.00',
+          cityA ? '$180.00' : '$177.60',
+          cityA ? '8.3 years' : '16.7 years',
+          cityA ? '20 panels' : '37 panels',
+        ],
+        [
+          city,
+          90,
+          100,
+          cityA ? '$9,000.00' : '$18,240.00',
+          '$90.00',
+          cityA ? '8.3 years' : '16.9 years',
+          cityA ? '10 panels' : '19 panels',
+        ],
+      ];
+    },
+  );
+  it.each(demoPdfCases)(
+    'exports compressed demo PDF text for %s at bill %d and coverage %d',
+    async (city, bill, coverage, investment, savings, payback, panels) => {
+      const file = await generateEstimatePdf(
+        createEstimateSnapshot(city, bill, coverage),
+      );
+      const snapshot = createEstimateSnapshot(city, bill, coverage);
+      const text = await extractText(file);
+      expect(text).toContain(snapshot.cityLabel);
+      expect(text).toContain(`$${bill}.00`);
+      expect(text).toContain(`${coverage}%`);
+      expect(text).toContain(snapshot.explanation);
+      expect(text).toContain(city.designation.notice);
+      expect(text).toContain(city.utilityName);
+      expect(text).toContain(city.stateIncentiveNote);
+      expect(text).toContain(investment);
+      expect(text).toContain(savings);
+      expect(text).toContain(payback);
+      expect(text).toContain(panels);
+      expect(file.name).toBe(
+        `brightfield-solar-${city.slug}-bill-${bill}-coverage-${coverage}.pdf`,
+      );
+      expect(file.name).not.toMatch(/[<>:"/\\|?*]/);
+      expect(await assertTextFitsPage(file)).toBeGreaterThan(30);
+    },
+  );
+
+  it('captures designation notice immutably and invalidates demo identity changes', () => {
+    const city = demoCities[0];
+    const snapshot = createEstimateSnapshot(city, 220, 80);
+    const changed = {
+      ...city,
+      designation: {
+        kind: 'demo' as const,
+        label: 'Demo' as const,
+        notice: `${city.designation.notice} Changed.`,
+      },
+    };
+    expect(snapshot.cityLabel).toContain('(Demo)');
+    expect(snapshot.designationNotice).toBe(city.designation.notice);
+    expect(createEstimateSnapshot(changed, 220, 80).key).not.toBe(snapshot.key);
+    expect(Object.isFrozen(snapshot)).toBe(true);
+  });
+
+  it('includes full compressed-demo text when notices paginate', async () => {
+    const city = demoCities[1];
+    const file = await generateEstimatePdf(
+      createEstimateSnapshot(
+        {
+          ...city,
+          stateIncentiveNote: `${city.stateIncentiveNote} ${'Eligibility context. '.repeat(80)}`,
+        },
+        220,
+        80,
+      ),
+    );
+    const text = await extractText(file);
+    expect(text).toContain(city.designation.notice);
+    expect(text).toContain('Eligibility context.');
+    expect(await assertTextFitsPage(file)).toBeGreaterThan(30);
+  });
+
   it('includes minimum sizing and no-cash credit information when applicable', async () => {
     const text = await extractText(
       await generateEstimatePdf(createEstimateSnapshot(phoenix, 60, 50)),
@@ -77,6 +216,7 @@ describe('estimate PDF consumer content', () => {
     city.city = 'Changed';
     city.utilityRatePerKwh = 0.3;
     expect(snapshot.cityLabel).toContain('Phoenix');
+    expect(snapshot.designationNotice).toBeNull();
     expect(snapshot.explanation).toContain('0.15');
     expect(snapshot.result.investment).toBe('$7,796.25');
     expect(Object.isFrozen(snapshot)).toBe(true);
@@ -150,35 +290,7 @@ describe('estimate PDF consumer content', () => {
     expect(text.toLowerCase()).toContain('not tax advice');
     const document = await PDFDocument.load(await file.arrayBuffer());
     expect(document.getPageCount()).toBeGreaterThan(1);
-    const regular = await document.embedFont(StandardFonts.Helvetica);
-    const bold = await document.embedFont(StandardFonts.HelveticaBold);
-    const pdf = Buffer.from(await file.arrayBuffer()).toString('latin1');
-    let measuredRuns = 0;
-    for (const match of pdf.matchAll(/stream\r?\n([\s\S]*?)\r?\nendstream/g)) {
-      const stream = inflateSync(Buffer.from(match[1], 'latin1')).toString(
-        'latin1',
-      );
-      for (const run of stream.matchAll(
-        /\/(\S+)\s+([\d.]+)\s+Tf[\s\S]*?1 0 0 1 ([\d.]+) ([\d.]+) Tm\s*<([0-9a-f]+)>\s*Tj/gi,
-      )) {
-        measuredRuns += 1;
-        const font = run[1].startsWith('Helvetica-Bold') ? bold : regular;
-        const size = Number(run[2]);
-        const x = Number(run[3]);
-        const y = Number(run[4]);
-        const content = Buffer.from(run[5], 'hex').toString('latin1');
-        expect(x).toBeGreaterThanOrEqual(40);
-        expect(x + font.widthOfTextAtSize(content, size)).toBeLessThanOrEqual(
-          572.01,
-        );
-        expect(y).toBeGreaterThanOrEqual(28);
-        expect(y + size).toBeLessThanOrEqual(764);
-      }
-    }
-    expect(measuredRuns).toBeGreaterThan(30);
-    for (let page = 1; page <= document.getPageCount(); page += 1) {
-      expect(text).toContain(`Page ${page} of ${document.getPageCount()}`);
-    }
+    expect(await assertTextFitsPage(file)).toBeGreaterThan(30);
   });
   it('rejects unsupported font characters rather than silently altering estimate text', async () => {
     const snapshot = createEstimateSnapshot(

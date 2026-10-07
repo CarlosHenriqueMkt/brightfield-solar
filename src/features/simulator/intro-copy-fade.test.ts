@@ -13,6 +13,7 @@ import { createElement, Fragment } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { Hero } from '@/components/sections/Hero';
+import { phoenix } from '@/domain/cities/phoenix';
 import heroStyles from '@/components/sections/Hero.module.css';
 import mottoStyles from '@/components/sections/Motto.module.css';
 import simulatorStyles from './SimulatorHero.module.css';
@@ -80,7 +81,7 @@ function observeIntro(forceReducedMotion = false): {
     ].join('\n');
     const hero = renderToStaticMarkup(
       createElement(Hero, {
-        city: { city: 'Phoenix', stateFull: 'Arizona' },
+        city: phoenix,
         sceneSlot: null,
         controlsSlot: createElement(
           Fragment,

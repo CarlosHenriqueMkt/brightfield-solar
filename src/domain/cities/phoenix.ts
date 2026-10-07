@@ -20,7 +20,69 @@ export const phoenix = {
   crewsAvailable: 12,
   avgRating: 4.8,
   avgPermitDays: 21,
-  phone: '(602) 555-0147',
+  designation: { kind: 'standard' },
+  contact: { kind: 'display', label: '(602) 555-0147' },
+  hero: {
+    description:
+      'Explore the cost and estimated savings of solar for your Phoenix home. See the numbers, understand the next steps and decide what makes sense for you.',
+  },
+  scenePoster: {
+    desktopSrc: '/assets/posters/house-desktop.png',
+    mobileSrc: '/assets/posters/house-mobile.png',
+    alt: 'Illustrative Phoenix home; roof fit needs an assessment',
+  },
+  process: {
+    eyebrow: 'Three clear steps',
+    title: 'How installation works',
+    description:
+      'From the first conversation to utility interconnection, each step makes the work easier to understand.',
+    steps: [
+      {
+        title: 'Assess your home',
+        copy: 'A home assessment helps clarify your roof and the work involved.',
+        image: {
+          src: '/assets/approved-v2/step-assess.png',
+          alt: 'Solar professional assessing a Phoenix home',
+          decorative: false,
+        },
+      },
+      {
+        title: 'Plan the work',
+        copy: 'Review the proposed system and the permit process before installation.',
+        image: {
+          src: '/assets/approved-v2/step-plan.png',
+          alt: 'Solar plans and project details prepared for a home',
+          decorative: false,
+        },
+      },
+      {
+        title: 'Install and connect',
+        copy: 'Follow the steps from installation to utility interconnection.',
+        image: {
+          src: '/assets/approved-v2/step-install.png',
+          alt: 'Solar installation crew working on a residential roof',
+          decorative: false,
+        },
+      },
+    ],
+  },
+  socialProof: {
+    testimonialEyebrow: 'Phoenix homeowners',
+    testimonialTitle: 'What Phoenix homeowners say',
+    testimonialsLabel: 'Homeowner testimonials',
+    crewEyebrow: 'Local experience',
+    crewTitle: 'Meet your local crews',
+  },
+  finalCTA: {
+    title: 'See the next step more clearly.',
+    description:
+      'A home assessment helps turn an initial estimate into a clearer understanding of your home and the work involved.',
+    image: {
+      src: '/assets/approved-v2/closing-home.png',
+      alt: 'A Phoenix home at blue hour',
+      decorative: false,
+    },
+  },
   popularNeighborhoods: [
     'Arcadia',
     'Ahwatukee',
@@ -54,6 +116,11 @@ export const phoenix = {
       since: 2019,
       blurb:
         'Tile roofs are their specialty. They mount without cracking a single tile and photograph every penetration.',
+      portrait: {
+        src: '/assets/approved-v2/crew-ray.png',
+        alt: 'Portrait of Ray O. and team',
+        decorative: false,
+      },
     },
     {
       name: 'Danielle W. and team',
@@ -62,6 +129,11 @@ export const phoenix = {
       since: 2021,
       blurb:
         'Handles the permit paperwork with the city herself, which is why her jobs clear inspection first time.',
+      portrait: {
+        src: '/assets/approved-v2/crew-danielle.png',
+        alt: 'Portrait of Danielle W. and team',
+        decorative: false,
+      },
     },
     {
       name: 'The Okafor brothers',
@@ -70,6 +142,11 @@ export const phoenix = {
       since: 2018,
       blurb:
         'Fastest crew on flat roofs. A standard twenty-panel system goes up in a single day.',
+      portrait: {
+        src: '/assets/approved-v2/crew-okafor.png',
+        alt: 'Portrait of The Okafor brothers',
+        decorative: false,
+      },
     },
   ],
   testimonials: [
