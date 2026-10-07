@@ -1,0 +1,20 @@
+README.md
+  h_1041c21ccc44e5 40-41,95-96
+src/components/sections/Hero.tsx
+  h_1041c21ccc44e5 48,52,58-60,62
+src/features/simulator/SimulatorHero.module.css
+  h_1041c21ccc44e5 24-36
+src/features/simulator/intro-copy-fade.test.ts
+  h_1041c21ccc44e5 1-181
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "09978e618637dfa28ab00f6ce14fba43b2a2aecc",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
