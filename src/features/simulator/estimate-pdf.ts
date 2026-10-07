@@ -336,6 +336,7 @@ export async function generateEstimatePdf(
   report.selectedInputs(snapshot);
   report.metrics(snapshot);
   report.section('Important considerations', [
+    ...(snapshot.designationNotice ? [snapshot.designationNotice] : []),
     snapshot.stateIncentiveNote,
     ...snapshot.notices,
   ]);

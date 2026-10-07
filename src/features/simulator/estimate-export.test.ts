@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { getCityBySlug } from '@/domain/cities/cities';
 import { phoenix } from '@/domain/cities/phoenix';
 import { createEstimateSnapshot } from './estimate-document';
 import {
@@ -8,6 +9,12 @@ import {
   EstimateShareSession,
   sharePreparedEstimate,
 } from './estimate-export';
+
+function registryCity(slug: string) {
+  const city = getCityBySlug(slug);
+  if (!city) throw new Error(`Missing registered test city: ${slug}`);
+  return city;
+}
 
 function deferred<T>() {
   let resolve!: (value: T) => void;
@@ -267,6 +274,65 @@ describe('prepared estimate ownership', () => {
     await expect(session.prepare()).rejects.toThrow('synchronous failure');
     fail = false;
     expect(await session.prepare()).toBe(current);
+  });
+  it('releases obsolete city work through Phoenix, A, B, and Phoenix again', async () => {
+    const phoenixWork = deferred<File>();
+    const cityAWork = deferred<File>();
+    const cityBWork = deferred<File>();
+    const destinationWork = deferred<File>();
+    const retryWork = deferred<File>();
+    const phoenixSnapshot = createEstimateSnapshot(phoenix, 90, 100);
+    const cityASnapshot = createEstimateSnapshot(
+      registryCity('city-a'),
+      220,
+      80,
+    );
+    const cityBSnapshot = createEstimateSnapshot(
+      registryCity('city-b'),
+      90,
+      100,
+    );
+    const generate = vi
+      .fn()
+      .mockReturnValueOnce(phoenixWork.promise)
+      .mockReturnValueOnce(cityAWork.promise)
+      .mockReturnValueOnce(cityBWork.promise)
+      .mockReturnValueOnce(destinationWork.promise)
+      .mockReturnValueOnce(retryWork.promise);
+    const session = new EstimatePdfSession(generate);
+
+    session.update(phoenixSnapshot, 'phoenix');
+    const oldPhoenix = session.prepare();
+    await Promise.resolve();
+    session.update(cityASnapshot, 'city-a');
+    const oldCityA = session.prepare();
+    await Promise.resolve();
+    session.update(cityBSnapshot, 'city-b');
+    const oldCityB = session.prepare();
+    await Promise.resolve();
+    session.update(phoenixSnapshot, 'phoenix');
+    const destination = session.prepare();
+
+    phoenixWork.resolve(pdf('obsolete-phoenix.pdf'));
+    cityAWork.reject(new Error('obsolete-city-a'));
+    cityBWork.resolve(pdf('obsolete-city-b.pdf'));
+    expect(await oldPhoenix).toBeNull();
+    expect(await oldCityA).toBeNull();
+    expect(await oldCityB).toBeNull();
+    expect(session.fileFor('city-a')).toBeNull();
+    expect(session.fileFor('city-b')).toBeNull();
+
+    const destinationFile = pdf('destination-phoenix.pdf');
+    destinationWork.resolve(destinationFile);
+    expect(await destination).toBe(destinationFile);
+    expect(session.fileFor('phoenix')).toBe(destinationFile);
+
+    session.update(cityASnapshot, 'city-a');
+    session.update(phoenixSnapshot, 'phoenix');
+    const retry = session.prepare();
+    retryWork.resolve(pdf('roundtrip-phoenix.pdf'));
+    expect(await retry).toEqual(expect.any(File));
+    expect(session.fileFor('phoenix')?.name).toBe('roundtrip-phoenix.pdf');
   });
 });
 

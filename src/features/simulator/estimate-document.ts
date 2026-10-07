@@ -1,4 +1,7 @@
-import type { CityConfig } from '@/domain/cities/city-config';
+import {
+  getCityDisplayName,
+  type CityConfig,
+} from '@/domain/cities/city-config';
 import { calculateSolarEstimate, type SolarEstimate } from './finance';
 import type { SimPresentationResult } from './sim-drawer-types';
 
@@ -6,6 +9,7 @@ export interface EstimateSnapshot {
   readonly key: string;
   readonly citySlug: string;
   readonly cityLabel: string;
+  readonly designationNotice: string | null;
   readonly bill: number;
   readonly coverage: number;
   readonly estimate: Readonly<SolarEstimate>;
@@ -58,12 +62,18 @@ export function createEstimateSnapshot(
     );
   }
 
+  const designationNotice =
+    city.designation.kind === 'demo' ? city.designation.notice : null;
+
   return Object.freeze({
     key: JSON.stringify([
       city.slug,
       city.city,
       city.state,
       city.stateFull,
+      city.designation.kind,
+      city.designation.kind === 'demo' ? city.designation.label : null,
+      designationNotice,
       city.utilityName,
       city.utilityRatePerKwh,
       city.peakSunHoursPerDay,
@@ -77,7 +87,8 @@ export function createEstimateSnapshot(
       coverage,
     ]),
     citySlug: city.slug,
-    cityLabel: `${city.city}, ${city.state}`,
+    cityLabel: `${getCityDisplayName(city)}, ${city.state}`,
+    designationNotice,
     bill,
     coverage,
     estimate,

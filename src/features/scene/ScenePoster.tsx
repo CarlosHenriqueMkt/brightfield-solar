@@ -1,8 +1,15 @@
 import { getImageProps } from 'next/image';
+import type { CityConfig } from '@/domain/cities/city-config';
 
-export function ScenePoster({ className }: { className?: string }) {
+export function ScenePoster({
+  city,
+  className,
+}: {
+  city: Pick<CityConfig, 'scenePoster'>;
+  className?: string;
+}) {
   const common = {
-    alt: 'Illustrative Phoenix home; roof fit needs an assessment',
+    alt: city.scenePoster.alt,
     sizes: '100vw',
     loading: 'eager' as const,
     fetchPriority: 'high' as const,
@@ -10,13 +17,13 @@ export function ScenePoster({ className }: { className?: string }) {
   };
   const desktop = getImageProps({
     ...common,
-    src: '/assets/posters/house-desktop.png',
+    src: city.scenePoster.desktopSrc,
     width: 1440,
     height: 820,
   }).props;
   const mobile = getImageProps({
     ...common,
-    src: '/assets/posters/house-mobile.png',
+    src: city.scenePoster.mobileSrc,
     width: 390,
     height: 780,
   }).props;

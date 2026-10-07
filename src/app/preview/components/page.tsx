@@ -61,7 +61,7 @@ export default function ComponentsPreviewPage() {
           sceneSlot={
             <Image
               src="/assets/approved-v2/house-front.png"
-              alt="Illustrative frontal study of a Phoenix home"
+              alt="Illustrative frontal study of a home"
               width={1600}
               height={1000}
               sizes="100vw"
@@ -134,7 +134,7 @@ export default function ComponentsPreviewPage() {
             marked provisional in its source.
           </p>
         </header>
-        <ProcessSteps id="process-preview" />
+        <ProcessSteps id="process-preview" city={city} />
       </section>
 
       <section className={styles.sample}>
@@ -146,13 +146,7 @@ export default function ComponentsPreviewPage() {
             portrait spaces.
           </p>
         </header>
-        <SocialProof
-          id="social-preview"
-          city={city}
-          testimonials={city.testimonials}
-          crews={city.crews}
-          variant="featured"
-        />
+        <SocialProof id="social-preview" city={city} variant="featured" />
       </section>
       <section className={styles.sample}>
         <header className={styles.sampleLabel}>
@@ -162,13 +156,7 @@ export default function ComponentsPreviewPage() {
             controls.
           </p>
         </header>
-        <SocialProof
-          id="social-all-preview"
-          city={city}
-          testimonials={city.testimonials}
-          crews={city.crews}
-          variant="all"
-        />
+        <SocialProof id="social-all-preview" city={city} variant="all" />
       </section>
 
       <section className={styles.sample}>
@@ -197,6 +185,7 @@ export default function ComponentsPreviewPage() {
           </p>
         </header>
         <FinalCTA
+          city={city}
           id="final-preview"
           action={
             <Button

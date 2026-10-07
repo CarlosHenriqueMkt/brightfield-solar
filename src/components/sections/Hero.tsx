@@ -12,7 +12,7 @@ export function Hero({
   headingAs: Heading = 'h1',
   fullViewport = false,
 }: {
-  city: Pick<CityConfig, 'city' | 'stateFull'>;
+  city: Pick<CityConfig, 'city' | 'stateFull' | 'hero' | 'designation'>;
   sceneSlot: ReactNode;
   controlsSlot: ReactNode;
   id?: string;
@@ -50,10 +50,13 @@ export function Hero({
               </p>
               <Motto id={`${id}-title`} className={styles.title} as={Heading} />
               <p className={styles.lead} data-hero-supplementary>
-                Explore the cost and estimated savings of solar for your{' '}
-                {city.city} home. See the numbers, understand the next steps and
-                decide what makes sense for you.
+                {city.hero.description}
               </p>
+              {city.designation.kind === 'demo' && (
+                <p className={styles.notice} data-hero-supplementary>
+                  {city.designation.notice}
+                </p>
+              )}
             </div>
             <div className={styles.controls} data-hero-supplementary>
               {controlsSlot}

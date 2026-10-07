@@ -10,9 +10,7 @@ type Testimonial = CityConfig['testimonials'][number];
 type Crew = CityConfig['crews'][number];
 
 export type SocialProofProps = {
-  city: Pick<CityConfig, 'city'>;
-  testimonials: CityConfig['testimonials'];
-  crews: CityConfig['crews'];
+  city: Pick<CityConfig, 'socialProof' | 'testimonials' | 'crews'>;
   variant?: 'featured' | 'all';
   id?: string;
 };
@@ -47,20 +45,13 @@ function testimonialCard(
     </article>
   );
 }
-
-const crewImages = [
-  '/assets/approved-v2/crew-ray.png',
-  '/assets/approved-v2/crew-danielle.png',
-  '/assets/approved-v2/crew-okafor.png',
-] as const;
-
-function crewCard(crew: Crew, imageSrc: string): ReactElement {
+function crewCard(crew: Crew): ReactElement {
   return (
     <article key={`${crew.name}-${crew.since}`} className={styles.crewCard}>
       <div className={styles.crewPortrait}>
         <Image
-          src={imageSrc}
-          alt={`Portrait of ${crew.name}`}
+          src={crew.portrait.src}
+          alt={crew.portrait.alt}
           width={1122}
           height={1402}
           className={styles.crewImage}
@@ -94,13 +85,13 @@ function crewCard(crew: Crew, imageSrc: string): ReactElement {
 
 export function SocialProof({
   city,
-  testimonials,
-  crews,
   variant = 'featured',
   id,
 }: SocialProofProps) {
   const sectionId = id ?? 'social-proof';
   const headingId = `${sectionId}-heading`;
+  const testimonials = city.testimonials;
+  const crews = city.crews;
   const featuredTestimonials =
     testimonials.length > 2
       ? [
@@ -126,15 +117,18 @@ export function SocialProof({
       <Container>
         <SectionHeading
           id={headingId}
-          eyebrow={`${city.city} homeowners`}
-          title={`What ${city.city} homeowners say`}
+          eyebrow={city.socialProof.testimonialEyebrow}
+          title={city.socialProof.testimonialTitle}
         />
         {variant === 'featured' ? (
-          <TestimonialCarousel slides={slides} />
+          <TestimonialCarousel
+            slides={slides}
+            ariaLabel={city.socialProof.testimonialsLabel}
+          />
         ) : (
           <div
             className={styles.allQuotes}
-            aria-label={`${city.city} homeowner testimonials`}
+            aria-label={city.socialProof.testimonialsLabel}
           >
             {slides.map((slide) => slide.content)}
           </div>
@@ -143,11 +137,11 @@ export function SocialProof({
         <div className={styles.crewsSection}>
           <SectionHeading
             id={`${headingId}-crews`}
-            eyebrow="Local experience"
-            title="Meet your local crews"
+            eyebrow={city.socialProof.crewEyebrow}
+            title={city.socialProof.crewTitle}
           />
           <div className={styles.crewGrid}>
-            {crews.map((crew, index) => crewCard(crew, crewImages[index]))}
+            {crews.map((crew) => crewCard(crew))}
           </div>
         </div>
       </Container>
