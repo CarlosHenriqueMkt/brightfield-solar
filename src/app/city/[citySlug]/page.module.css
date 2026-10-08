@@ -70,6 +70,19 @@
   color: #fff;
   font-weight: 600;
 }
+.cityLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 8px 16px;
+}
+.cityLinks a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+.cityLinks a[aria-current='page'] {
+  font-weight: 600;
+}
 @media (max-width: 640px) {
   .header {
     min-height: 64px;

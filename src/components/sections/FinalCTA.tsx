@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import type { CityConfig } from '@/domain/cities/city-config';
+import { SpecialistCTA } from '@/components/ui/SpecialistCTA';
 import styles from './FinalCTA.module.css';
 
 type FinalCTAProps = {
@@ -26,7 +27,10 @@ export function FinalCTA({ city, action, id = 'final-cta' }: FinalCTAProps) {
         <div className={styles.copy}>
           <h2 id={`${id}-title`}>{city.finalCTA.title}</h2>
           <p>{city.finalCTA.description}</p>
-          {action}
+          <div className={styles.actions}>
+            {action}
+            <SpecialistCTA />
+          </div>
         </div>
       </div>
     </section>

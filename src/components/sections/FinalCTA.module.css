@@ -52,8 +52,16 @@
   max-width: 540px;
 }
 
-.copy > :last-child {
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
   margin-top: 28px;
+}
+
+.actions > a {
+  margin-top: 0;
 }
 
 @media (max-width: 1024px) {
@@ -96,6 +104,13 @@
 
   .copy {
     min-height: 232px;
+  }
+  .actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .actions > :last-child {
+    align-self: center;
   }
 
   .copy h2 {

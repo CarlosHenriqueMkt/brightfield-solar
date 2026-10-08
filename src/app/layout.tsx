@@ -1,6 +1,11 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
+import {
+  canonicalUrl,
+  isProductionDeployment,
+  SITE_ORIGIN,
+} from '@/domain/site';
 import './globals.css';
 
 const plex = localFont({
@@ -16,11 +21,20 @@ const plex = localFont({
 
 export const metadata: Metadata = {
   title: 'Brightfield Solar',
+  metadataBase: new URL(SITE_ORIGIN),
+  robots: { index: isProductionDeployment(), follow: true },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en-US" className={plex.variable}>
+      <head>
+        <link
+          rel="describedby"
+          href={canonicalUrl('/llms.txt')}
+          type="text/plain"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

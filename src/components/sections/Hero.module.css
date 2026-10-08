@@ -85,16 +85,6 @@
   transform: translateY(calc(-1 * var(--curtain-lift, 0%)));
   will-change: transform;
 }
-.motif {
-  position: absolute;
-  right: -120px;
-  bottom: -100px;
-  width: min(86vw, 1150px);
-  height: auto;
-  opacity: 0.82;
-  pointer-events: none;
-  user-select: none;
-}
 .fullViewport .coverContent {
   box-sizing: border-box;
   display: flex;
@@ -140,12 +130,6 @@
     line-height: 1.06;
     letter-spacing: -0.03em;
   }
-  .motif {
-    right: -230px;
-    bottom: -50px;
-    width: 680px;
-    opacity: 0.65;
-  }
   .lead {
     font-size: 16px;
   }
@@ -171,11 +155,5 @@
   }
   .lead {
     font-size: 18px;
-  }
-  .motif {
-    right: -160px;
-    bottom: -180px;
-    width: 720px;
-    opacity: 0.5;
   }
 }

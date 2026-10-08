@@ -42,6 +42,8 @@ function observeIntro(forceReducedMotion = false): {
   prefersReducedMotion: boolean;
   reducedImmediateOpacity: number[];
   reducedAnimationCount: number;
+  curtainBackground: string;
+  curtainImageCount: number;
 } {
   const executable =
     process.env.CHROME_BIN ??
@@ -83,6 +85,7 @@ function observeIntro(forceReducedMotion = false): {
       createElement(Hero, {
         city: phoenix,
         sceneSlot: null,
+        fullViewport: true,
         controlsSlot: createElement(
           Fragment,
           null,
@@ -102,12 +105,13 @@ function observeIntro(forceReducedMotion = false): {
     const file = join(directory, 'intro.html');
     writeFileSync(
       file,
-      `<!doctype html><style>${css}</style>
+      `<!doctype html><style>:root { --paper: #FBFCFD; } ${css}</style>
       <div class="${simulatorStyles.root}" data-copy-hidden="false" data-intro-visible="true">${hero}</div>
       <output id="regression-result"></output>
       <script>
         const root = document.querySelector('[data-copy-hidden]');
         const heading = root.querySelector('h1');
+        const cover = root.querySelector('[data-hero-cover]');
         const copy = [...root.querySelectorAll('p[data-hero-intro], [data-hero-intro] p, [data-hero-intro] a')];
         const letters = [...heading.querySelectorAll('[data-motto-letter]')];
         function opacity(element) {
@@ -172,6 +176,8 @@ function observeIntro(forceReducedMotion = false): {
           headingVisibilityAtIntermediate, lettersExiting, lettersInFlight,
           returnVisibility, restoredOpacity, returnFades, prefersReducedMotion,
           reducedImmediateOpacity, reducedAnimationCount,
+          curtainBackground: getComputedStyle(cover).backgroundColor,
+          curtainImageCount: cover.querySelectorAll('img').length,
         });
       </script>`,
     );
@@ -204,6 +210,8 @@ function observeIntro(forceReducedMotion = false): {
 describe('intro supplementary opening fade', () => {
   it('proves a native intermediate fade, completes while heading letters remain visible, and restores without a return fade', () => {
     const observed = observeIntro();
+    expect(observed.curtainBackground).toBe('rgb(251, 252, 253)');
+    expect(observed.curtainImageCount).toBe(0);
     expect(observed.intermediateOpacity).toHaveLength(5);
     observed.intermediateOpacity.forEach((value) => {
       expect(value).toBeGreaterThan(0);

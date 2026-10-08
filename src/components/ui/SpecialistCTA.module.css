@@ -1,0 +1,69 @@
+.root {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  min-width: 0;
+}
+
+.trigger {
+  min-width: 44px;
+  min-height: 44px;
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--paper);
+  text-align: center;
+}
+
+.trigger:hover:not(:disabled) {
+  border-color: var(--blue-hover);
+  background: var(--sky);
+  color: var(--blue-hover);
+}
+
+.popover {
+  position: fixed;
+  inset: auto;
+  z-index: 1000;
+  box-sizing: border-box;
+  width: min(320px, calc(100vw - 16px));
+  max-height: min(70dvh, 320px);
+  margin: 0;
+  padding: 16px;
+  overflow: auto;
+  border: 1px solid var(--blue);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--text);
+  box-shadow: 0 16px 32px rgb(16 43 78 / 22%);
+  animation: specialist-popover-in 160ms ease-out both;
+}
+
+.popover .copy {
+  margin: 0;
+  color: var(--navy);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.trigger:focus-visible,
+.popover:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+
+@keyframes specialist-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popover {
+    animation: none;
+  }
+}

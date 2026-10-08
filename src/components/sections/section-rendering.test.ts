@@ -41,9 +41,27 @@ describe('city presentation sections', () => {
       ).toBe(true);
       expect(process).toContain(`alt="${step.image.alt}"`);
     }
+    const processContainer = document.createElement('div');
+    processContainer.innerHTML = process;
+    const processSpecialists = Array.from(
+      processContainer.querySelectorAll('button'),
+    ).filter((button) => button.textContent === 'Talk to a solar specialist');
+    expect(processSpecialists).toHaveLength(1);
+    expect(
+      processContainer
+        .querySelector('ol')!
+        .compareDocumentPosition(processSpecialists[0]),
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
 
     const finalCta = renderToStaticMarkup(
-      createElement(FinalCTA, { city, action: null }),
+      createElement(FinalCTA, {
+        city,
+        action: createElement(
+          'a',
+          { href: '#solar-estimate' },
+          'See my solar estimate',
+        ),
+      }),
     );
     expect(finalCta).toContain(city.finalCTA.title);
     expect(finalCta).toContain(city.finalCTA.description);
@@ -52,6 +70,17 @@ describe('city presentation sections', () => {
         finalCta.includes(encodeURIComponent(city.finalCTA.image.src)),
     ).toBe(true);
     expect(finalCta).toContain(`alt="${city.finalCTA.image.alt}"`);
+    const finalContainer = document.createElement('div');
+    finalContainer.innerHTML = finalCta;
+    const finalSpecialists = Array.from(
+      finalContainer.querySelectorAll('button'),
+    ).filter((button) => button.textContent === 'Talk to a solar specialist');
+    expect(finalSpecialists).toHaveLength(1);
+    expect(
+      finalContainer
+        .querySelector('a')!
+        .compareDocumentPosition(finalSpecialists[0]),
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
 
     const social = renderToStaticMarkup(createElement(SocialProof, { city }));
     expect(social).toContain(city.socialProof.testimonialEyebrow);
@@ -68,6 +97,17 @@ describe('city presentation sections', () => {
       ).toBe(true);
       expect(social).toContain(`alt="${crew.portrait.alt}"`);
     }
+    const socialContainer = document.createElement('div');
+    socialContainer.innerHTML = social;
+    const socialSpecialists = Array.from(
+      socialContainer.querySelectorAll('button'),
+    ).filter((button) => button.textContent === 'Talk to a solar specialist');
+    expect(socialSpecialists).toHaveLength(1);
+    expect(
+      socialContainer
+        .querySelector('[class*="crewGrid"]')!
+        .compareDocumentPosition(socialSpecialists[0]),
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
 
     const poster = renderToStaticMarkup(createElement(ScenePoster, { city }));
     expect(

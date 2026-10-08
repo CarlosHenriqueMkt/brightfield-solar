@@ -4,9 +4,17 @@ import styles from './not-found.module.css';
 export default function NotFound() {
   return (
     <main className={styles.main}>
-      <h1>Page not found</h1>
-      <p>The requested page is not available.</p>
-      <Link href="/">Return to Brightfield Solar</Link>
+      <p>
+        <strong>Brightfield Solar</strong>
+      </p>
+      <h1>Page not available</h1>
+      <p>
+        The institutional homepage is outside this demonstration. The requested
+        page is not available.
+      </p>
+      <Link className={styles.recoveryLink} href="/city/phoenix-az">
+        Explore the Phoenix solar demonstration
+      </Link>
     </main>
   );
 }

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import type { ReactElement } from 'react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { SpecialistCTA } from '@/components/ui/SpecialistCTA';
 import type { CityConfig } from '@/domain/cities/city-config';
 import { TestimonialCarousel } from './TestimonialCarousel';
 import styles from './SocialProof.module.css';
@@ -143,6 +144,7 @@ export function SocialProof({
           <div className={styles.crewGrid}>
             {crews.map((crew) => crewCard(crew))}
           </div>
+          <SpecialistCTA className={styles.specialist} />
         </div>
       </Container>
     </section>

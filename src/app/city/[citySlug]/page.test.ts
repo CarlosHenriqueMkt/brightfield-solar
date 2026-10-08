@@ -1,35 +1,55 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { generateMetadata } from './page';
+import { SITE_ORIGIN } from '@/domain/site';
 
 function routeProps(citySlug: string): PageProps<'/city/[citySlug]'> {
   return {
     params: Promise.resolve({ citySlug }),
-    searchParams: Promise.resolve({}),
+    searchParams: Promise.resolve({
+      utm_source: 'shared-link',
+      campaign: 'test',
+    }),
   };
 }
 
-describe('public city metadata', () => {
-  it('preserves Phoenix identity without a synthetic-city designation', async () => {
+beforeEach(() => {
+  vi.stubEnv('NODE_ENV', 'production');
+  vi.stubEnv('VERCEL_ENV', undefined);
+  vi.stubEnv('VERCEL_TARGET_ENV', undefined);
+});
+afterEach(() => vi.unstubAllEnvs());
+
+describe('public city publication policy', () => {
+  it('keeps tracking parameters out of the canonical and social identity', async () => {
     const metadata = await generateMetadata(routeProps('phoenix-az'));
-    expect(metadata.title).toContain('Phoenix, AZ');
-    expect(metadata.title).not.toContain('(Demo)');
-    expect(metadata.description).toContain('Arizona');
-    expect(metadata.description).toContain('Fictional challenge project');
+    expect(metadata.alternates?.canonical).toBe(
+      `${SITE_ORIGIN}/city/phoenix-az`,
+    );
+    expect(metadata.openGraph).toMatchObject({
+      url: `${SITE_ORIGIN}/city/phoenix-az`,
+    });
+    expect(metadata.robots).toMatchObject({ index: true, follow: true });
   });
 
-  it.each([
-    ['city-a', 'City A (Demo)'],
-    ['city-b', 'City B (Demo)'],
-  ])(
-    'identifies %s as synthetic rather than a verified locality',
-    async (slug, label) => {
+  it.each(['city-a', 'city-b'])(
+    'lets crawlers read %s noindex without canonicalizing it to Phoenix',
+    async (slug) => {
       const metadata = await generateMetadata(routeProps(slug));
-      expect(metadata.title).toContain(label);
-      expect(metadata.description).toContain(label);
-      expect(metadata.description).toMatch(/synthetic/i);
-      expect(metadata.description).toMatch(/not verified/i);
-      expect(`${metadata.title} ${metadata.description}`).not.toMatch(
-        /Phoenix|Arizona/,
+      expect(metadata.alternates?.canonical).toBe(
+        `${SITE_ORIGIN}/city/${slug}`,
+      );
+      expect(metadata.robots).toMatchObject({ index: false, follow: true });
+    },
+  );
+
+  it.each(['preview', 'development'])(
+    'prevents indexing a %s deployment without changing canonical identity',
+    async (deployment) => {
+      vi.stubEnv('VERCEL_ENV', deployment);
+      const metadata = await generateMetadata(routeProps('phoenix-az'));
+      expect(metadata.robots).toMatchObject({ index: false, follow: true });
+      expect(metadata.alternates?.canonical).toBe(
+        `${SITE_ORIGIN}/city/phoenix-az`,
       );
     },
   );
