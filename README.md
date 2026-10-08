@@ -8,6 +8,16 @@ A responsive, data-driven city landing page, real financial simulation, and the 
 
 Use **Node 24.12.0 or later within major 24** and **npm 11.16.0 or later within major 11**. `.nvmrc` selects Node 24.12.0; `packageManager` records npm 11.16.0, and `.npmrc` enforces engines and exact dependency versions. Install compatible Node/npm before running the project. No application secrets, global application tooling, or external design-reference files are required.
 
+With compatible Node installed, match the pinned npm before installation:
+
+```sh
+npm install --global npm@11.16.0
+node --version
+npm --version
+```
+
+The npm installation requires a writable global prefix (as provided by a user-owned Node version manager, or appropriate OS permissions). `npm ci` uses the committed lockfile v3; do not replace it with a dependency update.
+
 Run these commands from the repository root on Windows, macOS, or Linux:
 
 ```sh
@@ -48,6 +58,75 @@ No authentication or build-secret variables are required by the current applicat
 Start every implementation on a dedicated task branch, never directly on `main`. Inspect the working tree and index first, preserve existing work, and use the branch → PR → `main` workflow. `main` requires a PR and the GitHub Actions `quality` check on an up-to-date branch, including for administrators. The [CI workflow](.github/workflows/ci.yml) has one read-only job running `npm ci`, `npm run check`, and `npm run build`; Node/npm versions come from `.nvmrc` and `packageManager`.
 
 **CI gate:** merging requires a successful `quality` result for the applicable PR revision. Local verification or a Vercel deployment status does not replace that required check; consult the PR's current checks for GitHub-hosted results. This workflow does not merge or deploy. Existing Vercel Git integration may create a Preview independently when a branch is published. See [the review findings](docs/ci-security-review.md#findings) for configuration and recorded verification evidence.
+
+## Production Docker (CAR-28)
+
+**Prerequisites:** Docker Engine with BuildKit, or Docker Desktop running **Linux containers**, and network access to the official Node image and npm registry during the build. Verify the daemon with `docker version`. Use an already checked-out repository as the build context; Docker builds/runs do not require host Node/npm, host `node_modules`, mounted source, Git inside the image, application secrets, or a mounted Docker socket.
+
+From the repository root:
+
+```sh
+docker build --tag brightfield-solar:local .
+docker run --detach --name brightfield-solar --publish 127.0.0.1:3000:3000 brightfield-solar:local
+docker logs brightfield-solar
+```
+
+Open **http://127.0.0.1:3000/city/phoenix-az** (or `/city/city-a` and `/city/city-b`). `/` redirects to Phoenix. If host port 3000 is occupied, use `--publish 127.0.0.1:3001:3000` and open port 3001; the container port stays **3000**. The server listens on **0.0.0.0 inside the container**, while the documented host mapping is loopback-only. `EXPOSE` documents the port; it does not publish it.
+
+Stop, remove the named container, and optionally remove this locally tagged image:
+
+```sh
+docker stop --timeout 10 brightfield-solar
+docker rm brightfield-solar
+docker image rm brightfield-solar:local
+```
+
+Choose an unused container name; stop/remove only containers you created. No shared-resource prune, Compose, registry publication, automatic deployment, or privileged/GPU/X-server/browser service is required. WebGL/Canvas and PDF preparation/download execute in the evaluator's browser, not in the application container.
+
+### Image, output, and permissions
+
+- The Dockerfile pins the official **`node:24.12.0-bookworm-slim`** multi-platform image to verified index digest **`sha256:7326fb2dbdce998edd72140946851be64ef4a643e8715e138ca467e8e9d92c99`**. A digest fixes the base content; updating Node/security fixes requires a deliberate tag/digest update and verification, not a mutable `latest` pull. This does not promise byte-identical application builds: Next.js generates build identifiers and platform-specific native dependencies.
+- Separate dependency, build, and runtime stages keep the full build/test dependency graph out of the runtime. The shared base installs `package.json`'s `packageManager` (currently **npm@11.16.0**, the same convention as CI), so build and runtime both satisfy the npm engine requirement. The dependency stage then runs **`npm ci` with `package-lock.json` and `.npmrc`**. The official image's bundled npm **11.6.2** is replaced, not used to install project dependencies.
+- `next.config.ts` uses the documented production-build phase to emit **standalone** output, retaining **`cacheComponents: false`**. Ordinary `npm run build` generates the same output, while unchanged `npm run start` uses the normal server phase and **127.0.0.1** binding without the incompatible unconditional standalone/`next start` configuration. No new build-mode variable, custom server, or npm script is needed. Existing Vercel build commands remain unchanged; Docker is an alternative packaging path, not a Vercel configuration requirement.
+- The runtime copies the **entire traced standalone directory**, plus `public` into `/app/public` and `.next/static` into `/app/.next/static`. This retains traced native image-optimization dependencies, JS/CSS chunks and the three generated local Plex font assets. All authorized images/posters, `hero-panels.svg`, `house.glb`, `house.manifest.json`, and `sky-softened-2k.jpg` are included. The GLB's three material textures are embedded buffer views, not missing external texture URLs. Project asset/PDF and Plex license notices are also retained.
+- `.dockerignore` excludes host dependencies/builds, Git, evidence, coverage, logs, editor/OS junk, local environment/credential files and test sources. The committed, credential-free root `.npmrc`, build source, local font sources/licenses and all public assets remain build inputs. Chromium, Vitest, ESLint and TypeScript are not copied from the build dependency graph into the application runtime.
+- Runtime **UID/GID 1000 (`node`)** is non-root. Application files remain root-owned/readable; only `/app/.next/cache` is explicitly made writable for image/data caches. Cache contents are ephemeral and disappear when the container is removed. No persistent volume is required for this static-city application.
+- The image sets **`NODE_ENV=production`**, **`HOSTNAME=0.0.0.0`**, **`PORT=3000`** and disables Next telemetry. These defaults are built in; no `.env`, token, application configuration or `--env-file` is required. Exec-form **`node server.js`** receives container shutdown signals directly.
+
+### OS and architecture
+
+The pinned image index provides Linux **amd64**, **arm64/v8**, **ppc64le** and **s390x** manifests; availability is not evidence that each platform was exercised. Docker normally selects the native platform. Windows requires Docker Desktop's Linux-container engine (not Windows-container mode); macOS/Windows run Linux containers in a VM. Forcing a different `--platform` can require emulation and be slower; the source includes local fonts and Linux native dependencies are installed inside the build, not copied from the host.
+
+Keep daily development on the existing `npm run dev` workflow. Native CSS tests require Chrome/Chromium **in the test environment only**; set `CHROME_BIN` for an unrecognized executable location, including macOS. On Windows, stop your own running Next server before replacing its loaded native SWC module with `npm ci`, or use a fresh checkout for verification. Do not kill unrelated processes or weaken the browser regressions.
+
+### Local verification and limitations
+
+CAR-28 started from freshly fetched remote `main` **`cd8835afd804f71c70221739a4786d8b3c9ebcf3`** with a clean worktree/index, on `feat/car28`. Verification used **Windows x64 (10.0.26200), Node 24.12.0, npm 11.16.0, Chrome 154.0.8037.98, Docker Desktop 4.91.0 / Engine 29.8.0**, and **Linux/amd64** containers.
+
+The first root `npm ci` hit Windows **EPERM** because an existing, unrelated `next start` process held the SWC DLL. That process was not stopped. A task-owned copy of the same source/package/lock/npm inputs passed **`npm ci && npm run check && npm run build`**, including **238 tests in 21 files** and the native Chrome regressions. **`npm run start -- --port 3329`** advertised only loopback and passed the production route/asset checks without a standalone incompatibility warning. The nested temporary copy emitted a multiple-lockfile workspace-root warning; Docker did not. Missing root dependency files were restored from that fresh installation without overwriting existing files or the loaded DLL; the temporary copy/server were removed after verification.
+
+Actual Docker commands included:
+
+```sh
+docker buildx imagetools inspect node:24.12.0-bookworm-slim
+docker pull node:24.12.0-bookworm-slim@sha256:7326fb2dbdce998edd72140946851be64ef4a643e8715e138ca467e8e9d92c99
+docker build --progress=plain --tag brightfield-solar:car28 .
+docker run --detach --name brightfield-solar-car28 --publish 127.0.0.1:3328:3000 brightfield-solar:car28
+docker logs brightfield-solar-car28
+docker stop --timeout 10 brightfield-solar-car28
+docker rm brightfield-solar-car28
+```
+
+- The final cache-cleaned image built and ran successfully, with **Node 24.12.0 / npm 11.16.0** in the runtime. Docker reported **446,451,902 bytes** of uncompressed image content including the base; traced application `node_modules` occupied approximately **38 MiB**.
+- Both ordinary npm and Docker serving returned **307** from `/` with location `/city/phoenix-az`, **200** for all three cities, and **404** for an unknown city and both preview routes. **39 asset URL checks** per server covered actual HTML chunk/font/image URLs and every public file, validating MIME/body signatures and byte-identical public assets rather than accepting HTML fallbacks. GLB, manifest and sky returned `model/gltf-binary`, `application/json` and `image/jpeg`; all three Plex fonts returned `font/ttf`.
+- Real Chrome exercised Phoenix desktop **1440×900**, City A mobile **390×844**, and City B desktop: ready/rendered 3D, normal activation, Phoenix result editing/close/reopen, City A retained bill after close/reopen, and City B's 37-panel result/PDF readiness. **95 browser requests** had no failed network responses, browser exceptions or error-console entries; lazy scene/PDF JavaScript was served as JavaScript, not HTML.
+- A genuine native Windows Chrome download completed for **Phoenix $90 / 100%**: a **5,337-byte, two-page selectable-text PDF** with **9 panels / $7,796.25 / $90.00 per month / 7.2 years**. This proves that browser's preparation/save path, not all device share sheets or PDF failure cases.
+- Runtime checks established **UID/GID 1000**, no source/socket/host mounts or privileged mode, retained license notices, no application `.env`, Git, test sources or direct test/browser-tool packages, and no Git/Chromium executable. A real cache write/read/delete succeeded and optimized-image cache files were created; application/static/public files were non-writable to the runtime user.
+- `docker stop --timeout 10` completed within the timeout with **143 (SIGTERM), no OOM/error and no forced SIGKILL**. Only task-owned containers/servers/tabs/temp directories were stopped or removed; the local image tag remains available.
+
+**Inherited warnings, not hidden fixes:** unknown-city requests log `Internal: NoFallbackError` while correctly returning 404. The same warning was reproduced with the **pre-existing, non-standalone production build** (`cacheComponents: false`, build ID `KI1x57Fat5eJCfmj82CAB`) on a separate task-owned loopback server, as well as the new npm/Docker outputs. City routing and framework errors were not modified or suppressed. Linux `npm ci` also reported **four high-severity vulnerabilities** in the existing dependency graph; no audit fix, dependency upgrade or lockfile regeneration was performed.
+
+Optional, Git-ignored records in `evidence/car28/` contain exact commands/results, HTTP/runtime/browser inventories, screenshots and the actual downloaded PDF. They are local evidence, not fresh-checkout prerequisites. Only **Linux/amd64 on this Windows Docker Desktop host** was exercised; other architectures, native macOS/Linux hosts, Safari/physical devices, genuine OS sharing, cloud/Vercel deployment and broader performance/security matrices remain unverified. No CI expansion, registry push, deployment, commit/push/PR/merge or Linear mutation was performed.
 
 ## Page, routes, and boundaries
 
