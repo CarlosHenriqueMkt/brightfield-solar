@@ -392,12 +392,3 @@ The [final presentation](https://docs.google.com/presentation/d/1KcG0nMqOpKsPhYA
 ### Prompt archive scope
 
 The [OMP prompt archive](https://docs.google.com/document/d/17jerAqduseRp2XcsiLzMW9h1cMBthlu5btDWApdP8Ik/edit) contains **34 archived final task handoffs**, including the later SEO, final landing complement, publication, and correction work. It preserves the original prompt bodies and their historical context. A handoff or its original status label does not by itself prove execution; consult the [merged PR history](https://github.com/CarlosHenriqueMkt/brightfield-solar/pulls?q=is%3Apr+is%3Amerged) and the exact CI/code baseline above for delivered implementation status.
-
-## Submission checklist
-
-- [x] Link the walkthrough video, live city page, selected presentation, repository, and project materials from this README.
-- [x] Provide reproducible npm/Docker instructions and disclose implementation/verification limits.
-- [x] Record the full reviewed application SHA and its successful CI run.
-- [x] Include the author's approximate 40-hour effort breakdown.
-- [ ] Approve this README before publishing it through the repository's PR workflow.
-- [ ] After the documentation PR merges, include the actual final submission commit in the handoff, with **Case 09**, the delivery links, and approximate time spent. Obtain it with `git rev-parse HEAD` from the exact submitted checkout; it may differ from the reviewed application baseline above.
