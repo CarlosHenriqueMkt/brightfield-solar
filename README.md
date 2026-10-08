@@ -83,6 +83,35 @@ docker image rm brightfield-solar:local
 
 Choose an unused container name; stop/remove only containers you created. No shared-resource prune, Compose, registry publication, automatic deployment, or privileged/GPU/X-server/browser service is required. WebGL/Canvas and PDF preparation/download execute in the evaluator's browser, not in the application container.
 
+### Static SEO build configuration
+
+Docker accepts two **non-secret build arguments**: `SITE_ORIGIN` (default `https://brightfield-solar-three.vercel.app`) and `VERCEL_ENV` (default `production`). They are available to `npm run build` in the builder stage only, not inherited by the non-root runtime stage. Build arguments/provenance are not secret storage; never pass credentials through them. `.env` files remain excluded from the Docker context.
+
+Production with explicit settings (equivalent to the default build above):
+
+```sh
+docker build --build-arg SITE_ORIGIN=https://brightfield-solar-three.vercel.app --build-arg VERCEL_ENV=production --tag brightfield-solar:production .
+docker run --detach --name brightfield-solar-production --publish 127.0.0.1:3000:3000 brightfield-solar:production
+```
+
+Preview retains the production canonical origin but builds noindex headers/metadata and an empty sitemap:
+
+```sh
+docker build --build-arg VERCEL_ENV=preview --tag brightfield-solar:preview .
+docker run --detach --name brightfield-solar-preview --publish 127.0.0.1:3001:3000 brightfield-solar:preview
+```
+
+Custom-origin production (the reserved `.test` origin is an example; replace it only with an operator-verified production origin):
+
+```sh
+docker build --build-arg SITE_ORIGIN=https://solar.example.test --build-arg VERCEL_ENV=production --tag brightfield-solar:custom .
+docker run --detach --name brightfield-solar-custom --publish 127.0.0.1:3002:3000 brightfield-solar:custom
+```
+
+For a custom-origin Preview, combine `--build-arg SITE_ORIGIN=https://solar.example.test` with `--build-arg VERCEL_ENV=preview` in one build. The origin is a canonical identity, not the local listening address; inspect each image at its published loopback port. Use unused container names/ports and the named stop/remove commands above for each container you create.
+
+**Rebuild when either SEO setting changes.** Runtime `docker run --env SITE_ORIGIN=...`, `--env VERCEL_ENV=...` or `--env-file` cannot retroactively change generated HTML, metadata, social/discovery URLs, Markdown headers, robots/sitemap or configured noindex headers. Do not promote an already-built Production image into Preview and expect runtime variables to rewrite static output. Ordinary npm and Vercel builds continue to receive their environment through the existing workflow; no Vercel configuration or runtime substitution was added.
+
 ### Image, output, and permissions
 
 - The Dockerfile pins the official **`node:24.12.0-bookworm-slim`** multi-platform image to verified index digest **`sha256:7326fb2dbdce998edd72140946851be64ef4a643e8715e138ca467e8e9d92c99`**. A digest fixes the base content; updating Node/security fixes requires a deliberate tag/digest update and verification, not a mutable `latest` pull. This does not promise byte-identical application builds: Next.js generates build identifiers and platform-specific native dependencies.
@@ -195,6 +224,8 @@ Work started on `feat/seo-geo-link-previews` from freshly fetched `main` **`7650
 The local complement replaces the root redirect with a real 404 and removes only the opening curtain's decorative SVG and orphaned styles/asset. Its opaque `--paper` surface, typography motion, curtain/camera choreography and 3D house panels remain. Historical results above and in CAR-28 describe earlier trees, not this complement's final integrated regression.
 
 One shared **Talk to a solar specialist** button follows the process steps and installation crews, appears only in released simulator results, and sits beside the final estimate action on desktop/below it on mobile. Its small disclosure explains that this is a demo and **no request has been sent**. Toggle, outside dismissal and Escape retain sensible focus; a nested disclosure consumes Escape before the mobile simulator. No lead capture, analytics or service request is implemented. Final-tree commands, browser/Docker outcomes and artifacts are recorded in the delivery; deployment remains separately authorized.
+
+The shared specialist wrapper centers its trigger in the process, crew and result containers. Only the specialist wrapper self-centers in the mobile final action group; the surrounding copy, estimate action and desktop side-by-side composition retain their existing alignment.
 
 ## Financial contract
 

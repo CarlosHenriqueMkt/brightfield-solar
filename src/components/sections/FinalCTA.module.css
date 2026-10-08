@@ -109,6 +109,9 @@
     flex-direction: column;
     align-items: flex-start;
   }
+  .actions > :last-child {
+    align-self: center;
+  }
 
   .copy h2 {
     font-size: 32px;

@@ -14,6 +14,10 @@ RUN npm ci
 
 FROM dependencies AS build
 COPY . .
+ARG SITE_ORIGIN=https://brightfield-solar-three.vercel.app
+ARG VERCEL_ENV=production
+ENV SITE_ORIGIN=${SITE_ORIGIN} \
+    VERCEL_ENV=${VERCEL_ENV}
 RUN npm run build
 
 FROM base AS runtime

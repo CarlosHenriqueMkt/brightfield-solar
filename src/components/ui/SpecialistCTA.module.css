@@ -1,5 +1,6 @@
 .root {
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
   position: relative;
   min-width: 0;
 }
