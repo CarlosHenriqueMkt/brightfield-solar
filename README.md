@@ -225,7 +225,7 @@ The local complement replaces the root redirect with a real 404 and removes only
 
 One shared **Talk to a solar specialist** button follows the process steps and installation crews, appears only in released simulator results, and sits beside the final estimate action on desktop/below it on mobile. Its small disclosure explains that this is a demo and **no request has been sent**. Toggle, outside dismissal and Escape retain sensible focus; a nested disclosure consumes Escape before the mobile simulator. No lead capture, analytics or service request is implemented. Final-tree commands, browser/Docker outcomes and artifacts are recorded in the delivery; deployment remains separately authorized.
 
-The shared specialist wrapper centers its trigger in the process, crew and result containers. Only the specialist wrapper self-centers in the mobile final action group; the surrounding copy, estimate action and desktop side-by-side composition retain their existing alignment.
+The shared specialist wrapper centers its trigger in the process, crew and result containers on both desktop and mobile. In FinalCTA only, local styles left-align the action group and specialist wrapper at every viewport, and the specialist reuses the estimate action's CSS class, including hover and focus styling. Both buttons have equal widths capped at 280 px and constrained to the available viewport; they stack at up to 640 px and remain side by side when space permits. The illustrative disclosure, surrounding copy and other specialist placements are unchanged.
 
 ## Financial contract
 

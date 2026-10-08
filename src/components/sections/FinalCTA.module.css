@@ -56,12 +56,28 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-start;
   gap: 12px;
   margin-top: 28px;
 }
 
+.actions > * {
+  width: min(100%, 280px);
+}
+
+.actions > .specialist {
+  justify-content: flex-start;
+}
+
 .actions > a {
   margin-top: 0;
+}
+
+.actions > :last-child > button {
+  width: 100%;
+  margin-top: 0;
+  border: 0;
+  line-height: inherit;
 }
 
 @media (max-width: 1024px) {
@@ -108,9 +124,6 @@
   .actions {
     flex-direction: column;
     align-items: flex-start;
-  }
-  .actions > :last-child {
-    align-self: center;
   }
 
   .copy h2 {

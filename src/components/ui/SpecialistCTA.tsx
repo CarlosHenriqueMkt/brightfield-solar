@@ -16,9 +16,13 @@ const specialistCopy =
 
 export type SpecialistCTAProps = {
   className?: string;
+  triggerClassName?: string;
 };
 
-export function SpecialistCTA({ className = '' }: SpecialistCTAProps) {
+export function SpecialistCTA({
+  className = '',
+  triggerClassName = styles.trigger,
+}: SpecialistCTAProps) {
   const root = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const popover = useRef<HTMLDivElement>(null);
@@ -123,7 +127,7 @@ export function SpecialistCTA({ className = '' }: SpecialistCTAProps) {
         ref={trigger}
         variant="light"
         arrow={false}
-        className={styles.trigger}
+        className={triggerClassName}
         aria-controls={popoverId}
         aria-expanded={open}
         aria-describedby={open ? titleId : undefined}
