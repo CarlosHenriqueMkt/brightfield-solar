@@ -34,6 +34,8 @@ type Geometry = {
   width: number;
   city: string;
   placement: string;
+  triggerLeft: number;
+  finalActionLeft: number;
   triggerCenter: number;
   containerCenter: number;
   contentCenter: number;
@@ -183,6 +185,7 @@ function observeGeometry(): Geometry[] {
               rows.push({ width: frame.contentWindow.innerWidth, city: city.dataset.city,
                 placement: ['process','crews','results','final'][index],
                 triggerCenter: rect.left + rect.width / 2, containerCenter: box.left + box.width / 2,
+                triggerLeft: rect.left, finalActionLeft: action.left,
                 contentCenter: content.left + content.width / 2,
                 targetWidth: rect.width, targetHeight: rect.height,
                 finalActionCenterY: action.top + action.height / 2, triggerCenterY: rect.top + rect.height / 2 });
@@ -242,7 +245,11 @@ describe('native specialist CTA geometry', () => {
     for (const row of rows) {
       expect
         .soft(
-          Math.abs(row.triggerCenter - row.containerCenter),
+          Math.abs(
+            row.placement === 'final' && width <= 640
+              ? row.triggerLeft - row.finalActionLeft
+              : row.triggerCenter - row.containerCenter,
+          ),
           JSON.stringify(row),
         )
         .toBeLessThanOrEqual(tolerancePx);

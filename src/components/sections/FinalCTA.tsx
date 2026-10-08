@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import type { ReactNode } from 'react';
+import { isValidElement, type ReactNode } from 'react';
 import type { CityConfig } from '@/domain/cities/city-config';
 import { SpecialistCTA } from '@/components/ui/SpecialistCTA';
 import styles from './FinalCTA.module.css';
@@ -11,6 +11,10 @@ type FinalCTAProps = {
 };
 
 export function FinalCTA({ city, action, id = 'final-cta' }: FinalCTAProps) {
+  const actionClassName = isValidElement<{ className?: string }>(action)
+    ? (action.props.className ?? '')
+    : '';
+
   return (
     <section className={styles.section} id={id} aria-labelledby={`${id}-title`}>
       <div className={styles.frame}>
@@ -29,7 +33,10 @@ export function FinalCTA({ city, action, id = 'final-cta' }: FinalCTAProps) {
           <p>{city.finalCTA.description}</p>
           <div className={styles.actions}>
             {action}
-            <SpecialistCTA />
+            <SpecialistCTA
+              className={styles.specialist}
+              triggerClassName={actionClassName}
+            />
           </div>
         </div>
       </div>
