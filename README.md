@@ -14,19 +14,19 @@ Phoenix is the primary experience. City A and City B demonstrate the same templa
 
 ## Start here
 
-| Resource | Purpose |
-| --- | --- |
-| [Walkthrough video](https://drive.google.com/file/d/1nn6-lvvMEJNMgiJ1CNGjUZXufqMZWz8P/view?usp=sharing) | 29:08 recorded project presentation and demonstration |
-| [Live application](https://brightfield-solar-three.vercel.app/city/phoenix-az) | Phoenix landing page and interactive estimate |
-| [Final presentation](https://docs.google.com/presentation/d/1KcG0nMqOpKsPhYA9Mud_uPh2toX3EFW6Fxnj5vviwQs/edit) | Selected, author-edited presentation |
-| [Source repository](https://github.com/CarlosHenriqueMkt/brightfield-solar) | Application, tests, assets, and setup instructions |
-| [Complete project folder](https://drive.google.com/drive/folders/15Ya6DqltayjOK-dKafWIQ2dnR9K8UqtG) | Research, design, implementation prompts, and presentation materials |
-| [Chronological archive index](https://docs.google.com/document/d/1G3NGuXkVFvx9JtU9zdGeKjFA5GNTuUSYwerZ8zwjh_0/edit) | Historical directory, source dates, and bibliography |
-| [Campaign and visual design](https://docs.google.com/presentation/d/1-jMjwAIRD7m7XgFYRGSAgwB7lotGwgu8El727VKBcnY/edit) | Campaign concept and selected visual direction |
-| [Hero evolution](https://docs.google.com/presentation/d/1LJfc7GN9y0YZpd0cGgz634mUFZsy_vIbawValUoVU8A/edit) | Visual development of the house and Hero |
-| [Hero evidence gallery](https://drive.google.com/file/d/16vb93mYiuELh-mY5B6TGwCvS9ucMHyQE/view?usp=drivesdk) | Downloadable ZIP of recovered visual evidence |
-| [Archived OMP prompts](https://docs.google.com/document/d/17jerAqduseRp2XcsiLzMW9h1cMBthlu5btDWApdP8Ik/edit) | 34 final implementation, correction, publication, and verification handoffs |
-| [Original challenge](https://github.com/Alvorada-Dev/desafios-tecnicos/blob/e7250d4cad0755e5ebfede6d5956f8d8f6771754/casos/09-pagina-de-cidade.md) | Requirements and supplied fictional assumptions |
+| Resource                                                                                                                                           | Purpose                                                                     |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| [Walkthrough video](https://drive.google.com/file/d/1nn6-lvvMEJNMgiJ1CNGjUZXufqMZWz8P/view?usp=sharing)                                            | 29:08 recorded project presentation and demonstration                       |
+| [Live application](https://brightfield-solar-three.vercel.app/city/phoenix-az)                                                                     | Phoenix landing page and interactive estimate                               |
+| [Final presentation](https://docs.google.com/presentation/d/1KcG0nMqOpKsPhYA9Mud_uPh2toX3EFW6Fxnj5vviwQs/edit)                                     | Selected, author-edited presentation                                        |
+| [Source repository](https://github.com/CarlosHenriqueMkt/brightfield-solar)                                                                        | Application, tests, assets, and setup instructions                          |
+| [Complete project folder](https://drive.google.com/drive/folders/15Ya6DqltayjOK-dKafWIQ2dnR9K8UqtG)                                                | Research, design, implementation prompts, and presentation materials        |
+| [Chronological archive index](https://docs.google.com/document/d/1G3NGuXkVFvx9JtU9zdGeKjFA5GNTuUSYwerZ8zwjh_0/edit)                                | Historical directory, source dates, and bibliography                        |
+| [Campaign and visual design](https://docs.google.com/presentation/d/1-jMjwAIRD7m7XgFYRGSAgwB7lotGwgu8El727VKBcnY/edit)                             | Campaign concept and selected visual direction                              |
+| [Hero evolution](https://docs.google.com/presentation/d/1LJfc7GN9y0YZpd0cGgz634mUFZsy_vIbawValUoVU8A/edit)                                         | Visual development of the house and Hero                                    |
+| [Hero evidence gallery](https://drive.google.com/file/d/16vb93mYiuELh-mY5B6TGwCvS9ucMHyQE/view?usp=drivesdk)                                       | Downloadable ZIP of recovered visual evidence                               |
+| [Archived OMP prompts](https://docs.google.com/document/d/17jerAqduseRp2XcsiLzMW9h1cMBthlu5btDWApdP8Ik/edit)                                       | 34 final implementation, correction, publication, and verification handoffs |
+| [Original challenge](https://github.com/Alvorada-Dev/desafios-tecnicos/blob/e7250d4cad0755e5ebfede6d5956f8d8f6771754/casos/09-pagina-de-cidade.md) | Requirements and supplied fictional assumptions                             |
 
 A fresh clone contains everything needed to run the application. External research/design files are supplementary. Use the video and selected final presentation above for the delivery; the archive also preserves earlier drafts and proposals.
 
@@ -100,17 +100,17 @@ On Windows, stop your own running Next.js server before reinstalling dependencie
 
 ### Commands and environment
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Development server |
-| `npm run build` | Production compilation and static generation |
-| `npm run start` | Serve an existing production build |
-| `npm run check` | Formatting check, zero-warning lint, typecheck, and tests |
-| `npm run format:check` | Check formatting without changing files |
-| `npm run format` | Apply formatting; this changes files |
-| `npm run lint` | ESLint with warnings treated as failures |
-| `npm run typecheck` | Generate Next.js route types, then run strict TypeScript |
-| `npm test` / `npm run test:watch` | Run Vitest once / in watch mode |
+| Command                           | Purpose                                                   |
+| --------------------------------- | --------------------------------------------------------- |
+| `npm run dev`                     | Development server                                        |
+| `npm run build`                   | Production compilation and static generation              |
+| `npm run start`                   | Serve an existing production build                        |
+| `npm run check`                   | Formatting check, zero-warning lint, typecheck, and tests |
+| `npm run format:check`            | Check formatting without changing files                   |
+| `npm run format`                  | Apply formatting; this changes files                      |
+| `npm run lint`                    | ESLint with warnings treated as failures                  |
+| `npm run typecheck`               | Generate Next.js route types, then run strict TypeScript  |
+| `npm test` / `npm run test:watch` | Run Vitest once / in watch mode                           |
 
 TypeScript is strict, with `skipLibCheck: false` and no ignored build errors. Next sets `NODE_ENV`; optional, non-secret `SITE_ORIGIN`, `VERCEL_ENV`, and `VERCEL_TARGET_ENV` control canonical identity/indexing as described under [SEO](#seo-and-agent-readable-content). Defaults work for local review without an environment file. `.env*` files are ignored except `.env.example`; no example file is currently needed or included. Never commit credentials, and treat any future `NEXT_PUBLIC_*` value as public.
 
@@ -189,14 +189,14 @@ The specialist trigger is centered after the process steps, after crews, and in 
 
 The application uses **Next.js 16.3.8, React 19.3.0, TypeScript 6.0.3, Three.js 0.186.1, and pdf-lib 1.17.1**, with CSS Modules and locally served IBM Plex Sans. Exact dependencies are in the single lockfile. The renderer uses **vanilla Three.js**.
 
-| Area | Responsibility |
-| --- | --- |
-| [City page](src/app/city/[citySlug]/page.tsx) | Server composition, metadata, and static params |
-| [City domain](src/domain/cities) | Typed records, validation, registry, and derived public content |
-| [Page sections](src/components/sections) | Hero, process, social proof, FAQ, and final CTA |
-| [Simulator](src/features/simulator) | Pure finance, reducer/draft transitions, controlled UI, and export |
-| [Scene](src/features/scene) | Three.js viewer, camera/panel choreography, recovery, and cleanup |
-| [Site policy](src/domain/site.ts) | Canonical origin and deployment/indexing policy |
+| Area                                          | Responsibility                                                     |
+| --------------------------------------------- | ------------------------------------------------------------------ |
+| [City page](src/app/city/[citySlug]/page.tsx) | Server composition, metadata, and static params                    |
+| [City domain](src/domain/cities)              | Typed records, validation, registry, and derived public content    |
+| [Page sections](src/components/sections)      | Hero, process, social proof, FAQ, and final CTA                    |
+| [Simulator](src/features/simulator)           | Pure finance, reducer/draft transitions, controlled UI, and export |
+| [Scene](src/features/scene)                   | Three.js viewer, camera/panel choreography, recovery, and cleanup  |
+| [Site policy](src/domain/site.ts)             | Canonical origin and deployment/indexing policy                    |
 
 The city registry drives page content, static routes, metadata, the selector, PDF identity, and agent-readable content. Useful text remains in HTML; WebGL is a deferred client feature with a server-supplied poster. One simulator controller handles the public estimate CTAs.
 
@@ -225,23 +225,23 @@ For Phoenix:
 
 There is no intermediate rounding; display formatting is separate. The supplied **25% state incentive, capped at $1,000**, is disclosed but excluded from net investment and payback. These percentages and utility terms reproduce the fictional brief, not current policy. The minimum does not change requested coverage; the roof illustration does not cap the financial calculation.
 
-| Phoenix input | Financial panels | Illustrated panels |
-| --- | ---: | ---: |
-| $220 / 80% | 17 | 17 |
-| $100 / 100% | 10 | 10 |
-| $90 / 100% | 9 | 9 |
-| $90 / 80% | 8 | 8 |
-| $600 / 100% | 57 | 51, with a visible limitation notice |
+| Phoenix input | Financial panels |                   Illustrated panels |
+| ------------- | ---------------: | -----------------------------------: |
+| $220 / 80%    |               17 |                                   17 |
+| $100 / 100%   |               10 |                                   10 |
+| $90 / 100%    |                9 |                                    9 |
+| $90 / 80%     |                8 |                                    8 |
+| $600 / 100%   |               57 | 51, with a visible limitation notice |
 
 **Resolved ambiguity:** the brief's apartment example lists eight panels after reaching 100% coverage, but its formula yields nine at $90/100%. The implementation follows the formula and ceiling rule. At $90/80%, the eight-panel minimum applies.
 
 At the default $220/80%, different city operands produce:
 
-| City | Panels | Net investment | Monthly savings | Payback |
-| --- | ---: | ---: | ---: | ---: |
-| Phoenix | 17 | $14,726.25 | $179.01 | 6.9 years |
-| City A (Demo) | 20 | $18,000.00 | $180.00 | 8.3 years |
-| City B (Demo) | 37 | $35,520.00 | $177.60 | 16.7 years |
+| City          | Panels | Net investment | Monthly savings |    Payback |
+| ------------- | -----: | -------------: | --------------: | ---------: |
+| Phoenix       |     17 |     $14,726.25 |         $179.01 |  6.9 years |
+| City A (Demo) |     20 |     $18,000.00 |         $180.00 |  8.3 years |
+| City B (Demo) |     37 |     $35,520.00 |         $177.60 | 16.7 years |
 
 ## 3D and interaction decisions
 
@@ -279,13 +279,13 @@ The deployed city template includes canonical metadata, distinct Open Graph/Twit
 
 The default production origin is **`https://brightfield-solar-three.vercel.app`**. Optional `SITE_ORIGIN` accepts only an HTTPS origin without credentials, non-root paths, query strings, fragments, whitespace, or malformed syntax. Set it before building only for a verified production origin. Request/forwarded hosts and preview URLs never set canonical identity; tracking parameters and fragments are removed.
 
-| Surface | Indexing policy | Sitemap |
-| --- | --- | --- |
-| Phoenix HTML in production | `index, follow` | Included |
-| City A / City B HTML | `noindex, follow`; publicly accessible | Excluded |
-| City Markdown alternatives | HTTP `X-Robots-Tag: noindex, follow`; canonical to their own HTML | Excluded |
-| Development/test or non-production Vercel environment | Noindex city metadata and all-response noindex header | Empty |
-| Root, unknown cities, production preview routes | 404 | Excluded |
+| Surface                                               | Indexing policy                                                   | Sitemap  |
+| ----------------------------------------------------- | ----------------------------------------------------------------- | -------- |
+| Phoenix HTML in production                            | `index, follow`                                                   | Included |
+| City A / City B HTML                                  | `noindex, follow`; publicly accessible                            | Excluded |
+| City Markdown alternatives                            | HTTP `X-Robots-Tag: noindex, follow`; canonical to their own HTML | Excluded |
+| Development/test or non-production Vercel environment | Noindex city metadata and all-response noindex header             | Empty    |
+| Root, unknown cities, production preview routes       | 404                                                               | Excluded |
 
 Production requires `NODE_ENV=production`, with both `VERCEL_ENV` and `VERCEL_TARGET_ENV` absent or equal to `production`. Any non-production indicator wins. Local production builds without Vercel indicators use production policy; set `VERCEL_ENV=preview` for staging. **Rebuild after changing origin or deployment policy**, and keep settings consistent through build/start.
 
@@ -367,16 +367,16 @@ The [project folder](https://drive.google.com/drive/folders/15Ya6DqltayjOK-dKafW
 
 ### Original studies and planning
 
-| Source date | Material | Status and purpose |
-| --- | --- | --- |
-| Oct 3, 2026 | [U.S. residential solar and Phoenix](https://docs.google.com/document/d/1-NxRwNTMMnC_CPf52zUADT7uBVn4v8k0/edit) | Market, household, and utility context |
-| Oct 3, 2026 | [Phoenix architecture and eight-panel scale](https://docs.google.com/document/d/1qJRhW273MLEsVr073Q6PU23JFnTxBmkD/edit) | Visual/architectural research; no structural certification |
-| Oct 3, 2026 | [Ten solar brands serving Phoenix](https://docs.google.com/document/d/1jWktrm4Ripgq3-JNKKXjHc0ybd3c8Jtb/edit) | Positioning, visual references, and explicitly inferred audiences |
-| Oct 3, 2026 | [Five solar personas](https://drive.google.com/file/d/1-_Lx0Bp8UZJo6Qss6ud7V1K-9YzLoCMp/view?usp=drivesdk) | Fictional design tools; no interview participants |
-| Oct 3, 2026 | [Creative campaign V1](https://drive.google.com/file/d/1MtbMkerDaFlnJ4ZyZbDzXOSmQ6fUqeuD/view?usp=drivesdk) | Historical concept/copy; rejected visual direction |
-| Oct 4, 2026 | [Creative campaign V2](https://drive.google.com/file/d/1EH_MZ39W2rsWDAm-f2oMHA1jFV7Gu1_w/view?usp=drivesdk) | Revised direction; advertising/storyboards are proposals |
-| Oct 5, 2026 | [Final page section references](https://drive.google.com/file/d/1zzikSETCuMZsL3bhO8loyuDvQHg2lre_/view?usp=drivesdk) | Process, testimonial, portrait, FAQ, and closing references |
-| Oct 5, 2026 | [Brief audit and application architecture](https://docs.google.com/document/d/1ypnnEpVnEU_ICdZ0NYFraPPQ-AgMh480/edit) | Dated requirements/calculation plan; current implementation takes precedence |
+| Source date | Material                                                                                                                    | Status and purpose                                                                                       |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Oct 3, 2026 | [U.S. residential solar and Phoenix](https://docs.google.com/document/d/1-NxRwNTMMnC_CPf52zUADT7uBVn4v8k0/edit)             | Market, household, and utility context                                                                   |
+| Oct 3, 2026 | [Phoenix architecture and eight-panel scale](https://docs.google.com/document/d/1qJRhW273MLEsVr073Q6PU23JFnTxBmkD/edit)     | Visual/architectural research; no structural certification                                               |
+| Oct 3, 2026 | [Ten solar brands serving Phoenix](https://docs.google.com/document/d/1jWktrm4Ripgq3-JNKKXjHc0ybd3c8Jtb/edit)               | Positioning, visual references, and explicitly inferred audiences                                        |
+| Oct 3, 2026 | [Five solar personas](https://drive.google.com/file/d/1-_Lx0Bp8UZJo6Qss6ud7V1K-9YzLoCMp/view?usp=drivesdk)                  | Fictional design tools; no interview participants                                                        |
+| Oct 3, 2026 | [Creative campaign V1](https://drive.google.com/file/d/1MtbMkerDaFlnJ4ZyZbDzXOSmQ6fUqeuD/view?usp=drivesdk)                 | Historical concept/copy; rejected visual direction                                                       |
+| Oct 4, 2026 | [Creative campaign V2](https://drive.google.com/file/d/1EH_MZ39W2rsWDAm-f2oMHA1jFV7Gu1_w/view?usp=drivesdk)                 | Revised direction; advertising/storyboards are proposals                                                 |
+| Oct 5, 2026 | [Final page section references](https://drive.google.com/file/d/1zzikSETCuMZsL3bhO8loyuDvQHg2lre_/view?usp=drivesdk)        | Process, testimonial, portrait, FAQ, and closing references                                              |
+| Oct 5, 2026 | [Brief audit and application architecture](https://docs.google.com/document/d/1ypnnEpVnEU_ICdZ0NYFraPPQ-AgMh480/edit)       | Dated requirements/calculation plan; current implementation takes precedence                             |
 | Oct 5, 2026 | [Original attribution proof-of-concept proposal](https://docs.google.com/document/d/1lriOUXKUdXkVPF24YCWKudpizhBkBYis/edit) | Original first-party collector/report concept; proposal only, with no GA4 integration or campaign launch |
 
 The [final presentation](https://docs.google.com/presentation/d/1KcG0nMqOpKsPhYA9Mud_uPh2toX3EFW6Fxnj5vviwQs/edit) contains the later attribution proposal: UTM-tagged Meta/Google placements, GA4, Windsor.ai, and an AI daily brief. This is a proposed extension, with no analytics collection or automation configured in the application. It supersedes the earlier tracking concept as the current proposal, without implying implementation.
