@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import { Button } from '@/components/ui/Button';
+import { SpecialistCTA } from '@/components/ui/SpecialistCTA';
 import type { SimDrawerProps } from './sim-drawer-types';
 import styles from './SimDrawer.module.css';
 
@@ -350,6 +351,7 @@ export function SimDrawer({
             Return to presets
           </button>
           {!resultPreparing && exportActions}
+          {open && !resultPreparing && step === 'result' && <SpecialistCTA />}
         </div>
       </form>
       {liveSummary && step !== 'result' && (

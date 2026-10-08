@@ -6,6 +6,19 @@ import {
   getRegisteredCities,
 } from '@/domain/cities/cities';
 import { getCityDisplayName } from '@/domain/cities/city-config';
+import { cityDescription, cityTitle } from '@/domain/cities/city-publication';
+import {
+  cityStructuredData,
+  serializeJsonLd,
+} from '@/domain/cities/city-structured-data';
+import {
+  canonicalUrl,
+  cityMarkdownUrl,
+  cityPath,
+  cityUrl,
+  isCityIndexable,
+  SITE_NAME,
+} from '@/domain/site';
 import { CitySelector } from '@/components/CitySelector';
 import { Hero } from '@/components/sections/Hero';
 import { ProcessSteps } from '@/components/sections/ProcessSteps';
@@ -34,12 +47,41 @@ export async function generateMetadata({
   const city = getCityBySlug(citySlug);
   if (!city) notFound();
 
+  const title = cityTitle(city);
+  const description = cityDescription(city);
+  const url = cityUrl(city);
+  const image = {
+    url: canonicalUrl(`${cityPath(city)}/social-image`),
+    width: 1200,
+    height: 630,
+    type: 'image/png',
+    alt: `${SITE_NAME} — ${getCityDisplayName(city)}, ${city.stateFull}. Fictional challenge project; illustrative home.`,
+  };
+
   return {
-    title: `Solar in ${getCityDisplayName(city)}, ${city.state} | Brightfield Solar`,
-    description:
-      city.designation.kind === 'demo'
-        ? `${getCityDisplayName(city)}. ${city.designation.notice}`
-        : `Explore residential solar in ${city.city}, ${city.stateFull}, with local information for the ${city.metroArea} area. Fictional challenge project.`,
+    title,
+    description,
+    alternates: {
+      canonical: url,
+      types: { 'text/markdown': cityMarkdownUrl(city) },
+    },
+    robots: { index: isCityIndexable(city), follow: true },
+    openGraph: {
+      type: 'website',
+      title,
+      description,
+      url,
+      siteName: SITE_NAME,
+      locale: 'en_US',
+      images: [image],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [{ url: image.url, alt: image.alt }],
+    },
+    other: { 'twitter:url': url },
   };
 }
 
@@ -52,11 +94,17 @@ export default async function CityPage({
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(cityStructuredData(city)),
+        }}
+      />
       <header className={styles.header}>
         <a
           className={styles.brand}
           href="#hero"
-          aria-label="Brightfield Solar home"
+          aria-label="Brightfield Solar — back to top"
         >
           Brightfield<small>SOLAR</small>
         </a>
@@ -112,6 +160,17 @@ export default async function CityPage({
             : 'Fictional project. Estimates and testimonials are for demonstration only.'}
         </p>
         <span>{city.contact.label}</span>
+        <nav className={styles.cityLinks} aria-label="Public cities">
+          {cityOptions.map((option) => (
+            <a
+              key={option.slug}
+              href={cityPath(option)}
+              aria-current={option.slug === city.slug ? 'page' : undefined}
+            >
+              {option.label}
+            </a>
+          ))}
+        </nav>
       </footer>
     </>
   );

@@ -10,6 +10,9 @@
   margin: 0;
   padding: 0;
 }
+.specialist {
+  margin-top: 48px;
+}
 
 .step {
   align-items: center;

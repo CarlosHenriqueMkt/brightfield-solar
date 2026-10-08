@@ -10,7 +10,21 @@
   font-size: clamp(2rem, 5vw, 3rem);
 }
 
-.main a {
+.recoveryLink {
   justify-self: start;
-  padding-block: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  background: var(--blue);
+  font-weight: 500;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.recoveryLink:hover {
+  background: var(--blue-hover);
 }

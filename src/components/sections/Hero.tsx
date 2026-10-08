@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import type { ReactNode } from 'react';
 import type { CityConfig } from '@/domain/cities/city-config';
 import { Motto } from './Motto';
@@ -29,19 +28,6 @@ export function Hero({
         {sceneSlot}
       </div>
       <div className={styles.cover} data-hero-cover>
-        {fullViewport && (
-          <Image
-            className={styles.motif}
-            src="/assets/hero-panels.svg"
-            width={1200}
-            height={700}
-            alt=""
-            aria-hidden="true"
-            draggable={false}
-            loading="eager"
-            unoptimized
-          />
-        )}
         <div className={styles.coverContent}>
           <div className={styles.intro} data-hero-intro>
             <div className={styles.copy}>

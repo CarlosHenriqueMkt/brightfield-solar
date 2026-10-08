@@ -83,6 +83,23 @@ describe('simulator drawer accessibility contract', () => {
     expect(ready).toContain('href="#installation"');
   });
 
+  it('adds the specialist trigger only after released result actions', () => {
+    const released = render();
+    const specialistPosition = released.indexOf('Talk to a solar specialist');
+    const resultActionPosition = released.indexOf('Return to presets');
+    expect(specialistPosition).toBeGreaterThan(resultActionPosition);
+
+    expect(render({ resultPreparing: true })).not.toContain(
+      'Talk to a solar specialist',
+    );
+    expect(render({ step: 'edit' })).not.toContain(
+      'Talk to a solar specialist',
+    );
+    expect(render({ step: 'bill' })).not.toContain(
+      'Talk to a solar specialist',
+    );
+  });
+
   it('does not replace live editing with a result preparation status', () => {
     const editing = render({ step: 'edit', resultPreparing: true });
     expect(editing).toMatch(/<input[^>]*id="estimate-bill"[^>]*value="90"/);

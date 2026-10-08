@@ -18,5 +18,10 @@ export default defineConfig([
       reactHooks.configs.flat.recommended,
     ],
   },
+  {
+    files: ['src/app/**/social-image/route.tsx'],
+    // ImageResponse renders a PNG, not HTML with an LCP image.
+    rules: { '@next/next/no-img-element': 'off' },
+  },
   prettier,
 ]);

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import type { CityConfig } from '@/domain/cities/city-config';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { SpecialistCTA } from '@/components/ui/SpecialistCTA';
 import styles from './ProcessSteps.module.css';
 
 export function ProcessSteps({
@@ -46,6 +47,7 @@ export function ProcessSteps({
             </li>
           ))}
         </ol>
+        <SpecialistCTA className={styles.specialist} />
       </Container>
     </section>
   );

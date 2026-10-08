@@ -60,6 +60,9 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 }
+.specialist {
+  margin-top: 32px;
+}
 
 .crewCard {
   min-width: 0;
