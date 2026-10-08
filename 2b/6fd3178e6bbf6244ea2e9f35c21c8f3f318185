@@ -1,0 +1,22 @@
+Dockerfile
+  h_1041c21ccc44e5 17-20
+README.md
+  h_1041c21ccc44e5 86-114,228-229
+src/components/sections/FinalCTA.module.css
+  h_1041c21ccc44e5 112-114
+src/components/ui/SpecialistCTA.geometry.test.ts
+  h_1041c21ccc44e5 1-266
+src/components/ui/SpecialistCTA.module.css
+  h_1041c21ccc44e5 2-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2b6fd3178e6bbf6244ea2e9f35c21c8f3f318185",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
