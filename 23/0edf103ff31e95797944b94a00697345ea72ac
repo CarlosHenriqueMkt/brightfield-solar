@@ -1,0 +1,20 @@
+.dockerignore
+  h_1041c21ccc44e5 1-41
+Dockerfile
+  h_1041c21ccc44e5 1-31
+README.md
+  h_1041c21ccc44e5 11-20,62-130
+next.config.ts
+  h_1041c21ccc44e5 2,4-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "230edf103ff31e95797944b94a00697345ea72ac",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
