@@ -1,0 +1,14 @@
+README.md
+  h_1041c21ccc44e5 17-29,103-113,192-199,228-234,240-244,282-288,370-379
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7c5f7456d27cb6f147ce884f2f51a02da973f5ea",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
