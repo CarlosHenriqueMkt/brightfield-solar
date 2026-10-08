@@ -1,0 +1,14 @@
+src/components/sections/FinalCTA.module.css
+  h_1041c21ccc44e5 35,99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dc037e5327a96160d38b923350acf6a285335403",
+  "prompts": {},
+  "humans": {
+    "h_1041c21ccc44e5": {
+      "author": "CarlosHenriqueMkt <growth@rudu.dev>"
+    }
+  }
+}
